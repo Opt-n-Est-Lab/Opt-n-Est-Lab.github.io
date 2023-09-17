@@ -1,0 +1,178 @@
+@charset "UTF-8";
+/* CSS Document */
+
+@font-face {
+        font-family: 'Linux Libertine'; /* normal */
+        src:  url('./fonts/LinLibertine_R.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+}
+
+@font-face {
+      font-family: 'Linux Libertine';
+        src: url('./fonts/LinLibertine_RBI.woff') format('woff');
+        font-style: italic
+/*        font-weight: bold*/
+}
+
+@font-face {
+        font-family: 'Linux Libertine'; /* italic */
+        src: url('./fonts/LinLibertine_RI.woff') format('woff');
+        font-weight: normal;
+        font-style: italic;
+}
+
+@font-face {
+        font-family: 'Linux Libertine';
+        src: url('./fonts/LinLibertine_RB.woff') format('woff');
+        font-weight: bold;
+        font-style: normal;
+}
+
+
+
+@font-face {
+        font-family: 'Linux Libertine_aBS';
+        src: url('./fonts/LinLibertine_aBS.woff') format('woff');
+        font-weight: bold;
+        font-style: normal;
+}
+@font-face {
+        font-family: 'Linux Libertine_aS';
+        src: url('./fonts/LinLibertine_aS.woff') format('woff');
+/*        font-weight: bold;*/
+/*        font-style: normal;*/
+}
+
+p,ul,table,tr,td,h4,h5,h6 {
+    font-family: 'Linux Libertine'; /* italic */
+    src: url('./fonts/LinLibertine_R.woff') format('woff');
+	line-height: 1.7;
+/*    font-weight: normal;*/
+/*    font-style: italic;*/
+}
+
+em {
+    font-family: 'Linux Libertine'; /* italic */
+    src: url('./fonts/LinLibertine_RI.woff') format('woff');
+/*    font-weight: normal;*/
+    font-style: italic;
+}
+
+
+
+h1, h2, h3{
+    font-family: 'Linux Libertine_aBS';
+    text-align:center
+}
+h1, h2, h3 {
+	color: rgba(0,0,0,0.54)
+}
+
+h3 {
+	color: #5869BB
+}
+
+
+
+hr {
+    border: none;         /* Removes the default border */
+    height: 1px;          /* Sets the height (thickness) of the line */
+    background-color: #cccccc;  /* Sets the color to gray */
+}
+
+a:link {
+    color: #5869BB  ;
+    background-color: transparent;
+    text-decoration: none
+}
+
+
+a:hover {
+  text-decoration: underline;
+}
+
+
+a:visited {
+    color: #5869BB  ;
+}
+
+nav a.active img{
+	opacity: .5; /* fully opaque by default */
+	border-bottom: 3px solid transparent; /* Set a transparent border */
+	border-color: #5869BB;
+}
+
+.container {
+    width: 700px;
+    margin: 0 auto;  /* Centers the container */
+}
+
+/* Responsive styles for smaller screens */
+@media (max-width: 700px) {
+    .container {
+        width: 100%;
+    }
+}
+
+.body {
+    max-width: 770px;  /* Or any desired maximum width */
+    margin: 0 auto;     /* Top/bottom margin is 0, left/right is auto */
+    padding: 20px;     /* Optional: add some padding */
+	position: relative;
+    display: flex;
+}
+
+.inline-home-logo-div {
+    display: inline-block;
+    margin-right: 30px; /* optional spacing between inline divs */
+}
+
+.inline-nav-div {
+    display: inline-block;
+    margin-right: 10px; /* optional spacing between inline divs */
+}
+
+.home-logo-container {
+/*    width: 300px;  or whatever width you want */
+/*    height: 200px;  or whatever height you want */
+/*    overflow: hidden;  in case the image is bigger than the container */
+
+	
+}
+
+.home-logo-container img {
+/*    width: 100%;*/
+/*    height: auto;*/
+/*    transition: opacity 0.1s;  smooth transition */
+/*    opacity: 1;  fully opaque by default */
+	transition: transform 0.3s; /* smooth transition */
+	
+}
+
+.home-logo-container:hover img {
+/*    opacity: .5;  50% transparent on hover */
+	transform: scale(1.01); /* Zoom by scaling the image 1.2 times */
+}
+
+.nav-logo-container {
+/*    width: 300px;  or whatever width you want */
+/*    height: 200px;  or whatever height you want */
+    overflow: hidden; /* in case the image is bigger than the container */
+}
+
+.nav-logo-container img {
+/*    width: 100%;*/
+/*    height: auto;*/
+    transition: opacity 0.1s; /* smooth transition */
+    opacity: 1; /* fully opaque by default */
+	
+	display: inline-block;
+    border-bottom: 3px solid transparent; /* Set a transparent border */
+    transition: border-color 0.3s; /* smooth transition */
+}
+
+.nav-logo-container:hover img {
+    opacity: 0.5; /* 50% transparent on hover */
+	border-color: #5869BB;
+}
