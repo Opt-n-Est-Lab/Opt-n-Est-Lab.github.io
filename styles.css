@@ -176,3 +176,38 @@ nav a.active img{
     opacity: 0.5; /* 50% transparent on hover */
 	border-color: #5869BB;
 }
+
+.fa {
+    padding: 10px;
+    font-size: 15px;
+    width: 15px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 20%;
+  }
+  
+  .fa:hover {
+      opacity: 0.7;
+  }
+  
+  
+  .fa-twitter {
+    background: #5869BB;
+    color: white;
+  }
+  
+  
+  .fa-linkedin {
+    background: #5869BB;
+    color: white;
+  }
+  
+  .fa-youtube {
+    background: #5869BB;
+    color: white;
+  }
+  
+  .fa-link {
+    background: #5869BB;
+    color: white;
+  }
