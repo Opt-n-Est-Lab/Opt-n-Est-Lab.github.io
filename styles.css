@@ -211,3 +211,36 @@ nav a.active img{
     background: #5869BB;
     color: white;
   }
+
+footer {
+    background-color: #ffffff;
+    padding: 30px 0;
+    text-align: center;
+}
+
+.footer-container {
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-logo img {
+    width: 150px;
+}
+
+.footer-social {
+    flex: 1;
+    text-align: right;
+}
+
+.footer-social .fa {
+    margin: 0 5px;
+    font-size: 20px;
+    color: #5869BB;
+}
+
+.footer-social .fa:hover {
+    color: #000;
+}
