@@ -7,7 +7,7 @@ Welcome to the website of the Optimization and Estimation (ONE) Lab! This websit
 
 We welcome your interests in our lab as well as collaboration requests. For more information, please email us at [one@unm.edu](mailto:one@unm.edu).
 
-Director: [Wenbin Wan](https://wenbinwan.com)
+Director: [Wenbin Wan](https://wenbinwan.com) (Email: [wwan@unm.edu](mailto:wwan@unm.edu))
 
 ## Table of Contents
 
@@ -36,4 +36,4 @@ This project is licensed under the [MIT License](LICENSE).
 ## Contact
 
 - Email: [one@unm.edu](mailto:one@unm.edu)
-- Website: [Wenbin Wan](https://wenbinwan.com)
+- Website maintained by Kumar Anurag
