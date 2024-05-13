@@ -261,7 +261,8 @@ footer {
 }
 
 .news img {
-    width: 100%;
+    width: 96%;
+    padding: 5px;
     /* height: 210px; */
 }
 
