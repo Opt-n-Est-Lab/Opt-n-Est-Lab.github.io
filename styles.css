@@ -269,3 +269,55 @@ footer {
 .news-content {
     padding: 10px;
 }
+
+.collapsible {
+    cursor: pointer;
+    padding: 10px;
+    font-size: 18px;
+    border: none;
+    background-color: #f1f1f1;
+    width: 100%;
+    text-align: left;
+    outline: none;
+  }
+  
+  .collapsible:after {
+    content: '\002B';
+    font-size: 13px;
+    color: black;
+    float: right;
+    margin-left: 5px;
+  }
+  
+  .collapsible.active:after {
+    content: "\2212"; 
+  }
+  
+  .content {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #ffffff;
+    width: 700px;
+    margin: 0 auto;
+  }
+  
+  .content table {
+    margin-top: 10px;
+  }
+  
+  .styled-table {
+      border-collapse: collapse;
+      font-size: 16px;
+      width: 100%;
+  }
+  
+  .content td p {
+      margin: 5px 0;
+  }
+  
+  .styled-table td {
+      vertical-align: top;
+      padding: 10px;
+  }
+  
