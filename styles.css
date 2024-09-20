@@ -270,54 +270,222 @@ footer {
     padding: 10px;
 }
 
+
+.alumni-section {
+    margin: 20px 0;
+    padding: 0;
+    border-radius: 5px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+    overflow: hidden;
+}
+
+/* Collapsible header styling */
 .collapsible {
     cursor: pointer;
-    padding: 10px;
+    padding: 15px 20px;
     font-size: 18px;
     border: none;
-    background-color: #f1f1f1;
+    background-color: #ffffff;
     width: 100%;
     text-align: left;
     outline: none;
-  }
-  
-  .collapsible:after {
-    content: '\002B';
-    font-size: 13px;
-    color: black;
-    float: right;
-    margin-left: 5px;
-  }
-  
-  .collapsible.active:after {
-    content: "\2212"; 
-  }
-  
-  .content {
-    padding: 0 18px;
+    margin: 0;
+    box-shadow: none;
+    position: relative;
+}
+
+.collapsible .arrow {
+    position: absolute;
+    right: 80px; 
+    top: 40%;
+    transform: translateY(0%); 
+    transform-origin: center; 
+    font-size: 18px;
+    color: #5869bb;
+    transition: transform 0.3s ease; 
+}
+
+/* When the section is expanded, rotate the arrow */
+.collapsible.active .arrow {
+    transform: rotate(90deg) translateY(0%);
+}
+
+
+/* Collapsible content hidden initially */
+.content {
+    padding: 15px 20px;
     display: none;
-    overflow: hidden;
     background-color: #ffffff;
-    width: 700px;
-    margin: 0 auto;
-  }
-  
-  .content table {
-    margin-top: 10px;
-  }
-  
-  .styled-table {
-      border-collapse: collapse;
-      font-size: 16px;
-      width: 100%;
-  }
-  
-  .content td p {
-      margin: 5px 0;
-  }
-  
-  .styled-table td {
-      vertical-align: top;
-      padding: 10px;
-  }
-  
+    width: 100%;
+    margin: 0;
+}
+
+/* Expanded state: Apply shadow around the entire alumni section (header + content) */
+.collapsible.active + .content,
+.alumni-section .collapsible.active {
+    display: block;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); 
+    border-radius: 5px;
+}
+
+/* Adjust the icon and text alignment */
+.collapsible i.fa-users {
+    color: #5869bb; 
+    margin-right: 10px; 
+    font-size: 20px; 
+    vertical-align: middle; 
+}
+
+/* Additional styles for the table inside the content */
+.styled-table {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.styled-table td {
+    vertical-align: top;
+    padding: 10px 0;
+}
+
+
+/* ######################################################################### */
+/* Undergrad section */
+.undergrad-section {
+    margin: 20px 0;
+    padding: 0;
+    border-radius: 5px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+    overflow: hidden;
+}
+
+
+/* Student row: Using flexbox to align the image and details */
+.student-row {
+    display: flex;
+    align-items: flex-start; 
+    margin-bottom: 15px;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+    width: 90%; 
+    box-sizing: border-box;
+    height: 160px; 
+}
+
+/* Image size is fixed to maintain alignment */
+.student-row img {
+    width: 160px;
+    height: 160px;
+    border-radius: 5px; 
+}
+
+/* Student details next to the picture */
+.student-details {
+    margin-left: 20px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; 
+    height: 160px; 
+    width: calc(100% - 160px); 
+    box-sizing: border-box; 
+}
+
+.student-details p {
+    margin: 0; 
+    padding: 0; 
+    line-height: 1.5; 
+}
+
+.student-details .social-links {
+    display: flex;
+    align-items: center;
+    margin-top: 10px; 
+    margin-right: 10px;
+}
+
+.student-details .social-links a {
+    margin-right: 10px;
+}
+
+.student-details a.fa {
+    padding: 5px;
+    font-size: 18px;
+    text-align: center;
+    border-radius: 50%; 
+    color: #5869bb; 
+}
+
+.student-details a.fa:hover {
+    opacity: 0.8;
+}
+
+/* Collapsible */
+.undergrad-section .collapsible {
+    cursor: pointer;
+    padding: 15px 20px;
+    font-size: 18px;
+    border: none;
+    background-color: #ffffff;
+    width: 100%;
+    text-align: left;
+    outline: none;
+    margin: 0;
+    position: relative;
+}
+
+/* Arrow icon */
+.undergrad-section .arrow {
+    position: absolute;
+    right: 80px;
+    top: 30%;
+    transform: translateY(0%);
+    font-size: 18px;
+    color: #5869bb;
+    transition: transform 0.3s ease;
+}
+
+.undergrad-section .collapsible.active .arrow {
+    transform: rotate(90deg) translateY(0%);
+}
+
+/* Hidden content initially */
+.undergrad-section .content {
+    padding: 15px 20px;
+    display: none;
+    background-color: #ffffff;
+    width: 100%;
+    margin: 0;
+}
+
+/* Show content when active */
+.undergrad-section .collapsible.active + .content,
+.undergrad-section .collapsible.active {
+    display: block;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+.student-details a {
+    background-color: #f0f1fa;
+    padding: 2px 5px;
+    border-radius: 3px; 
+    text-decoration: none; 
+    color: #000; 
+}
+
+.student-details a:hover {
+    background-color: #f5f6fa;
+}
+
+.student-details .social-links a {
+    background-color: transparent;
+}
+
+.student-details p.interests {
+    background-color: #f0f1fa;
+    padding: 2px 5px;
+    border-radius: 3px;
+    display: inline; 
+}
