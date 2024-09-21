@@ -541,3 +541,31 @@ footer {
     border-radius: 3px;
     display: inline; 
 }
+
+/* Reset any previous box shadows */
+.collapsible, .content {
+    box-shadow: none !important;
+}
+
+/* Ensure no shadow on the header alone */
+.collapsible.active {
+    box-shadow: none !important;
+}
+
+/* Apply a single shadow that covers both the header and the content when expanded */
+.collapsible.active + .content,
+.collapsible.active {
+    display: block;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2) !important; /* One shadow for the entire block */
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+/* For the professor section (similar logic to collapsible sections) */
+.collapsible_professor.active + .content,
+.collapsible_professor.active {
+    display: block;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2) !important; /* One shadow for professor header and content */
+    border-radius: 5px;
+    overflow: hidden;
+}
