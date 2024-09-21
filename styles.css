@@ -295,7 +295,32 @@ footer {
     position: relative;
 }
 
+.collapsible_professor {
+    cursor: pointer;
+    padding: 15px 20px;
+    font-size: 18px;
+    border: none;
+    background-color: #ffffff;
+    width: 100%;
+    text-align: left;
+    outline: none;
+    margin: 0;
+    box-shadow: none;
+    position: relative;
+}
+
 .collapsible .arrow {
+    position: absolute;
+    right: 80px; 
+    top: 40%;
+    transform: translateY(0%); 
+    transform-origin: center; 
+    font-size: 18px;
+    color: #5869bb;
+    transition: transform 0.3s ease; 
+}
+
+.collapsible_professor .arrow {
     position: absolute;
     right: 80px; 
     top: 40%;
@@ -308,6 +333,10 @@ footer {
 
 /* When the section is expanded, rotate the arrow */
 .collapsible.active .arrow {
+    transform: rotate(90deg) translateY(0%);
+}
+
+.collapsible_professor.active .arrow {
     transform: rotate(90deg) translateY(0%);
 }
 
@@ -328,9 +357,21 @@ footer {
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); 
     border-radius: 5px;
 }
+.collapsible_professor.active + .content,
+.alumni-section .collapsible_professor.active {
+    display: block;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); 
+    border-radius: 5px;
+}
 
 /* Adjust the icon and text alignment */
 .collapsible i.fa-users {
+    color: #5869bb; 
+    margin-right: 10px; 
+    font-size: 20px; 
+    vertical-align: middle; 
+}
+.collapsible_professor i.fa-users {
     color: #5869bb; 
     margin-right: 10px; 
     font-size: 20px; 
@@ -365,20 +406,27 @@ footer {
 /* Student row: Using flexbox to align the image and details */
 .student-row {
     display: flex;
-    align-items: flex-start; 
-    margin-bottom: 15px;
+    align-items: flex-start;
+    margin-bottom: 15px; /* Space between rows */
     padding: 10px 0;
-    border-bottom: 1px solid #e0e0e0;
-    width: 90%; 
     box-sizing: border-box;
-    height: 160px; 
+    width: 90%;
+    height: 160px;
+    border-bottom: none; /* Remove this to prevent it from hitting the image */
+}
+
+.row-divider {
+    border-bottom: 1px solid #e0e0e0; /* Grey line */
+    width: 100%; /* Full width */
+    margin-bottom: 15px; /* Space between rows */
 }
 
 /* Image size is fixed to maintain alignment */
 .student-row img {
     width: 160px;
     height: 160px;
-    border-radius: 5px; 
+    border-radius: 5px;
+    margin-bottom: 10px; /* Adds space between the image and the grey line */
 }
 
 /* Student details next to the picture */
@@ -419,6 +467,10 @@ footer {
 
 .student-details a.fa:hover {
     opacity: 0.8;
+}
+
+.student-row:last-child {
+    border-bottom: none;
 }
 
 /* Collapsible */
