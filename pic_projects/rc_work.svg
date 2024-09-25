@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 770 770">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #5379f5;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        fill: #000205;
+        stroke: #000;
+        stroke-miterlimit: 10;
+        stroke-width: 2px;
+      }
+
+      .cls-4 {
+        fill: #5379f6;
+        font-family: LinLibertine, 'Linux Libertine';
+        font-size: 42.6px;
+      }
+    </style>
+  </defs>
+  <!-- Generator: Adobe Illustrator 28.7.1, SVG Export Plug-In . SVG Version: 1.2.0 Build 142)  -->
+  <g>
+    <g id="Layer_1">
+      <image width="770" height="770" xlink:href="rc.jpg"/>
+      <rect class="cls-2" x="78" y="206" width="119" height="77"/>
+      <text class="cls-4" transform="translate(479.4 299.7)"><tspan x="0" y="0">RC</tspan></text>
+      <g>
+        <line class="cls-3" x1="101.6" y1="218" x2="101.6" y2="279.4"/>
+        <line class="cls-3" x1="81" y1="269.7" x2="200" y2="269.7"/>
+        <rect class="cls-1" x="114.5" y="247.7" width="11.9" height="21.4"/>
+        <rect class="cls-1" x="136.2" y="237" width="11.9" height="32.1"/>
+        <rect class="cls-1" x="158.9" y="226.9" width="11.9" height="42.2"/>
+      </g>
+    </g>
+  </g>
+</svg>
