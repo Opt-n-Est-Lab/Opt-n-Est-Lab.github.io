@@ -428,14 +428,14 @@ footer {
 /*     padding: 10px 0; */
     box-sizing: border-box;
     width: 90%;
-    height: 170px;
+    height: 200px;
     border-bottom: none; /* Remove this to prevent it from hitting the image */
 }
 
 /* Image size is fixed to maintain alignment */
 .pi-row img {
-    width: 150px;
-    height: 150px;
+/*     width: 150px;
+    height: 150px; */
     border-radius: 5px;
     margin-bottom: 0; /* Adds space between the image and the grey line */
 }
