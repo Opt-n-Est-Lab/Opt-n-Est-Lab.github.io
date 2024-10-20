@@ -50,29 +50,23 @@
 <!--#################################################################################################-->
 <!--#################################################################################################-->
 <h2>About</h2>
-<table border="0" align="center" cellspacing="0" cellpadding="5">
-  <tbody>
-    <tr>
-      <td style="width:78%; vertical-align:middle; padding-right: 20px;">
-        <p>
-          The ONE lab focuses on developing methodologies for analyzing, estimating, and controlling cyber-physical systems (CPS), especially self-driving cars and autonomous aerial vehicles. The lab integrates expertise from optimization, control theory, and machine learning to develop the theoretical foundations for networked CPS operating in adversarial settings, extreme weather, and other scenarios with significant uncertainties. These theories then guide the creation of practical, efficient, and verifiable algorithms for real-world implementation.
-        </p>
-        <hr>
-      </td>
-      <td style="width:22%; vertical-align:middle; text-align:center">
-        <!-- Carousel Container -->
-        <div id="imageCarousel" style="width:220px; height:auto;">
-          <img src="../pic_profile/lab.jpg" draggable="false" width="220px" style="display: block;">
-          <img src="../pic_profile/onelab_drone.jpg" draggable="false" width="220px" style="display: none;">
-          <img src="../pic_profile/onelab_vr_model.jpg" draggable="false" width="220px" style="display: none;">
-		  <img src="../pic_profile/one_lab_drone_holding_picture.jpg" draggable="false" width="220px" style="display: none;">
-        </div>
+<table  border="0" align="center" cellspacing="0" cellpadding="5">
+    <tbody>
+	<tr>
+        <td style="width:78%; vertical-align:middle; padding-right: 20px;">
+			<p>
+			The ONE lab focuses on developing methodologies for analyzing, estimating, and controlling cyber-physical systems (CPS), especially self-driving cars and autonomous aerial vehicles. The lab integrates expertise from optimization, control theory and machine learning to develop the theoretical foundations for networked CPS operating in adversarial settings, extreme weather, and other scenarios with significant uncertainties. These theories then guide the creation of practical, efficient, and verifiable algorithms for real-world implementation.
+			</p>
+		<hr>
 
-        <a href="/"><img draggable="false" src="../headimage/onelab_t.svg" height="12"></a>
-        <br>ME Building Room 230
-      </td>
+        </td>
+        <td style="width:22%; vertical-align:middle; text-align:center">
+			<img src="../pic_profile/onelab_gate_230.jpg" draggable="false" width="220px" >
+			<a href="/"><img draggable="false" src="../headimage/onelab_t.svg" height="12" ></a>
+			<br>ME Building Room 230
+        </td>
     </tr>
-  </tbody>
+    </tbody>
 </table>
 
 
@@ -185,23 +179,5 @@
 		<code> Website maintained by <a href="mailto:kmranrg@unm.edu">K Anurag</a>.</code>
 	</footer>
 </div>
-<script>
-	const images = document.querySelectorAll('#imageCarousel img');
-	let currentIndex = 0;
-  
-	function showNextImage() {
-	  // Hide the current image
-	  images[currentIndex].style.display = 'none';
-  
-	  // Calculate the next index (loop back to 0 if needed)
-	  currentIndex = (currentIndex + 1) % images.length;
-  
-	  // Show the next image
-	  images[currentIndex].style.display = 'block';
-	}
-  
-	// Change the image every 2 seconds (2000 ms)
-	setInterval(showNextImage, 2000);
-  </script>
 </body>
 </html>
