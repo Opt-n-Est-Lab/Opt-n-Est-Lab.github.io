@@ -434,7 +434,7 @@ footer {
 
 /* Image size is fixed to maintain alignment */
 .pi-row img {
-    width: 250px;
+    width: 200px;
     height: 187.5px;
     border-radius: 5px;
     margin-bottom: 0; /* Adds space between the image and the grey line */
