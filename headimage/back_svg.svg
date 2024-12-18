@@ -1,0 +1,13 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2011 512" width="2011" height="512">
+	<title>backward-solid-svg</title>
+	<style>
+		tspan { white-space:pre } 
+		.s0 { fill: #5869bb } 
+		.t1 { font-size: 54px;fill: #5869bb;font-weight: 400;font-family: "LinLibertine", "Linux Libertine" } 
+	</style>
+	<path class="s0" d="m459.5 440.6c9.5 7.9 22.8 9.7 34.1 4.4 11.3-5.3 18.4-16.6 18.4-29v-320c0-12.4-7.2-23.7-18.4-29-11.2-5.3-24.5-3.6-34.1 4.4l-171.5 142.9v41.7 41.7zm-203.5-88.6v-96-128-32c0-12.4-7.2-23.7-18.4-29-11.2-5.3-24.5-3.6-34.1 4.4l-192 160c-7.3 6.1-11.5 15.1-11.5 24.6 0 9.5 4.2 18.5 11.5 24.6l192 160c9.5 7.9 22.8 9.7 34.1 4.4 11.3-5.3 18.4-16.6 18.4-29z"/>
+	<text id="Back" style="transform: matrix(10.901,0,0,10.901,808.919,445.756)" >
+		<tspan x="0" y="0" class="t1">B</tspan><tspan  y="0" class="t1">a</tspan><tspan  y="0" class="t1">c</tspan><tspan  y="0" class="t1">k
+</tspan>
+	</text>
+</svg>

@@ -177,6 +177,28 @@ nav a.active img{
 	border-color: #5869BB;
 }
 
+.nav-logo-container-svg {
+    /*    width: 300px;  or whatever width you want */
+    /*    height: 200px;  or whatever height you want */
+        overflow: hidden; /* in case the image is bigger than the container */
+    }
+    
+    .nav-logo-container-svg img {
+    /*    width: 100%;*/
+    /*    height: auto;*/
+        transition: opacity 0.1s; /* smooth transition */
+        opacity: 1; /* fully opaque by default */
+        
+        display: inline-block;
+        border-bottom: 3px solid transparent; /* Set a transparent border */
+        transition: border-color 0.3s; /* smooth transition */
+    }
+    
+    .nav-logo-container-svg:hover img {
+        opacity: 0.5; /* 50% transparent on hover */
+        border-color: #5869BB;
+    }
+
 .fa {
     padding: 10px;
     font-size: 15px;
@@ -632,26 +654,3 @@ footer {
     border-radius: 5px;
     overflow: hidden;
 }
-
-.tooltip {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .tooltip .tooltiptext {
-    visibility: hidden;
-    width: 120px;
-    background-color: #fff;
-    color: #5869bb;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-  
-    /* Position the tooltip */
-    position: absolute;
-    z-index: 1;
-  }
-  
-  .tooltip:hover .tooltiptext {
-    visibility: visible;
-  }
