@@ -1,0 +1,15 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3372 512" width="3372" height="512">
+	<title>back_svg</title>
+	<style>
+		tspan { white-space:pre } 
+		.s0 { fill: #5869bb } 
+		.t1 { font-size: 589px;fill: #5869bb;font-weight: 400;font-family: "LinLibertine", "Linux Libertine" } 
+	</style>
+	<path class="s0" d="m52.5 71.4c-9.5-7.9-22.8-9.7-34.1-4.4-11.3 5.3-18.4 16.6-18.4 29v320c0 12.4 7.2 23.7 18.4 29 11.2 5.3 24.5 3.6 34.1-4.4l171.5-142.9v-41.7-41.7zm203.5 88.6v96 128 32c0 12.4 7.2 23.7 18.4 29 11.2 5.3 24.5 3.6 34.1-4.4l192-160c7.3-6.1 11.5-15.1 11.5-24.6 0-9.5-4.2-18.5-11.5-24.6l-192-160c-9.5-7.9-22.8-9.7-34.1-4.4-11.3 5.3-18.4 16.6-18.4 29z"/>
+	<g id="Back">
+		<text id="More news" style="transform: matrix(1,0,0,1,717,442)" >
+			<tspan x="0" y="0" class="t1">M</tspan><tspan  y="0" class="t1">o</tspan><tspan  y="0" class="t1">r</tspan><tspan  y="0" class="t1">e</tspan><tspan  y="0" class="t1"> </tspan><tspan  y="0" class="t1">n</tspan><tspan  y="0" class="t1">e</tspan><tspan  y="0" class="t1">w</tspan><tspan  y="0" class="t1">s
+</tspan>
+		</text>
+	</g>
+</svg>
