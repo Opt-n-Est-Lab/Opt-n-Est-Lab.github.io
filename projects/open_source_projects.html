@@ -399,28 +399,17 @@
         headings.forEach(heading => heading.classList.remove('active'));
 
         const selectedTab = document.getElementById(tabId);
+        selectedTab.style.display = 'block';
+        selectedTab.classList.add('active');
 
-        if (selectedTab) {
-            selectedTab.style.display = 'block';
-            selectedTab.classList.add('active');
-
-            const activeButton = document.querySelector(`[data-tab='${tabId}']`);
-            if (activeButton) {
-                activeButton.classList.add('active');
-                activeButton.querySelector('h2').classList.add('active');
-            }
+        const activeButton = document.querySelector(`[data-tab='${tabId}']`);
+        if (activeButton) {
+            activeButton.classList.add('active');
+            activeButton.querySelector('h2').classList.add('active');
         }
-        window.location.hash = tabId;
     }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const hash = window.location.hash.replace('#','');
-        if (hash && document.getElementById(hash)) {
-            showTab(hash);
-        } else {
-            showTab('research');
-        }
-    });
+    
+    document.addEventListener('DOMContentLoaded', () => showTab('research'));
 
     function openLightbox(img) {
         const lightbox = document.getElementById('lightbox');
