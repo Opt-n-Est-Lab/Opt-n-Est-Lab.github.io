@@ -441,6 +441,7 @@
             showTab(hash);
         } else {
             showTab('research');
+            history.replaceState(null, null, window.location.pathname);
         }
     });
 
