@@ -190,7 +190,7 @@
                 </button>
             </a>
             <a href="./open_source_projects.html">
-                <button class="tab-button active" data-tab="open-source">
+                <button class="tab-button" data-tab="open-source">
                     <h2>Open Source Projects</h2>
                 </button>
             </a>
@@ -200,7 +200,7 @@
                 </button>
             </a>
             <a href="./gallery.html">
-                <button class="tab-button" data-tab="gallery">
+                <button class="tab-button active" data-tab="gallery">
                     <h2>Gallery</h2>
                 </button>
             </a>
@@ -217,33 +217,19 @@
         <!--#################################################################################################-->
 
 
-        <div id="open-source" class="tab-content active">
-            <table border="0" align="center" cellspacing="5" cellpadding="5">
-                <tbody>
-                    <tr>
-                        <td style="width:22%; vertical-align:middle">
-                            <img src="../pic_projects/connectAI.svg" draggable="false" width="160px">
-                        </td>
-                        <td style="width:78%; vertical-align:middle; padding-right: 20px;">
-
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <h3 id="human-robot-interaction-in-vr" style="margin: 0;">ConnectAI: Peer Learning
-                                    Platform</h3>
-                                <div class="nav-logo-container-svg inline-nav-div">
-                                    <a href="./connect_ai.html">
-                                        <img src="../headimage/arrow-right-solid.svg" width="12px" alt="Arrow">
-                                    </a>
-                                </div>
-                            </div>
-
-                            <p><em>This project utilizes heterogeneous graph neural network to map students with similar
-                                    characteristics. This also notifies the course designers to tailor the courses for
-                                    each particular student groups. This helps students to learn in a better way.</em>
-                            </p>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <div id="gallery" class="tab-content active">
+            <h3>SoE Open House 2024</h3>
+            <div class="gallery-grid">
+                <img src="../gallery/kid_with_vr.jpeg" alt="Image 1" onclick="openLightbox(this)">
+                <img src="../gallery/explaining_crazyflie.jpeg" alt="Image 2" onclick="openLightbox(this)">
+                <img src="../gallery/showing_crazyflie_demo.jpeg" alt="Image 3" onclick="openLightbox(this)">
+                <img src="../gallery/explaining_code.jpeg" alt="Image 4" onclick="openLightbox(this)">
+                <img src="../gallery/board_signing.jpg" alt="Image 5" onclick="openLightbox(this)">
+                <img src="../gallery/crazyflie_play.jpg" alt="Image 6" onclick="openLightbox(this)">
+                <img src="../gallery/with_k12.jpg" alt="Image 7" onclick="openLightbox(this)">
+                <img src="../gallery/vr_experience.jpg" alt="Image 8" onclick="openLightbox(this)">
+                <img src="../gallery/kids_onelab_tshirt.jpg" alt="Image 8" onclick="openLightbox(this)">
+            </div>
         </div>
 
         <div id="lightbox" class="lightbox" onclick="closeLightbox()">

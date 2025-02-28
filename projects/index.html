@@ -1,466 +1,438 @@
 <!doctype html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<link rel="icon" href="../headimage/icon.png">
-<title>ONE Lab</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="../styles.css">
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-SW68LZVXCV"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <meta charset="UTF-8">
+    <link rel="icon" href="../headimage/icon.png">
+    <title>ONE Lab</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../styles.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SW68LZVXCV"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-  gtag('config', 'G-SW68LZVXCV');
-</script>
-<style>
-	.tabs {
-        display: flex;
-        justify-content: space-between;
-        gap: 24px;
-    }
+        gtag('config', 'G-SW68LZVXCV');
+    </script>
+    <style>
+        .tabs {
+            display: flex;
+            justify-content: space-between;
+            gap: 24px;
+        }
 
-    .tab-button {
-        background-color: #ffffff;
-        border: none;
-        padding: 5px 15px;
-        cursor: pointer;
-        border-radius: 5px;
-        margin-bottom: 2px;
-        transition: background-color 0.3s, color 0.3s;
-    }
+        .tab-button {
+            background-color: #ffffff;
+            border: none;
+            padding: 5px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-bottom: 2px;
+            transition: background-color 0.3s, color 0.3s;
+        }
 
-    .tab-button h2 {
-        margin: 0;
-        transition: color 0.3s;
-    }
+        .tab-button h2 {
+            margin: 0;
+            transition: color 0.3s;
+        }
 
-    .tab-button:hover {
-        background-color: #dddddd;
-    }
+        .tab-button:hover {
+            background-color: #dddddd;
+        }
 
-    .tab-button.active h2 {
-        color: #5869bb;
-    }
+        .tab-button.active h2 {
+            color: #5869bb;
+        }
 
-    .tab-content {
-        background-color: white;
-        padding: 20px;
-        border-radius: 5px;
-        display: none;
-    }
+        .tab-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            display: none;
+        }
 
-    .tab-content.active {
-        display: block;
-    }
-	 
-    .content-wrapper {
-        transition: filter 0.3s;
-    }
+        .tab-content.active {
+            display: block;
+        }
 
-    .blur {
-        filter: blur(5px);
-    }
-    .gallery-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 10px;
-        margin-top: 20px;
-    }
+        .content-wrapper {
+            transition: filter 0.3s;
+        }
 
-    .gallery-grid img {
-        width: 100%;
-        height: 160px; 
-        object-fit: cover; 
-        border-radius: 8px;
-        transition: transform 0.3s, box-shadow 0.3s;
-        cursor: pointer;
-    }
+        .blur {
+            filter: blur(5px);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .gallery-grid img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
 
 
-    .gallery-grid img:hover {
-        transform: scale(1.05);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
+        .gallery-grid img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
 
-    .lightbox {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        display: none;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
-    }
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
 
-    .lightbox img {
-        max-width: 90%;
-        max-height: 90%;
-        border-radius: 10px;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
-    }
-</style>
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+        }
+    </style>
 </head>
 
 <body>
-	<nav>
-		<div  width="900" border="0" align="center" cellspacing="0" cellpadding="20">
-			<div class="home-logo-container inline-home-logo-div">
-				<a href="../"><img draggable="false" src="../headimage/onelab_c.svg" width="250"></a>
-			</div>
-		<div class="nav-logo-container inline-nav-div">
-			<a href="../people/"><img draggable="false" src="../headimage/people.svg" height="14"></a>
-			</div>
-		<div class="nav-logo-container inline-nav-div">
-			<a class="active" href="../projects/"><img draggable="false" src="../headimage/projects.svg" height="14"></a>
-			</div>
-		<div class="nav-logo-container inline-nav-div">
-			<a href="../publications/"><img draggable="false" src="../headimage/publications.svg" height="14"></a>
-			</div>
-		<div class="nav-logo-container inline-nav-div">
-			<a href="../faq/"><img draggable="false" src="../headimage/faq.svg" height="14"></a>
-			</div>
-		</div>
-	</nav>	
-
-<br>
-<!--#################################################################################################-->
-<div class="container">
-
-<table width="700" border="0" align="center" cellspacing="0" cellpadding="0">
-     <tr><td width="100%" valign="middle">
-           <hr>
-</td></tr>
-</table>
-<center>
-	<img src="../headimage/onelab_banner.jpg" draggable="false" width="100%" >
-</center>
-<!--#################################################################################################-->
-<!--#################################################################################################-->
-<h2>About</h2>
-<table border="0" align="center" cellspacing="0" cellpadding="5">
-    <tbody>
-	<tr>
-        <td style="width:78%; vertical-align:middle; padding-right: 20px;">
-			<p>
-			The ONE lab focuses on developing methodologies for analyzing, estimating, and controlling cyber-physical systems (CPS), especially self-driving cars and autonomous aerial vehicles. The lab integrates expertise from optimization, control theory and machine learning to develop the theoretical foundations for networked CPS operating in adversarial settings, extreme weather, and other scenarios with significant uncertainties. These theories then guide the creation of practical, efficient, and verifiable algorithms for real-world implementation.
-			</p>
-
-        </td>
-        <td style="width:22%; vertical-align:middle; text-align:center">
-            <div class="gallery-grid" style="width: 220px; gap:0px; margin-bottom: 10px;">
-                <img src="../pic_profile/lab.jpg" draggable="false" width="220px" onclick="openLightbox(this)" style="width: 220px; gap:0px;">
+    <nav>
+        <div width="900" border="0" align="center" cellspacing="0" cellpadding="20">
+            <div class="home-logo-container inline-home-logo-div">
+                <a href="../"><img draggable="false" src="../headimage/onelab_c.svg" width="250"></a>
             </div>
-			<a href="/"><img draggable="false" src="../headimage/onelab_t.svg" height="12" ></a>
-			<br>ME Building Room 230
-        </td>
-    </tr>
-    </tbody>
-</table>
+            <div class="nav-logo-container inline-nav-div">
+                <a href="../people/"><img draggable="false" src="../headimage/people.svg" height="14"></a>
+            </div>
+            <div class="nav-logo-container inline-nav-div">
+                <a class="active" href="../projects/"><img draggable="false" src="../headimage/projects.svg"
+                        height="14"></a>
+            </div>
+            <div class="nav-logo-container inline-nav-div">
+                <a href="../publications/"><img draggable="false" src="../headimage/publications.svg" height="14"></a>
+            </div>
+            <div class="nav-logo-container inline-nav-div">
+                <a href="../faq/"><img draggable="false" src="../headimage/faq.svg" height="14"></a>
+            </div>
+        </div>
+    </nav>
 
-<!--#################################################################################################-->
-<table width="700" border="0" align="center" cellspacing="0" cellpadding="0">
-	<tr><td width="100%" valign="middle">
-		  <hr>
-</td></tr>
-</table>
-<div class="tabs">
-    <button class="tab-button active" data-tab="research" onclick="showTab('research')">
-        <h2>Research Projects</h2>
-    </button>
-    <button class="tab-button" data-tab="open-source" onclick="showTab('open-source')">
-        <h2>Open Source Projects</h2>
-    </button>
-    <button class="tab-button" data-tab="lab" onclick="showTab('lab')">
-        <h2>Lab</h2>
-    </button>
-    <button class="tab-button" data-tab="gallery" onclick="showTab('gallery')">
-        <h2>Gallery</h2>
-    </button>
-</div>
-  
-<table width="700" border="0" align="center" cellspacing="0" cellpadding="0">
-	<tr><td width="100%" valign="middle">
-		  <hr>
-</td></tr>
-</table>
-<!--#################################################################################################-->
+    <br>
+    <!--#################################################################################################-->
+    <div class="container">
 
-<div id="research" class="tab-content active">
-    <table  border="0" align="center" cellspacing="5" cellpadding="5">
-		<tbody>
-		<tr>
-			<td style="width:22%; vertical-align:middle">
-				<img src="../pic_projects/DRO.svg" draggable="false" width="160px">
-			</td>
-			<td style="width:78%; vertical-align:middle; padding-right: 20px;">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <h3 id="distributionally-robust-optimization" style="margin: 0;">Distributionally Robust Optimization</h3>
-                    <div class="nav-logo-container-svg inline-nav-div">
-                        <a href="./distributionally_robust_optimization.html">
-                            <img src="../headimage/arrow-right-solid.svg" width="12px" alt="Arrow">
-                        </a>
-                    </div>
+        <table width="700" border="0" align="center" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="100%" valign="middle">
+                    <hr>
+                </td>
+            </tr>
+        </table>
+        <center>
+            <img src="../headimage/onelab_banner.jpg" draggable="false" width="100%">
+        </center>
+        <!--#################################################################################################-->
+        <!--#################################################################################################-->
+        <h2>About</h2>
+        <table border="0" align="center" cellspacing="0" cellpadding="5">
+            <tbody>
+                <tr>
+                    <td style="width:78%; vertical-align:middle; padding-right: 20px;">
+                        <p>
+                            The ONE lab focuses on developing methodologies for analyzing, estimating, and controlling
+                            cyber-physical systems (CPS), especially self-driving cars and autonomous aerial vehicles.
+                            The lab integrates expertise from optimization, control theory and machine learning to
+                            develop the theoretical foundations for networked CPS operating in adversarial settings,
+                            extreme weather, and other scenarios with significant uncertainties. These theories then
+                            guide the creation of practical, efficient, and verifiable algorithms for real-world
+                            implementation.
+                        </p>
+
+                    </td>
+                    <td style="width:22%; vertical-align:middle; text-align:center">
+                        <div class="gallery-grid" style="width: 220px; gap:0px; margin-bottom: 10px;">
+                            <img src="../pic_profile/lab.jpg" draggable="false" width="220px"
+                                onclick="openLightbox(this)" style="width: 220px; gap:0px;">
+                        </div>
+                        <a href="/"><img draggable="false" src="../headimage/onelab_t.svg" height="12"></a>
+                        <br>ME Building Room 230
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!--#################################################################################################-->
+        <table width="700" border="0" align="center" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="100%" valign="middle">
+                    <hr>
+                </td>
+            </tr>
+        </table>
+        <div class="tabs">
+            <a href="./index.html">
+                <button class="tab-button active" data-tab="research" onclick="showTab('research')">
+                    <h2>Research Projects</h2>
+                </button>
+            </a>
+            <a href="./open_source_projects.html">
+                <button class="tab-button" data-tab="open-source" onclick="showTab('open-source')">
+                    <h2>Open Source Projects</h2>
+                </button>
+            </a>
+            <a href="./lab.html">
+                <button class="tab-button" data-tab="lab">
+                    <h2>Lab</h2>
+                </button>
+            </a>
+            <a href="./gallery.html">
+                <button class="tab-button" data-tab="gallery">
+                    <h2>Gallery</h2>
+                </button>
+            </a>
+        </div>
+
+        <table width="700" border="0" align="center" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="100%" valign="middle">
+                    <hr>
+                </td>
+            </tr>
+        </table>
+        <!--#################################################################################################-->
+
+        <div id="research" class="tab-content active">
+            <table border="0" align="center" cellspacing="5" cellpadding="5">
+                <tbody>
+                    <tr>
+                        <td style="width:22%; vertical-align:middle">
+                            <img src="../pic_projects/rc_work.jpg" draggable="false" width="160px">
+                        </td>
+                        <td style="width:78%; vertical-align:middle; padding-right: 20px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <h3 id="reservoir-computing" style="margin: 0;">Reservoir Computing</h3>
+                                <div class="nav-logo-container-svg inline-nav-div">
+                                    <a href="./reservoir_computing.html">
+                                        <img src="../headimage/arrow-right-solid.svg" width="12px" alt="Arrow">
+                                    </a>
+                                </div>
+                            </div>
+
+                            <p><em>This project leverages reservoir computing (RC) architecture to predict time-varying
+                                    uncertainties in complex dynamical systems. By utilizing the computational
+                                    efficiency of the RC architecture, we aim to efficiently predict unknown behaviors
+                                    in dynamic environments.</em></p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!--#################################################################################################-->
+            <table border="0" align="center" cellspacing="5" cellpadding="5">
+                <tbody>
+                    <tr>
+                        <td style="width:22%; vertical-align:middle">
+                            <img src="../pic_projects/proj04_coveru.svg" draggable="false" width="160px">
+                        </td>
+                        <td style="width:78%; vertical-align:middle; padding-right: 20px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <h3 id="human-robot-interaction-in-vr" style="margin: 0;">Human-Robot Interaction in VR
+                                </h3>
+                                <div class="nav-logo-container-svg inline-nav-div">
+                                    <a href="./human_robot_interaction_in_vr.html">
+                                        <img src="../headimage/arrow-right-solid.svg" width="12px" alt="Arrow">
+                                    </a>
+                                </div>
+                            </div>
+
+                            <p><em>This project utilizes VR technology to reimagine experiences for user-friendly urban
+                                    mobility. By integrating autonomous devices into virtual environments, it aims to
+                                    create immersive and personalized experiences, forecasting the next generation of
+                                    urban transportation.</em></p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!--#################################################################################################-->
+            <table border="0" align="center" cellspacing="5" cellpadding="5">
+                <tbody>
+                    <tr>
+                        <td style="width:22%; vertical-align:middle">
+                            <img src="../pic_projects/proj03_coveru.svg" draggable="false" width="160px">
+                        </td>
+                        <td style="width:78%; vertical-align:middle; padding-right: 20px;">
+
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <h3 id="safe-planning-under-large-uncertainties" style="margin: 0;">Safe Planning under
+                                    Large Uncertainties</h3>
+                                <div class="nav-logo-container-svg inline-nav-div">
+                                    <a href="./safe_planning_under_uncertainties.html">
+                                        <img src="../headimage/arrow-right-solid.svg" width="12px" alt="Arrow">
+                                    </a>
+                                </div>
+                            </div>
+
+                            <p><em>Inspired by the Miracle on the Hudson, we aim to design a decision-making
+                                    architecture that can quickly make a sequence of decisions for autonomous systems.
+                                    We will integrate neuroscience, control theory, and machine learning by adequately
+                                    leveraging their advantages towards having a safety guarantee under large
+                                    uncertainties.</em></p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!--#################################################################################################-->
+            <table border="0" align="center" cellspacing="5" cellpadding="5">
+                <tbody>
+                    <tr>
+                        <td style="width:22%; vertical-align:middle">
+                            <img src="../pic_projects/proj02_coveru.svg" draggable="false" width="160px">
+                        </td>
+                        <td style="width:78%; vertical-align:middle; padding-right: 20px;">
+
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <h3 id="connected-smart-cars" style="margin: 0;">Connected Smart Cars</h3>
+                                <div class="nav-logo-container-svg inline-nav-div">
+                                    <a href="./connected_smart_cars.html">
+                                        <img src="../headimage/arrow-right-solid.svg" width="12px" alt="Arrow">
+                                    </a>
+                                </div>
+                            </div>
+
+                            <p><em>This project aims to develop a multi-level adaptive control architecture, where the
+                                    proactive level leverages data over a cloud network to cope with unforeseen
+                                    environmental uncertainties and support high-level decision making, while the
+                                    reactive level uses machine learning and robust adaptive control to compensate for
+                                    uncertainties.</em></p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!--<hr>-->
+            <!--#################################################################################################-->
+            <table border="0" align="center" cellspacing="5" cellpadding="5">
+                <tbody>
+                    <tr>
+                        <td style="width:22%; vertical-align:middle">
+                            <img src="../pic_projects/proj01_coveru.svg" draggable="false" width="160px">
+                        </td>
+                        <td style="width:78%; vertical-align:middle; padding-right: 20px;">
+
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <h3 id="cyber-physical-systems-security" style="margin: 0;">Cyber-Physical Systems
+                                    Security</h3>
+                                <div class="nav-logo-container-svg inline-nav-div">
+                                    <a href="./cyber_physical_systems_security.html">
+                                        <img src="../headimage/arrow-right-solid.svg" width="12px" alt="Arrow">
+                                    </a>
+                                </div>
+                            </div>
+
+                            <p><em>Recent developments of Cyber-Physical Systems (CPS) and their safety-critical
+                                    applications, such as power systems, critical infrastructures, transportation
+                                    networks, and industrial control systems, have led to a renewed interest in CPS
+                                    security. In this project, we aim to study and develop attack-resilient estimation
+                                    and detection algorithms for CPS.</em>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+            <img id="lightbox-img" src="">
+        </div>
+
+        <!--#################################################################################################-->
+
+        <br><br><br><br>
+        <hr>
+
+        <footer>
+            <div class="footer-container">
+                <div class="footer-logo">
+                    <a href="/"><img src="../headimage/onelab_t.svg" alt="Footer Logo"></a>
                 </div>
-                
-				<p><em>This project aims to address decision-making under uncertainty where the probability distribution of the uncertain parameter is unknown. Our research develops algorithms that ensure reliability and robustness against distribution shifts in real-world applications.</em></p>
-			</td>
-		</tr>
-		</tbody>
-	</table>
-	<!--#################################################################################################-->
-	<table  border="0" align="center" cellspacing="5" cellpadding="5">
-		<tbody>
-		<tr>
-			<td style="width:22%; vertical-align:middle">
-				<img src="../pic_projects/RC.svg" draggable="false" width="160px">
-			</td>
-			<td style="width:78%; vertical-align:middle; padding-right: 20px;">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <h3 id="reservoir-computing" style="margin: 0;">Reservoir Computing</h3>
-                    <div class="nav-logo-container-svg inline-nav-div">
-                        <a href="./reservoir_computing.html">
-                            <img src="../headimage/arrow-right-solid.svg" width="12px" alt="Arrow">
-                        </a>
-                    </div>
-                </div>
-                
-				<p><em>This project leverages reservoir computing (RC) architecture to predict time-varying uncertainties in complex dynamical systems. By utilizing the computational efficiency of the RC architecture, we aim to efficiently predict unknown behaviors in dynamic environments.</em></p>
-			</td>
-		</tr>
-		</tbody>
-	</table>
-	<!--#################################################################################################-->
-	<table  border="0" align="center" cellspacing="5" cellpadding="5">
-		<tbody>
-		<tr>
-			<td style="width:22%; vertical-align:middle">
-				<img src="../pic_projects/proj04_coveru.svg" draggable="false" width="160px">
-			</td>
-			<td style="width:78%; vertical-align:middle; padding-right: 20px;">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <h3 id="human-robot-interaction-in-vr" style="margin: 0;">Human-Robot Interaction in VR</h3>
-                    <div class="nav-logo-container-svg inline-nav-div">
-                        <a href="./human_robot_interaction_in_vr.html">
-                            <img src="../headimage/arrow-right-solid.svg" width="12px" alt="Arrow">
-                        </a>
-                    </div>
-                </div>
-
-				<p><em>This project utilizes VR technology to reimagine experiences for user-friendly urban mobility. By integrating autonomous devices into virtual environments, it aims to create immersive and personalized experiences, forecasting the next generation of urban transportation.</em></p>
-			</td>
-		</tr>
-		</tbody>
-	</table>
-	<!--#################################################################################################-->
-	<table  border="0" align="center" cellspacing="5" cellpadding="5">
-		<tbody>
-		<tr>
-			<td style="width:22%; vertical-align:middle">
-				<img src="../pic_projects/proj03_coveru.svg" draggable="false" width="160px">
-			</td>
-			<td style="width:78%; vertical-align:middle; padding-right: 20px;">
-
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <h3 id="safe-planning-under-large-uncertainties" style="margin: 0;">Safe Planning under Large Uncertainties</h3>
-                    <div class="nav-logo-container-svg inline-nav-div">
-                        <a href="./safe_planning_under_uncertainties.html">
-                            <img src="../headimage/arrow-right-solid.svg" width="12px" alt="Arrow">
-                        </a>
-                    </div>
-                </div>
-
-				<p><em>Inspired by the Miracle on the Hudson, we aim to design a decision-making architecture that can quickly make a sequence of decisions for autonomous systems. We will integrate neuroscience, control theory, and machine learning by adequately leveraging their advantages towards having a safety guarantee under large uncertainties.</em></p>
-			</td>
-		</tr>
-		</tbody>
-	</table>
-	<!--#################################################################################################-->
-	<table  border="0" align="center" cellspacing="5" cellpadding="5">
-		<tbody>
-		<tr>
-			<td style="width:22%; vertical-align:middle">
-				<img src="../pic_projects/proj02_coveru.svg" draggable="false" width="160px">
-			</td>
-			<td style="width:78%; vertical-align:middle; padding-right: 20px;">
-
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <h3 id="connected-smart-cars" style="margin: 0;">Connected Smart Cars</h3>
-                    <div class="nav-logo-container-svg inline-nav-div">
-                        <a href="./connected_smart_cars.html">
-                            <img src="../headimage/arrow-right-solid.svg" width="12px" alt="Arrow">
-                        </a>
-                    </div>
-                </div>
-
-				<p><em>This project aims to develop a multi-level adaptive control architecture, where the proactive level leverages data over a cloud network to cope with unforeseen environmental uncertainties and support high-level decision making, while the reactive level uses machine learning and robust adaptive control to compensate for uncertainties.</em></p>
-			</td>
-		</tr>
-		</tbody>
-	</table>
-	<!--<hr>-->
-	<!--#################################################################################################-->
-	<table  border="0" align="center" cellspacing="5" cellpadding="5">
-		<tbody>
-		<tr>
-			<td style="width:22%; vertical-align:middle">
-				<img src="../pic_projects/proj01_coveru.svg" draggable="false" width="160px">
-			</td>
-			<td style="width:78%; vertical-align:middle; padding-right: 20px;">
-
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <h3 id="cyber-physical-systems-security" style="margin: 0;">Cyber-Physical Systems Security</h3>
-                    <div class="nav-logo-container-svg inline-nav-div">
-                        <a href="./cyber_physical_systems_security.html">
-                            <img src="../headimage/arrow-right-solid.svg" width="12px" alt="Arrow">
-                        </a>
-                    </div>
-                </div>
-
-				<p><em>Recent developments of Cyber-Physical Systems (CPS) and their safety-critical applications, such as power systems, critical infrastructures, transportation networks, and industrial control systems, have led to a renewed interest in CPS security. In this project, we aim to study and develop attack-resilient estimation and detection algorithms for CPS.</em>
-		</tr>
-		</tbody>
-	</table>
-</div>
-
-<!--#################################################################################################-->
-
-
-<div id="open-source" class="tab-content" style="display:none;">
-	<table  border="0" align="center" cellspacing="5" cellpadding="5">
-		<tbody>
-		<tr>
-			<td style="width:22%; vertical-align:middle">
-				<img src="../pic_projects/connectAI.svg" draggable="false" width="160px">
-			</td>
-			<td style="width:78%; vertical-align:middle; padding-right: 20px;">
-
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <h3 id="human-robot-interaction-in-vr" style="margin: 0;">ConnectAI: Peer Learning Platform</h3>
-                    <div class="nav-logo-container-svg inline-nav-div">
-                        <a href="./connect_ai.html">
-                            <img src="../headimage/arrow-right-solid.svg" width="12px" alt="Arrow">
-                        </a>
-                    </div>
-                </div>
-
-				<p><em>This project utilizes heterogeneous graph neural network to map students with similar characteristics. This also notifies the course designers to tailor the courses for each particular student groups. This helps students to learn in a better way.</em></p>
-			</td>
-		</tr>
-		</tbody>
-	</table>
-</div>
-<!--#################################################################################################-->
-
-<div id="lab" class="tab-content" style="display:none;">
-    <h3>Lab</h3>
-    <i><p>Coming Soon...</p></i>
-</div>
-
-<!--#################################################################################################-->
-
-<div id="gallery" class="tab-content" style="display:none;">
-    <h3>SoE Open House 2024</h3>
-    <div class="gallery-grid">
-        <img src="../gallery/kid_with_vr.jpeg" alt="Image 1" onclick="openLightbox(this)">
-        <img src="../gallery/explaining_crazyflie.jpeg" alt="Image 2" onclick="openLightbox(this)">
-        <img src="../gallery/showing_crazyflie_demo.jpeg" alt="Image 3" onclick="openLightbox(this)">
-        <img src="../gallery/explaining_code.jpeg" alt="Image 4" onclick="openLightbox(this)">
-        <img src="../gallery/board_signing.jpg" alt="Image 5" onclick="openLightbox(this)">
-        <img src="../gallery/crazyflie_play.jpg" alt="Image 6" onclick="openLightbox(this)">
-        <img src="../gallery/with_k12.jpg" alt="Image 7" onclick="openLightbox(this)">
-        <img src="../gallery/vr_experience.jpg" alt="Image 8" onclick="openLightbox(this)">
-		<img src="../gallery/kids_onelab_tshirt.jpg" alt="Image 8" onclick="openLightbox(this)">
-    </div>
-</div>
-
-<div id="lightbox" class="lightbox" onclick="closeLightbox()">
-	<img id="lightbox-img" src="">
-</div>
-
-<!--#################################################################################################-->
-
-<br><br><br><br>
-<hr>
-	
-	<footer>
-		<div class="footer-container">
-			<div class="footer-logo">
-				<a href="/"><img src="../headimage/onelab_t.svg" alt="Footer Logo"></a>
-			</div>
-			<div class="footer-social">
-                <a target="_blank" href="../webmasters.html" class="fa fa-wrench"></a>
-                <a href="https://www.linkedin.com/company/opt-est-lab/posts" class="fa fa-linkedin"></a>
-				<a href="https://github.com/Opt-n-Est-Lab" class="fa fa-github"></a>
-				<!-- <a href="https://twitter.com/__WWan" class="fa fa-twitter"></a>
+                <div class="footer-social">
+                    <a target="_blank" href="../webmasters.html" class="fa fa-wrench"></a>
+                    <a href="https://www.linkedin.com/company/opt-est-lab/posts" class="fa fa-linkedin"></a>
+                    <a href="https://github.com/Opt-n-Est-Lab" class="fa fa-github"></a>
+                    <!-- <a href="https://twitter.com/__WWan" class="fa fa-twitter"></a>
 				<a href="https://www.linkedin.com/in/wenbinwan/" class="fa fa-linkedin"></a> -->
-				<a href="https://www.youtube.com/@ONE_lab" class="fa fa-youtube"></a>
-			</div>
-		</div>
-	</footer>
-</div>
+                    <a href="https://www.youtube.com/@ONE_lab" class="fa fa-youtube"></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script>
 
-<script>
+        function showTab(tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => {
+                content.style.display = 'none';
+                content.classList.remove('active');
+            });
 
-    function showTab(tabId) {
-        const contents = document.querySelectorAll('.tab-content');
-        contents.forEach(content => {
-            content.style.display = 'none';
-            content.classList.remove('active');
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(button => button.classList.remove('active'));
+
+            const headings = document.querySelectorAll('.tab-button h2');
+            headings.forEach(heading => heading.classList.remove('active'));
+
+            const selectedTab = document.getElementById(tabId);
+
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+                selectedTab.classList.add('active');
+
+                const activeButton = document.querySelector(`[data-tab='${tabId}']`);
+                if (activeButton) {
+                    activeButton.classList.add('active');
+                    activeButton.querySelector('h2').classList.add('active');
+                }
+            }
+            window.location.hash = tabId;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const hash = window.location.hash.replace('#', '');
+            if (hash && document.getElementById(hash)) {
+                showTab(hash);
+            } else {
+                showTab('research');
+                history.replaceState(null, null, window.location.pathname);
+            }
         });
 
-        const buttons = document.querySelectorAll('.tab-button');
-        buttons.forEach(button => button.classList.remove('active'));
+        function openLightbox(img) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            lightboxImg.src = img.src;
+            lightbox.style.display = 'flex';
 
-        const headings = document.querySelectorAll('.tab-button h2');
-        headings.forEach(heading => heading.classList.remove('active'));
-
-        const selectedTab = document.getElementById(tabId);
-
-        if (selectedTab) {
-            selectedTab.style.display = 'block';
-            selectedTab.classList.add('active');
-
-            const activeButton = document.querySelector(`[data-tab='${tabId}']`);
-            if (activeButton) {
-                activeButton.classList.add('active');
-                activeButton.querySelector('h2').classList.add('active');
-            }
+            document.querySelector('.content-wrapper').classList.add('blur');
         }
-        window.location.hash = tabId;
-    }
 
-    document.addEventListener('DOMContentLoaded', () => {
-        const hash = window.location.hash.replace('#','');
-        if (hash && document.getElementById(hash)) {
-            showTab(hash);
-        } else {
-            showTab('research');
-            history.replaceState(null, null, window.location.pathname);
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.style.display = 'none';
+
+            document.querySelector('.content-wrapper').classList.remove('blur');
         }
-    });
 
-    function openLightbox(img) {
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-        lightboxImg.src = img.src;
-        lightbox.style.display = 'flex';
-
-        document.querySelector('.content-wrapper').classList.add('blur');
-    }
-
-    function closeLightbox() {
-        const lightbox = document.getElementById('lightbox');
-        lightbox.style.display = 'none';
-
-        document.querySelector('.content-wrapper').classList.remove('blur');
-    }
-
-</script>
+    </script>
 </body>
+
 </html>
