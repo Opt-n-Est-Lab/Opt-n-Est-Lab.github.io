@@ -217,3 +217,13 @@ html {
     max-width: 70%;
   }
 }
+
+.gradient-text {
+  background: linear-gradient(90deg, #5b3be4, #0ea5e9); /* match hero gradient */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: bold;
+  font-size: clamp(1rem, 1.2vw + 0.6rem, 1.4rem); /* smaller + responsive */
+  line-height: 1.1;
+}
