@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Basic metadata -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Page title and author -->
+    <title>RCUKF</title>
+    <meta name="author" content="Kumar Anurag" />
+    <meta
+      name="description"
+      content="RCUKF: Data-Driven Modeling Meets Bayesian Estimation"
+    />
+    <meta
+      name="keywords"
+      content="Kumar Anurag, RCUKF"
+    />
+    <link rel="canonical" href="https://kmranrg.com/" />
+
+    <!-- Open Graph (for social previews) -->
+    <meta property="og:title" content="Project Name" />
+    <meta
+      property="og:description"
+      content="RCUKF: Data-Driven Modeling Meets Bayesian Estimation"
+    />
+    <meta
+      property="og:image"
+      content="https://kmranrg.com/assets/images/anurag.jpg"
+    />
+    <meta property="og:url" content="https://kmranrg.com/" />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="RCUKF" />
+    <meta
+      name="twitter:description"
+      content="RCUKF: Data-Driven Modeling Meets Bayesian Estimation"
+    />
+    <meta
+      name="twitter:image"
+      content="https://kmranrg.com/assets/images/anurag.jpg"
+    />
+    <meta name="twitter:creator" content="@kmranrg" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="images/logo.png" />
+
+    <!-- Stylesheets -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/prismjs@1/themes/prism.min.css"
+    />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-core.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/prismjs@1/plugins/autoloader/prism-autoloader.min.js"
+    ></script>
+
+    <script defer src="js/script.js"></script>
+  </head>
+
+  <body>
+    <!-- Navigation bar -->
+    <nav
+      class="navbar is-fixed-top is-white"
+      role="navigation"
+      aria-label="main navigation"
+    >
+      <div class="navbar-brand">
+        <a class="navbar-item has-text-weight-semibold" href="#overview">
+          RCUKF
+        </a>
+        <a
+          role="button"
+          class="navbar-burger"
+          aria-label="menu"
+          aria-expanded="false"
+          data-target="navbarMenu"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+      <div id="navbarMenu" class="navbar-menu">
+        <div class="navbar-end">
+          <a href="#overview" class="navbar-item">Home</a>
+          <a href="#abstract" class="navbar-item">Abstract</a>
+          <!-- <a href="#video" class="navbar-item">Video</a> -->
+          <a href="#architecture" class="navbar-item">Architecture</a>
+          <a href="#results" class="navbar-item">Results</a>
+          <!-- <a href="#poster" class="navbar-item">Poster</a>
+          <a href="#team" class="navbar-item">Team</a> -->
+          <a href="#citation" class="navbar-item">Citation</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero / overview section -->
+    <section
+      id="overview"
+      class="hero is-medium has-background-primary-gradient"
+    >
+      <div class="hero-body">
+        <div class="container has-text-centered">
+          <h1 class="title is-1 has-text-white">RCUKF</h1>
+          <h2 class="subtitle is-4 has-text-white">
+            Data-Driven Modeling Meets Bayesian Estimation
+          </h2>
+          <p class="project-authors">
+            <!-- Authors: include links and equal contribution markers as needed -->
+            <a
+              href="https://kmranrg.com/"
+              target="_blank"
+              class="has-text-white"
+              >Kumar&nbsp;Anurag</a
+            >,
+            <a
+              href="https://www.linkedin.com/in/kasra-azizi-b43430152/"
+              target="_blank"
+              class="has-text-white"
+              >Kasra&nbsp;Azizi</a
+            >,
+            <a
+              href="https://me.unm.edu/about/directory/faculty/francesco-sorrentino.html"
+              target="_blank"
+              class="has-text-white"
+              >Francesco&nbsp;Sorrentino</a
+            >,
+            <a
+              href="https://wenbinwan.com/"
+              target="_blank"
+              class="has-text-white"
+              >Wenbin&nbsp;Wan</a
+            >
+          </p>
+          <p class="project-affiliation has-text-white mt-1">
+            University of New Mexico · IFAC MECC&nbsp;2025
+          </p>
+          <!-- Buttons for paper/code/arXiv links -->
+          <div class="buttons is-centered mt-4">
+            <a
+              class="button is-primary is-light is-rounded"
+              href="https://arxiv.org/pdf/2508.04985"
+              target="_blank"
+            >
+              <span class="icon"><i class="fas fa-file-alt"></i></span>
+              <span>Paper</span>
+            </a>
+            <a
+              class="button is-primary is-light is-rounded"
+              href="https://github.com/Opt-n-Est-Lab/RCUKF"
+              target="_blank"
+            >
+              <span class="icon"><i class="fab fa-github"></i></span>
+              <span>Code</span>
+            </a>
+            <a
+              class="button is-primary is-light is-rounded"
+              href="https://arxiv.org/abs/2508.04985"
+              target="_blank"
+            >
+              <span class="icon"><i class="ai ai-arxiv"></i></span>
+              <span>arXiv</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Abstract section -->
+    <section id="abstract" class="section">
+      <div class="container is-max-desktop">
+        <h2 class="title has-text-centered">Abstract</h2>
+        <div class="content is-medium">
+          <p style="text-align: justify">
+            Accurate modeling is crucial in many engineering and scientific
+            applications, yet obtaining a reliable process model for complex
+            systems is often challenging. To address this challenge, we propose
+            a novel framework, reservoir computing with unscented Kalman
+            filtering (RCUKF), which integrates data-driven modeling via
+            reservoir computing (RC) with Bayesian estimation through the
+            unscented Kalman filter (UKF). The RC component learns the nonlinear
+            system dynamics directly from data, serving as a surrogate process
+            model in the UKF prediction step to generate state estimates in
+            high-dimensional or chaotic regimes where nominal mathematical
+            models may fail. Meanwhile, the UKF measurement update integrates
+            real-time sensor data to correct potential drift in the data-driven
+            model. We demonstrate RCUKF effectiveness on well-known benchmark
+            problems and a real-time vehicle trajectory estimation task in a
+            high-fidelity simulation environment.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Video section -->
+    <!-- <section id="video" class="section">
+    <div class="container">
+      <h2 class="title has-text-centered">Project&nbsp;Video</h2>
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/pjNI9K1D_xo?si=hzu0wIjeshQpEUEa" frameborder="0"
+              allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> -->
+
+    <!-- Model Architecture section -->
+    <section id="architecture" class="section">
+      <div class="container">
+        <h2 class="title has-text-centered">Model Architecture</h2>
+        <div class="columns is-centered">
+          <div class="column is-8">
+            <figure class="image">
+              <img
+                src="images/rcukf.png"
+                alt="RCUKF architecture diagram (Reservoir Computing + Unscented Kalman Filter)"
+                class="architecture-img"
+                loading="lazy"
+              />
+            </figure>
+            <p class="has-text-centered is-size-6 has-text-grey mt-2">
+              RCUKF architecture
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results carousel section -->
+    <section id="results" class="section">
+      <div class="container">
+        <h2 class="title has-text-centered">Results</h2>
+        <div
+          class="carousel carousel-animated carousel-animate-slide custom-carousel"
+          data-autoplay="true"
+        >
+          <div class="carousel-container">
+            <div class="carousel-item has-background is-active">
+              <img
+                class="is-background carousel-img"
+                src="images/lorenz.png"
+                alt="First result"
+              />
+              <p class="has-text-centered is-size-6 has-text-grey mt-2">
+                Standard RC vs RCUKF trajectories for next-state prediction of
+                Lorenz System on 700 data points
+              </p>
+            </div>
+            <div class="carousel-item has-background">
+              <img
+                class="is-background carousel-img"
+                src="images/rossler.png"
+                alt="Second result"
+              />
+              <p class="has-text-centered is-size-6 has-text-grey mt-2">
+                Standard RC vs RCUKF trajectories for next-state prediction of
+                Rössler System on 700 data points
+              </p>
+            </div>
+            <div class="carousel-item has-background">
+              <img
+                class="is-background carousel-img"
+                src="images/mackey.png"
+                alt="Third result"
+              />
+              <p class="has-text-centered is-size-6 has-text-grey mt-2">
+                Standard RC vs RCUKF trajectories for next-state prediction of
+                Mackey–Glass Time Series on 700 data points
+              </p>
+            </div>
+            <div class="carousel-item has-background">
+              <img
+                class="is-background carousel-img"
+                src="images/fg_car_rc_comparison.png"
+                alt="Fourth result"
+              />
+              <p class="has-text-centered is-size-6 has-text-grey mt-2">
+                Real-time Lissajous tracking of a car in the MIT FlightGoggles
+                simulation environment
+              </p>
+            </div>
+          </div>
+          <div class="carousel-navigation is-overlay">
+            <div class="carousel-nav-left is-flex">
+              <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            </div>
+            <div class="carousel-nav-right is-flex">
+              <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Poster / PDF section -->
+    <!-- <section id="poster" class="section">
+      <div class="container">
+        <h2 class="title has-text-centered">Poster</h2>
+        <div class="pdf-wrapper">
+          <iframe src="pdfs/Sample.pdf" class="pdf-frame" frameborder="0">
+            <p>
+              Your browser does not support embedded PDFs. You can download the
+              poster <a href="pdfs/Sample.pdf">here</a>.
+            </p>
+          </iframe>
+        </div>
+      </div>
+    </section> -->
+
+    <!-- Citation section -->
+    <section id="citation" class="section">
+      <div class="container">
+        <h2 class="title has-text-centered">Citation</h2>
+        <div class="content">
+          <pre class="box">
+@misc{anurag2025rcukfdatadrivenmodelingmeets,
+      title={RCUKF: Data-Driven Modeling Meets Bayesian Estimation}, 
+      author={Kumar Anurag and Kasra Azizi and Francesco Sorrentino and Wenbin Wan},
+      year={2025},
+      eprint={2508.04985},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2508.04985}, 
+}
+        </pre
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer has-background-white">
+      <div class="content has-text-centered">
+        <p>
+          <strong>RCUKF</strong> |
+          <a
+            target="_blank"
+            href="https://github.com/kmranrg/academic-project-page-template"
+            >Followed Template</a
+          >
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
