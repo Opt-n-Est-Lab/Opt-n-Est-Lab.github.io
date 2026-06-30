@@ -13,6 +13,6 @@ jobs:
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
           subject: New Commit in ONE lab by ${{ github.actor }}
-          to: your-email@example.com
+          to: kmranrg@unm.edu
           from: GitHub Actions
           body: A new commit was just pushed to the repository by ${{ github.actor }}. You can check the repository for the latest changes.
