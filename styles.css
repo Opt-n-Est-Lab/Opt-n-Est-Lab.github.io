@@ -3076,13 +3076,22 @@ tr:last-child td{
   margin-bottom: 24px;   /* the top padding the border used to sit above */
 }
 
+/* Address and copyright on the left, icons on the right. The copyright comes
+   straight after the address in the markup, so when the footer stacks on a
+   phone it stays with the address and the icons go last. */
 .footer-inner{
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "contact social"
+    "copy    copy";
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+  column-gap: 16px;
 }
+
+.footer-contact{ grid-area: contact; }
+.footer-copy{ grid-area: copy; }
+.footer-inner > .footer-social{ grid-area: social; }
 
 .footer-logo img{
   display: block;
@@ -3331,13 +3340,70 @@ summary:focus-visible,
     padding-left: 17px;
   }
 
-  .footer-inner{
-    justify-content: center;
-    text-align: center;
-  }
 }
 
 @media (max-width: 520px){
+
+  /* Project rows stack on a phone - artwork, title, description, button,
+     all centred - instead of squeezing the text into a column beside the
+     artwork too narrow to read. */
+  .project-card.project-card--row{
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 12px;
+    text-align: center;
+  }
+
+  .project-card.project-card--row .project-thumb{
+    margin: 0 auto;
+  }
+
+  .project-card.project-card--row h3{
+    text-align: center;
+  }
+
+  /* News items stack the same way: picture, date, text, pills - centred. */
+  .news-card{
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 12px;
+    text-align: center;
+  }
+
+  .news-pic{
+    width: 160px;
+    margin: 0 auto;
+  }
+
+  .news-body{
+    padding: 0;
+  }
+
+  .news-body .ref-links{
+    justify-content: center;
+  }
+
+  /* Centred, the date gets a matching rule on its other side. */
+  .news-date{
+    align-self: center;
+  }
+
+  .news-date::after{
+    content: "";
+    width: 18px;
+    height: 1px;
+    background: color-mix(in srgb, var(--muted) 50%, transparent);
+  }
+
+  .footer-inner{
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "contact"
+      "copy"
+      "social";
+  }
+
+  .footer-inner > .footer-social{
+    margin-top: 16px;
+  }
 
 
   .people-grid{

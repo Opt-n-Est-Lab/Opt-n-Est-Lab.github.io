@@ -252,7 +252,7 @@ def footer(depth):
 
     return f"""  <footer class="footer">
     <div class="container footer-inner">
-      <div>
+      <div class="footer-contact">
         <div class="footer-logo">
           <a href="{site_url('./', depth)}"><img src="{p}pic/site/onelab_t.svg" alt="{SITE['name']}" width="108" height="19" /></a>
         </div>
@@ -264,13 +264,11 @@ def footer(depth):
         </p>
       </div>
 
+      <p class="footer-meta footer-copy">&copy; {SITE['name']}. All rights reserved.</p>
+
       <div class="footer-social">
         {social}
       </div>
-    </div>
-
-    <div class="container">
-      <p class="footer-meta">&copy; {SITE['name']}. All rights reserved.</p>
     </div>
   </footer>"""
 
