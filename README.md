@@ -4,12 +4,21 @@ The source of [one.unm.edu](https://one.unm.edu), the website of the
 Optimization and Estimation (ONE) Lab at the University of New Mexico.
 
 **Anyone with a GitHub account can suggest a change** — a news item, a new
-paper, an updated bio. You propose it here as a *pull request*; the maintainer
-reviews it and publishes it. Only the maintainer changes the site directly.
+paper, an updated bio, a fix for a typo. Report a problem as an *issue*, or
+propose the change yourself as a *pull request*; the maintainer reviews it and
+publishes it. Only the maintainer changes the site directly.
+
+## Report a problem
+
+For a typo, a broken link, a picture that doesn't show, or anything else that
+looks wrong, [open an issue](https://github.com/Opt-n-Est-Lab/Opt-n-Est-Lab.github.io/issues/new).
+Say which page, what's wrong and, if you know it, what it should say. You don't
+need git; the maintainer makes the fix.
 
 ## Propose a change
 
-You need a GitHub account, git and Python 3.
+To make a change yourself, such as adding a news item, a paper or a bio, you
+need a GitHub account, git and Python 3.
 
 ### 1. Set up (once)
 
