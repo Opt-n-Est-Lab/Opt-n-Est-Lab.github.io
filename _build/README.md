@@ -77,6 +77,10 @@ alum into a one-line row.
 **Reorder the research projects.** Change `order:` in each `projects/*.md`. The
 home page and the Projects page both follow it.
 
+**Retire a project.** Delete its file from `projects/`. The next build removes
+its page, as it does any page it no longer makes, unless that page was edited
+by hand, in which case the build leaves it and names it.
+
 **Edit a page's text.** `pages/home.md`, `pages/projects.md` (the header on all
 Projects tabs), `pages/software.md`, `pages/lab_spaces.md`, `pages/faq.md`.
 
@@ -90,12 +94,12 @@ styles.css              The entire design system (see below)
 people/index.html       Member cards in a grid, category shown as a pill
 projects/
   index.html            Research projects
-  software.html
-  lab_spaces.html
-  gallery.html          Photo grid with lightbox
+  software/index.html
+  lab_spaces/index.html
+  gallery/index.html    Photo grid with lightbox
   research/
-    <project>.html      One page per research project (the six on index.html)
-  <project>.html        Software project pages, beside software.html
+    <project>/index.html  One page per research project (the six on index.html)
+  <project>/index.html  Software project pages, beside software/
 publications/index.html Publications and theses
 news/
   index.html            All news cards (items have no pages of their own)

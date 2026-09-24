@@ -23,6 +23,9 @@ A build REFUSES to overwrite a page that was edited by hand, and saves a copy
 of it under _build/_backup/ first. It tells the two cases apart with
 manifest.json, which records the digest of what it last wrote. Use --check if
 you are unsure whether anything has drifted.
+
+A page the build made before but no longer makes - one that moved, or a
+project whose .md was deleted - is removed, unless it was edited by hand.
 """
 
 import hashlib
@@ -439,6 +442,21 @@ def flush():
         elif current != text:
             stale.append(relpath)
 
+    # Pages the build wrote last time but no longer makes: a moved page, or a
+    # project whose .md was deleted. Unchanged ones are removed; one edited by
+    # hand is left in place and named, and stays in the manifest so it keeps
+    # being named until someone deletes it.
+    retired, retired_kept = [], []
+    for relpath in sorted(set(recorded) - set(PAGES)):
+        try:
+            current = open(os.path.join(OUT, relpath), encoding="utf-8").read()
+        except FileNotFoundError:
+            continue
+        if _digest(current) == recorded[relpath]:
+            retired.append(relpath)
+        else:
+            retired_kept.append(relpath)
+
     if CHECK:
         if hand_edited:
             print("Edited by hand since the last build "
@@ -450,7 +468,15 @@ def flush():
                   "Out of date; a build will rewrite them:\n")
             for relpath in stale:
                 print("  " + relpath)
-        if not hand_edited and not stale:
+        if retired:
+            print("\nNo longer built; a build will remove them:\n")
+            for relpath in retired:
+                print("  " + relpath)
+        if retired_kept:
+            print("\nNo longer built, but edited by hand; left in place:\n")
+            for relpath in retired_kept:
+                print("  " + relpath)
+        if not (hand_edited or stale or retired or retired_kept):
             print("Everything is up to date.")
         return 1 if hand_edited else 0
 
@@ -474,10 +500,29 @@ def flush():
         with open(path, "w", encoding="utf-8") as f:
             f.write(text)
 
+    for relpath in retired:
+        path = os.path.join(OUT, relpath)
+        os.remove(path)
+        # Drop folders the removal left empty, but never the site root.
+        folder = os.path.dirname(path)
+        while folder != OUT and not os.listdir(folder):
+            os.rmdir(folder)
+            folder = os.path.dirname(folder)
+
+    manifest = {r: _digest(t) for r, t in PAGES.items()}
+    manifest.update({r: recorded[r] for r in retired_kept})
     with open(MANIFEST, "w", encoding="utf-8") as f:
-        json.dump({r: _digest(t) for r, t in sorted(PAGES.items())},
-                  f, indent=1, sort_keys=True)
+        json.dump(manifest, f, indent=1, sort_keys=True)
         f.write("\n")
+
+    if retired:
+        print("Removed " + str(len(retired)) + " page(s) no longer built:")
+        for relpath in retired:
+            print("  " + relpath)
+    if retired_kept:
+        print("Not removed - no longer built, but edited by hand:")
+        for relpath in retired_kept:
+            print("  " + relpath)
 
     if saved:
         print("Overwrote " + str(len(hand_edited)) + " hand-edited page(s); "
@@ -701,17 +746,18 @@ def pub_item(title, url, authors, venue, refs, depth):
       </li>"""
 
 
-def seg_nav(active):
+def seg_nav(active, depth):
+    # Written from the site root, so the tabs work from any Projects page.
     tabs = [
-        ("research", "./", "Research Projects"),
-        ("open-source", "software.html", "Software"),
-        ("lab", "lab_spaces.html", "Lab Spaces"),
-        ("gallery", "gallery.html", "Gallery"),
+        ("research", "projects/", "Research Projects"),
+        ("open-source", "projects/software/", "Software"),
+        ("lab", "projects/lab_spaces/", "Lab Spaces"),
+        ("gallery", "projects/gallery/", "Gallery"),
     ]
     rows = []
     for key, href, label in tabs:
         cur = ' aria-current="page"' if key == active else ""
-        rows.append(f'        <a href="{href}"{cur}>{label}</a>')
+        rows.append(f'        <a href="{site_url(href, depth)}"{cur}>{label}</a>')
     items = "\n".join(rows)
     return f"""      <nav class="seg-nav" aria-label="Projects sections">
 {items}
@@ -765,7 +811,7 @@ def build_home():
     )
     # Compact tiles on the home page: no description, just image + title.
     projects = "\n".join(
-        project_card(d["image"], d["title"], f"projects/research/{slug}.html", None, 0)
+        project_card(d["image"], d["title"], f"projects/research/{slug}/", None, 0)
         for slug, d, _ in PROJECTS)
 
     # The director's card in the intro block draws on the same PEOPLE entry as
@@ -922,7 +968,10 @@ def build_people():
 # beneath it is what says which tab you are on.
 # The header block on every Projects tab, written once in docs/pages/projects.md.
 _ph, _ph_body = read_md(os.path.join(DOCS, "pages", "projects.md"))
-PROJECTS_HERO = f"""      <section class="hero">
+
+
+def projects_hero(depth):
+    return f"""      <section class="hero">
         <div class="hero-grid">
           <div>
             <h1>{_ph["title"]}</h1>
@@ -932,29 +981,29 @@ PROJECTS_HERO = f"""      <section class="hero">
           <div class="card">
             <h3>{_ph["card"]["title"]}</h3>
             <p>{_ph["card"]["text"]}</p>
-            <a class="btn" href="{site_url(_ph["card"]["link"], 1)}">{_ph["card"]["button"]} <span aria-hidden="true">&rarr;</span></a>
+            <a class="btn" href="{site_url(_ph["card"]["link"], depth)}">{_ph["card"]["button"]} <span aria-hidden="true">&rarr;</span></a>
           </div>
         </div>
       </section>"""
 
 
-def projects_shell(active, title, intro, inner, extra_js="", badges=""):
+def projects_shell(active, title, intro, inner, extra_js="", badges="", depth=1):
     # The card sends visitors to the FAQ, which covers openings and how to apply.
-    body = f"""{PROJECTS_HERO}
+    body = f"""{projects_hero(depth)}
 
       <section class="section">
-{seg_nav(active)}
+{seg_nav(active, depth)}
 
 {inner}
       </section>"""
-    return page(1, "projects", title,
+    return page(depth, "projects", title,
                 "Research and open-source projects of the ONE Lab at the University of New Mexico.",
                 body, extra_js)
 
 
 def build_projects():
     cards = "\n".join(
-        project_card(d["image"], d["title"], f"research/{slug}.html", d["summary"], 1, row=True)
+        project_card(d["image"], d["title"], f"research/{slug}/", d["summary"], 1, row=True)
         for slug, d, _ in PROJECTS)
     inner = f"""      <div class="project-grid project-grid--list">
 {cards}
@@ -969,39 +1018,41 @@ def build_projects():
                '<span class="badge">Estimation</span><span class="badge">Safe control</span></div>'))
 
     # Software and Lab Spaces are plain prose pages, written in docs/pages/.
+    # Every Projects tab is a folder, so its address ends in / (depth 2).
     for slug, key in (("software", "open-source"), ("lab_spaces", "lab")):
         data, body = read_md(os.path.join(DOCS, "pages", slug + ".md"))
         inner = f"""      <div class="prose">
 {_markdown.markdown(body)}
       </div>"""
-        write(f"projects/{slug}.html", projects_shell(key, data["title"], "", inner))
+        write(f"projects/{slug}/index.html",
+              projects_shell(key, data["title"], "", inner, depth=2))
 
     imgs = "\n".join(
-        f'        <img src="../pic/gallery/{f}" alt="{html.escape(alt)}" loading="lazy" />'
+        f'        <img src="{site_url("pic/gallery/" + f, 2)}" alt="{html.escape(alt)}" loading="lazy" />'
         for f, alt in GALLERY)
     inner = f"""      <div class="gallery-grid">
 {imgs}
       </div>
 
 {LIGHTBOX}"""
-    write("projects/gallery.html", projects_shell(
+    write("projects/gallery/index.html", projects_shell(
         "gallery", "Gallery",
         "Conferences, demos, outreach, and the occasional round of Topgolf.",
-        inner, extra_js=LIGHTBOX_JS))
+        inner, extra_js=LIGHTBOX_JS, depth=2))
 
-    # Project detail pages. Research projects live one level down, in
-    # projects/research/; software projects sit beside software.html.
+    # Project detail pages, one folder each so the address ends in /:
+    # research projects in projects/research/<slug>/, software projects in
+    # projects/<slug>/. `back:` in the project's .md says which it is.
     for slug, data, prose in load_docs("projects"):
         title, img, back = data["title"], data["image"], data["back"]
-        software = back == "software.html"
+        software = back.startswith("software")
         eyebrow = "Software" if software else "Research Project"
         back_label = "All software" if software else "All research projects"
-        depth = 1 if software else 2
+        depth = 2 if software else 3
         up = "../" * depth
         body_html = prose + doc_publications(data.get("publications"), depth) \
                           + doc_refs(data.get("refs"), depth)
-        if not software:
-            back = "../" + back[2:] if back.startswith("./") else "../" + back
+        back = site_url("projects/software/" if software else "projects/", depth)
         back_link = (f'<p><a class="btn-ghost back-link" href="{back}">'
                      f'<span aria-hidden="true">&larr;</span> {back_label}</a></p>')
         # Research pages open with the back link, above the title; software
@@ -1019,8 +1070,8 @@ def build_projects():
 {body_html}{foot}
         </div>
       </section>"""
-        folder = "projects/" if software else "projects/research/"
-        write(f"{folder}{slug}.html", page(
+        folder = f"projects/{slug}/" if software else f"projects/research/{slug}/"
+        write(folder + "index.html", page(
             depth, "projects", title,
             f"{title} — a project of the ONE Lab at the University of New Mexico.", body))
 

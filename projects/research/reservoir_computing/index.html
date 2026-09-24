@@ -10,15 +10,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
-    <title>Distributionally Robust Optimization &middot; ONE Lab</title>
-    <meta name="description" content="Distributionally Robust Optimization — a project of the ONE Lab at the University of New Mexico." />
+    <title>Reservoir Computing &middot; ONE Lab</title>
+    <meta name="description" content="Reservoir Computing — a project of the ONE Lab at the University of New Mexico." />
 
-    <meta property="og:title" content="Distributionally Robust Optimization · ONE Lab" />
-    <meta property="og:description" content="Distributionally Robust Optimization — a project of the ONE Lab at the University of New Mexico." />
+    <meta property="og:title" content="Reservoir Computing · ONE Lab" />
+    <meta property="og:description" content="Reservoir Computing — a project of the ONE Lab at the University of New Mexico." />
     <meta property="og:type" content="website" />
 
-    <link rel="icon" href="../../pic/site/icon.png" />
-    <link rel="stylesheet" href="../../styles.css" />
+    <link rel="icon" href="../../../pic/site/icon.png" />
+    <link rel="stylesheet" href="../../../styles.css" />
 
     <script>
       (function () {
@@ -40,25 +40,25 @@
   <body>
   <header class="header">
     <div class="container navbar">
-      <a class="brand" href="../../">
-        <img class="brandLogo" src="../../pic/site/onelab_t.svg" alt="ONE Lab" width="132" height="22" />
+      <a class="brand" href="../../../">
+        <img class="brandLogo" src="../../../pic/site/onelab_t.svg" alt="ONE Lab" width="132" height="22" />
         <small>Optimization and Estimation Laboratory<br />University of New Mexico</small>
       </a>
 
       <nav class="nav" aria-label="Primary navigation">
-        <a href="../../" data-label="Home" data-short="Home">
+        <a href="../../../" data-label="Home" data-short="Home">
           <span class="navLabel">Home</span>
         </a>
-        <a href="../../people/" data-label="People" data-short="People">
+        <a href="../../../people/" data-label="People" data-short="People">
           <span class="navLabel">People</span>
         </a>
-        <a href="../../projects/" aria-current="page" class="active" data-label="Projects" data-short="Projects">
+        <a href="../../../projects/" aria-current="page" class="active" data-label="Projects" data-short="Projects">
           <span class="navLabel">Projects</span>
         </a>
-        <a href="../../publications/" data-label="Publications" data-short="Pubs">
+        <a href="../../../publications/" data-label="Publications" data-short="Pubs">
           <span class="navLabel"><span class="navLabelDesktop">Publications</span><span class="navLabelMobile">Pubs</span></span>
         </a>
-        <a href="../../faq/" data-label="FAQ" data-short="FAQ">
+        <a href="../../../faq/" data-label="FAQ" data-short="FAQ">
           <span class="navLabel">FAQ</span>
         </a>
       </nav>
@@ -82,14 +82,14 @@
       <div class="banner-wrap">
       <img
         class="banner banner--light"
-        src="../../pic/site/onelab_banner.jpg"
+        src="../../../pic/site/onelab_banner.jpg"
         alt="Optimization and Estimation Lab"
         width="1640"
         height="167"
       />
       <img
         class="banner banner--dark"
-        src="../../pic/site/onelab_banner_dark.jpg"
+        src="../../../pic/site/onelab_banner_dark.jpg"
         alt="Optimization and Estimation Lab"
         width="1640"
         height="167"
@@ -98,21 +98,32 @@
 
       <section class="section">
         <div class="prose">
-          <p><a class="btn-ghost back-link" href="../"><span aria-hidden="true">&larr;</span> All research projects</a></p>
+          <p><a class="btn-ghost back-link" href="../../../projects/"><span aria-hidden="true">&larr;</span> All research projects</a></p>
           <div class="detail-head">
             <p class="detail-eyebrow">Research Project</p>
-            <h1>Distributionally Robust Optimization</h1>
-            <img class="art-illus" src="../../pic/project/DRO.svg" alt="" />
+            <h1>Reservoir Computing</h1>
+            <img class="art-illus" src="../../../pic/project/RC.svg" alt="" />
           </div>
 
-<p>This project addresses decision-making under uncertainty where the probability distribution of the uncertain parameter is unknown. Our research develops algorithms that ensure reliability and robustness against distribution shifts in real-world applications.</p>
+<p>This project leverages the reservoir computing (RC) architecture to predict time-varying uncertainties in complex dynamical systems. By using the computational efficiency of the RC architecture, we aim to efficiently predict unknown behaviors in dynamic environments.</p>
 <h3>Publications</h3>
 <ul class="pub-list">
       <li class="pub-item">
-        <p class="pub-title">Towards Resilient Tracking in Autonomous Vehicles: A Distributionally Robust Input and State Estimation Approach</p>
-        <p class="pub-authors">Kasra Azizi, Kumar Anurag, and Wenbin Wan</p>
-        <p class="pub-venue">IFAC Intelligent Autonomous Vehicles (IAV), 2025</p>
-        <div class="ref-links"><a class="ref-link" href="https://doi.org/10.1016/j.ifacol.2025.07.006" target="_blank" rel="noopener noreferrer">DOI</a><a class="ref-link" href="../../file/IFAC_IAV_2025_Phoenix.pdf">Slides</a></div>
+        <p class="pub-title">LoRA-RC: Reservoir Computing with Low-Rank Adaptation</p>
+        <p class="pub-authors">Wenbin Wan</p>
+        <p class="pub-venue">IEEE Control Systems Letters, 2026</p>
+        <div class="ref-links"><a class="ref-link" href="https://ieeexplore.ieee.org/document/11692879" target="_blank" rel="noopener noreferrer">Early access</a><a class="ref-link" href="https://doi.org/10.1109/LCSYS.2026.3733963" target="_blank" rel="noopener noreferrer">DOI</a></div>
+      </li>
+      <li class="pub-item">
+        <p class="pub-title">Lightweight Physics-Informed Reservoir Computing for Battery Health Prediction</p>
+        <p class="pub-authors">Kumar Anurag, Yanwen Xu, and Wenbin Wan</p>
+        <p class="pub-venue">IFAC Modeling, Estimation and Control Conference (MECC), 2026</p>
+      </li>
+      <li class="pub-item">
+        <p class="pub-title">RCUKF: Data-Driven Modeling Meets Bayesian Estimation</p>
+        <p class="pub-authors">Kumar Anurag, Kasra Azizi, Francesco Sorrentino, and Wenbin Wan</p>
+        <p class="pub-venue">IFAC Modeling, Estimation and Control Conference (MECC), 2025</p>
+        <div class="ref-links"><a class="ref-link" href="https://doi.org/10.1016/j.ifacol.2025.12.251" target="_blank" rel="noopener noreferrer">DOI</a><a class="ref-link" href="../../../rcukf/">Project page</a></div>
       </li>
 </ul>
         </div>
@@ -123,7 +134,7 @@
     <div class="container footer-inner">
       <div>
         <div class="footer-logo">
-          <a href="../../"><img src="../../pic/site/onelab_t.svg" alt="ONE Lab" width="108" height="19" /></a>
+          <a href="../../../"><img src="../../../pic/site/onelab_t.svg" alt="ONE Lab" width="108" height="19" /></a>
         </div>
         <p class="footer-meta">
           Optimization and Estimation (ONE) Lab<br />
