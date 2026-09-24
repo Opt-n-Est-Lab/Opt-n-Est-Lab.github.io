@@ -1,7 +1,7 @@
 ---
 title: "Safe Planning under Large Uncertainties"
 image: pic/project/proj03_coveru.svg
-back: index.html
+back: ./
 
 # Position on the home page and the Projects page (1 = first).
 order: 5

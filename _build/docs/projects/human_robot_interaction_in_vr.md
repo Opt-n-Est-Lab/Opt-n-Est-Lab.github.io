@@ -1,7 +1,7 @@
 ---
 title: "Human-Robot Interaction in VR"
 image: pic/project/proj04_coveru.svg
-back: index.html
+back: ./
 
 # Position on the home page and the Projects page (1 = first).
 order: 3

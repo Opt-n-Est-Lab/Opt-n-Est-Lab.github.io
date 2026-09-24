@@ -23,10 +23,8 @@
     <script>
       (function () {
         var saved = null;
-        try { saved = localStorage.getItem("theme"); } catch (e) {}
-        var prefersDark = window.matchMedia
-          && window.matchMedia("(prefers-color-scheme: dark)").matches;
-        document.documentElement.dataset.theme = saved || (prefersDark ? "dark" : "light");
+        try { saved = sessionStorage.getItem("theme"); } catch (e) {}
+        document.documentElement.dataset.theme = saved === "dark" ? "dark" : "light";
       })();
     </script>
 
@@ -42,25 +40,25 @@
   <body>
   <header class="header">
     <div class="container navbar">
-      <a class="brand" href="../../index.html">
+      <a class="brand" href="../../">
         <img class="brandLogo" src="../../pic/site/onelab_t.svg" alt="ONE Lab" width="132" height="22" />
         <small>Optimization and Estimation Laboratory<br />University of New Mexico</small>
       </a>
 
       <nav class="nav" aria-label="Primary navigation">
-        <a href="../../index.html" data-label="Home" data-short="Home">
+        <a href="../../" data-label="Home" data-short="Home">
           <span class="navLabel">Home</span>
         </a>
-        <a href="../../people/index.html" data-label="People" data-short="People">
+        <a href="../../people/" data-label="People" data-short="People">
           <span class="navLabel">People</span>
         </a>
-        <a href="../../projects/index.html" aria-current="page" class="active" data-label="Projects" data-short="Projects">
+        <a href="../../projects/" aria-current="page" class="active" data-label="Projects" data-short="Projects">
           <span class="navLabel">Projects</span>
         </a>
-        <a href="../../publications/index.html" data-label="Publications" data-short="Pubs">
+        <a href="../../publications/" data-label="Publications" data-short="Pubs">
           <span class="navLabel"><span class="navLabelDesktop">Publications</span><span class="navLabelMobile">Pubs</span></span>
         </a>
-        <a href="../../faq/index.html" data-label="FAQ" data-short="FAQ">
+        <a href="../../faq/" data-label="FAQ" data-short="FAQ">
           <span class="navLabel">FAQ</span>
         </a>
       </nav>
@@ -100,7 +98,7 @@
 
       <section class="section">
         <div class="prose">
-          <p><a class="btn-ghost back-link" href="../index.html"><span aria-hidden="true">&larr;</span> All research projects</a></p>
+          <p><a class="btn-ghost back-link" href="../"><span aria-hidden="true">&larr;</span> All research projects</a></p>
           <div class="detail-head">
             <p class="detail-eyebrow">Research Project</p>
             <h1>Reservoir Computing</h1>
@@ -125,7 +123,7 @@
         <p class="pub-title">RCUKF: Data-Driven Modeling Meets Bayesian Estimation</p>
         <p class="pub-authors">Kumar Anurag, Kasra Azizi, Francesco Sorrentino, and Wenbin Wan</p>
         <p class="pub-venue">IFAC Modeling, Estimation and Control Conference (MECC), 2025</p>
-        <div class="ref-links"><a class="ref-link" href="https://doi.org/10.1016/j.ifacol.2025.12.251" target="_blank" rel="noopener noreferrer">DOI</a><a class="ref-link" href="../../rcukf/index.html">Project page</a></div>
+        <div class="ref-links"><a class="ref-link" href="https://doi.org/10.1016/j.ifacol.2025.12.251" target="_blank" rel="noopener noreferrer">DOI</a><a class="ref-link" href="../../rcukf/">Project page</a></div>
       </li>
 </ul>
         </div>
@@ -136,7 +134,7 @@
     <div class="container footer-inner">
       <div>
         <div class="footer-logo">
-          <a href="../../index.html"><img src="../../pic/site/onelab_t.svg" alt="ONE Lab" width="108" height="19" /></a>
+          <a href="../../"><img src="../../pic/site/onelab_t.svg" alt="ONE Lab" width="108" height="19" /></a>
         </div>
         <p class="footer-meta">
           Optimization and Estimation (ONE) Lab<br />
@@ -164,7 +162,7 @@
       var btn = document.getElementById("themeToggle");
 
       function store(theme) {
-        try { localStorage.setItem("theme", theme); } catch (e) {}
+        try { sessionStorage.setItem("theme", theme); } catch (e) {}
       }
 
       function apply(theme) {

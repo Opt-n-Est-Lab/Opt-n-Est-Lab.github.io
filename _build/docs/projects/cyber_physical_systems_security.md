@@ -1,7 +1,7 @@
 ---
 title: "Cyber-Physical Systems Security"
 image: pic/project/proj01_coveru.svg
-back: index.html
+back: ./
 
 # Position on the home page and the Projects page (1 = first).
 order: 6

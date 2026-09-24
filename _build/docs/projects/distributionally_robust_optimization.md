@@ -1,7 +1,7 @@
 ---
 title: "Distributionally Robust Optimization"
 image: pic/project/DRO.svg
-back: index.html
+back: ./
 
 # Position on the home page and the Projects page (1 = first).
 order: 2

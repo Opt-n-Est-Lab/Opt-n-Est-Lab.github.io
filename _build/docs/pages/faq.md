@@ -7,7 +7,7 @@
 # Answers are Markdown; HTML is fine where Markdown has no equivalent.
 #
 # Every question and heading gets an id from its text, so a link such as
-# faq/index.html#dear-prospective-grad-student opens that question.
+# faq/#dear-prospective-grad-student opens that question.
 
 # The block with the Google Form button, placed after the section named here.
 opportunities:
@@ -54,7 +54,7 @@ Best regards, <br> <a href="https://wenbinwan.com/" target="_blank" rel="noopene
 
 ### How can I participate in research at the ONE Lab?
 
-Browse the <a class="pill-link" href="../projects/index.html">Projects</a> page and join our group meetings. You will have the chance to explore the topics the lab focuses on and meet the students involved in the lab.
+Browse the <a class="pill-link" href="../projects/">Projects</a> page and join our group meetings. You will have the chance to explore the topics the lab focuses on and meet the students involved in the lab.
 
 ### I need help with my paper or thesis &mdash; can you help?
 

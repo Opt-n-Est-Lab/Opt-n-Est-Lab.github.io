@@ -18,7 +18,7 @@ card:
   title: Join us
   text: We welcome applicants prepared in controls, optimization, applied mathematics, and/or machine learning.
   button: Current Openings
-  link: faq/index.html
+  link: faq/
 
 # The empty "You can be here" card, placed at the end of one group.
 join_card:
@@ -26,7 +26,7 @@ join_card:
   name: "You can be here"
   dept: "Join Us"
   label: "Read the FAQ"
-  href: faq/index.html
+  href: faq/
 
 groups:
 

@@ -22,4 +22,4 @@ We specialize in resilient estimation for cyber-physical systems (CPS) using adv
 
 Our research is motivated by real-world applications, including autonomous vehicles, robotics, and intelligent systems. We aim to develop algorithms that are both theoretically sound and practically implementable in complex, uncertain environments.
 
-We welcome your interest in our lab as well as collaboration requests. For more information, please see our <a class="pill-link" href="faq/index.html">FAQ</a>.
+We welcome your interest in our lab as well as collaboration requests. For more information, please see our <a class="pill-link" href="faq/">FAQ</a>.

@@ -126,10 +126,14 @@ PROJECTS = sorted(load_docs("projects"), key=lambda d: d[1]["order"])
 
 def site_url(url, depth):
     """Links in a doc are written from the site root. Pages sit at different
-    depths, so the ../ is added here rather than typed into the Markdown."""
+    depths, so the ../ is added here rather than typed into the Markdown.
+    Folders are linked as `people/`, not `people/index.html`, so the address
+    bar stays clean; `./` is the home page."""
     if url.startswith(("http://", "https://", "mailto:", "#")):
         return url
-    return "../" * depth + url
+    if url.startswith("./"):
+        url = url[2:]
+    return "../" * depth + url or "./"
 
 
 def doc_refs(refs, depth):
@@ -203,14 +207,14 @@ def header(depth, active):
             if label != short else label
         )
         items.append(
-            f'        <a href="{p}{href}"{cur} data-label="{label}" data-short="{short}">\n'
+            f'        <a href="{site_url(href, depth)}"{cur} data-label="{label}" data-short="{short}">\n'
             f'          <span class="navLabel">{lbl}</span>\n'
             f'        </a>'
         )
     nav = "\n".join(items)
     return f"""  <header class="header">
     <div class="container navbar">
-      <a class="brand" href="{p}index.html">
+      <a class="brand" href="{site_url('./', depth)}">
         <img class="brandLogo" src="{p}pic/site/onelab_t.svg" alt="{SITE['name']}" width="132" height="22" />
         <small>{SITE['tagline']}</small>
       </a>
@@ -247,7 +251,7 @@ def footer(depth):
     <div class="container footer-inner">
       <div>
         <div class="footer-logo">
-          <a href="{p}index.html"><img src="{p}pic/site/onelab_t.svg" alt="{SITE['name']}" width="108" height="19" /></a>
+          <a href="{site_url('./', depth)}"><img src="{p}pic/site/onelab_t.svg" alt="{SITE['name']}" width="108" height="19" /></a>
         </div>
         <p class="footer-meta">
           Optimization and Estimation (ONE) Lab<br />
@@ -274,7 +278,7 @@ THEME_SCRIPT = """  <script>
       var btn = document.getElementById("themeToggle");
 
       function store(theme) {
-        try { localStorage.setItem("theme", theme); } catch (e) {}
+        try { sessionStorage.setItem("theme", theme); } catch (e) {}
       }
 
       function apply(theme) {
@@ -297,14 +301,14 @@ THEME_SCRIPT = """  <script>
     })();
   </script>"""
 
-# Runs before paint so the correct theme is on <html> with no flash of light.
+# Runs before paint so the theme is on <html> before anything is drawn. Every
+# visit starts light, whatever the visitor's system setting; a switch to dark
+# is kept (in sessionStorage) only for the rest of that visit.
 THEME_INIT = """    <script>
       (function () {
         var saved = null;
-        try { saved = localStorage.getItem("theme"); } catch (e) {}
-        var prefersDark = window.matchMedia
-          && window.matchMedia("(prefers-color-scheme: dark)").matches;
-        document.documentElement.dataset.theme = saved || (prefersDark ? "dark" : "light");
+        try { saved = sessionStorage.getItem("theme"); } catch (e) {}
+        document.documentElement.dataset.theme = saved === "dark" ? "dark" : "light";
       })();
     </script>"""
 
@@ -699,7 +703,7 @@ def pub_item(title, url, authors, venue, refs, depth):
 
 def seg_nav(active):
     tabs = [
-        ("research", "index.html", "Research Projects"),
+        ("research", "./", "Research Projects"),
         ("open-source", "software.html", "Software"),
         ("lab", "lab_spaces.html", "Lab Spaces"),
         ("gallery", "gallery.html", "Gallery"),
@@ -797,7 +801,7 @@ def build_home():
         <p class="section-label">{R["label"]}</p>
         <div class="section-head">
           <h2>{R["heading"]}</h2>
-          <a class="btn-ghost" href="projects/index.html">{R["button"]} <span aria-hidden="true">&rarr;</span></a>
+          <a class="btn-ghost" href="projects/">{R["button"]} <span aria-hidden="true">&rarr;</span></a>
         </div>
         <p class="section-intro">{R["intro"]}</p>
 
@@ -810,7 +814,7 @@ def build_home():
         <p class="section-label">{N["label"]}</p>
         <div class="section-head">
           <h2>{N["heading"]}</h2>
-          <a class="btn-ghost" href="news/index.html">{N["button"]} <span aria-hidden="true">&rarr;</span></a>
+          <a class="btn-ghost" href="news/">{N["button"]} <span aria-hidden="true">&rarr;</span></a>
         </div>
         <p class="section-intro">{N["intro"]}</p>
 
@@ -997,7 +1001,7 @@ def build_projects():
         body_html = prose + doc_publications(data.get("publications"), depth) \
                           + doc_refs(data.get("refs"), depth)
         if not software:
-            back = "../" + back
+            back = "../" + back[2:] if back.startswith("./") else "../" + back
         back_link = (f'<p><a class="btn-ghost back-link" href="{back}">'
                      f'<span aria-hidden="true">&larr;</span> {back_label}</a></p>')
         # Research pages open with the back link, above the title; software

@@ -41,6 +41,7 @@ python3 _build/build.py
 ```
 
 To preview, run `python3 -m http.server 8000` and open http://localhost:8000.
+(Double-clicking an `.html` file won't work: its links point at folders.)
 
 If the build stops and names a page, that page's `.html` was edited directly;
 see [`_build/README.md`](_build/README.md).

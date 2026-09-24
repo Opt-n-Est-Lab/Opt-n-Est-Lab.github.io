@@ -1,7 +1,7 @@
 ---
 title: "Connected Smart Cars"
 image: pic/project/proj02_coveru.svg
-back: index.html
+back: ./
 
 # Position on the home page and the Projects page (1 = first).
 order: 4

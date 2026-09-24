@@ -19,11 +19,11 @@ ga_id: G-SW68LZVXCV       # Google Analytics
 
 # The nav bar, left to right. `short` is the label on narrow screens.
 nav:
-  - {key: home,         href: index.html,              label: Home,         short: Home}
-  - {key: people,       href: people/index.html,       label: People,       short: People}
-  - {key: projects,     href: projects/index.html,     label: Projects,     short: Projects}
-  - {key: publications, href: publications/index.html, label: Publications, short: Pubs}
-  - {key: faq,          href: faq/index.html,          label: FAQ,          short: FAQ}
+  - {key: home,         href: ./,                      label: Home,         short: Home}
+  - {key: people,       href: people/,                 label: People,       short: People}
+  - {key: projects,     href: projects/,               label: Projects,     short: Projects}
+  - {key: publications, href: publications/,           label: Publications, short: Pubs}
+  - {key: faq,          href: faq/,                    label: FAQ,          short: FAQ}
 
 # Footer icons, in order. `icon` must be one of the names in build.py's ICON.
 social:

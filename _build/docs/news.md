@@ -18,7 +18,7 @@ items:
 - date: Sep. 2026
   image: pic/news/mecc2026.jpg
   text: >-
-    Congratulations to two members from our lab *Abel Molinar* and *Kumar Anurag* on receiving the MECC 2026 DSCD & AACC Student Travel Awards!
+    Congratulations to two members from our lab, *Abel Molinar* and *Kumar Anurag*, on receiving the MECC 2026 DSCD & AACC Student Travel Awards!
 
 - date: Sep. 2026
   image: pic/news/lorarc_sq.png
@@ -48,7 +48,7 @@ items:
     Congratulations to *Kumar Anurag* on receiving the Student Grant Award from the IFAC
     Modeling, Estimation and Control Conference (MECC 2025)!
   links:
-    - {label: Project page, url: "../rcukf/index.html"}
+    - {label: Project page, url: "../rcukf/"}
     - {label: SoE News, url: "https://engineering.unm.edu/news/2025/08/ph.d-student-receives-grant-to-present-at-mecc-2025.html"}
 
 - date: Jul. 2025

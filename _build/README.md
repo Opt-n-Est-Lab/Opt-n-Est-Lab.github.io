@@ -122,9 +122,12 @@ JavaScript disabled, needs no server-side includes, and GitHub Pages serves it
 untouched. The generator gives you single-source editing without paying for that
 at runtime.
 
-All internal links are **relative and end in an explicit `index.html`**
-(`../people/index.html`, not `/people/`). That means the site previews correctly
-straight off the filesystem, not only when served.
+All internal links are **relative and point at the folder** (`../people/`, not
+`../people/index.html`), so addresses read `…/people/`. In `site.md` and the
+other docs, write them from the site root (`people/`, `faq/#some-question`;
+`./` is the home page). A folder only opens its `index.html` when the site is
+served, so preview with `python3 -m http.server`: double-clicking an `.html`
+file opens it, but its links then show folder listings.
 
 ## Shared page furniture
 
@@ -150,10 +153,11 @@ Nothing is hard-coded per page.
 ### Themes
 
 Light and dark are both first-class. The theme is stored on
-`document.documentElement.dataset.theme` and persisted in `localStorage`; a small
-inline script in each `<head>` applies it *before* first paint so there is no
-flash. With no stored preference, the visitor's OS setting
-(`prefers-color-scheme`) decides.
+`document.documentElement.dataset.theme`; a small inline script in each `<head>`
+applies it *before* first paint so there is no flash. **Every visit starts
+light**, whatever the visitor's system setting. Switching to dark with the
+toggle is kept in `sessionStorage`, so it holds while they browse and resets on
+their next visit.
 
 Every color is defined in the light `:root` block and then redefined in
 `:root[data-theme="dark"]`. If you add a color, add it to both.

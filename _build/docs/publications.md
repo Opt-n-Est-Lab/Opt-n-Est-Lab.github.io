@@ -64,7 +64,7 @@ publications:
   venue: "IFAC Modeling, Estimation and Control Conference (MECC), 2025"
   links:
   - {label: "DOI", url: "https://doi.org/10.1016/j.ifacol.2025.12.251"}
-  - {label: "Project page", url: "rcukf/index.html"}
+  - {label: "Project page", url: "rcukf/"}
 
 - id: towards-resilient-tracking-2025
   title: "Towards Resilient Tracking in Autonomous Vehicles: A Distributionally Robust Input and State Estimation Approach"
