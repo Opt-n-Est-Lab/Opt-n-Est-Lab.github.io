@@ -1,7 +1,0 @@
-#! /bin/bash
-open -a Brave\ Browser http://localhost:1111/
-php -S localhost:1111
-
-
-
-

@@ -1,656 +1,3368 @@
-@charset "UTF-8";
-/* CSS Document */
+/* ==========================================================================
+   ONE Lab — Optimization and Estimation Lab
+   Design system ported from the Insect-scale Autonomy workshop site,
+   retinted to the ONE Lab brand blue (#5869BB).
 
-@font-face {
-        font-family: 'Linux Libertine'; /* normal */
-        src:  url('./fonts/LinLibertine_R.woff') format('woff');
-        font-weight: normal;
-        font-style: normal;
+   PALETTE SWAP — to try the original amber/honey accent instead of blue,
+   replace the --link / --link-hover values in each :root block with the
+   values listed in the "Amber alternative" comments below.
+   ========================================================================== */
+
+:root{
+  /* Light theme */
+  --bg: #ffffff;
+  --panel: rgba(45,60,130,.055);
+  --panel2: rgba(45,60,130,.032);
+  --text: #12151f;
+  --muted: rgba(18,21,31,.68);
+  --line: rgba(45,60,130,.16);
+
+  --link: #4a5bb0;              /* Amber alternative: #9b6500 */
+  --link-hover: #37468f;        /* Amber alternative: #754b00 */
+  --link-text: #ffffff;
+
+  /* Flat brand blue used by every logo SVG in /headimage */
+  --brand: #5869bb;
+
+  /* University of New Mexico's brand red ("Cherry") */
+  --unm-red: #ba0c2f;
+
+  /* "Open" green, for the live-status dot beside current openings */
+  --ok-green: #1f8a4d;
+
+  --max: 736px;   /* 700px of content + 2x18px padding, as the old site */
+  --r: 18px;
+
+  /* Dark-mode lift for the flat-blue logo SVGs; none needed in light */
+  --logo-filter: none;
+
+  /* Linux Libertine, as the lab has always used. Faces are served from /fonts
+     and registered below. */
+  --font-body:
+    'Linux Libertine', Georgia, 'Times New Roman', Times, serif;
+
+  /* Headings use the display cut (LinLibertine_aBS), matching the old site. */
+  --font-display:
+    'Linux Libertine Display', 'Linux Libertine', Georgia,
+    'Times New Roman', Times, serif;
+
+  /* SANS OPTION — to switch the whole site to the system sans-serif the
+     workshop site uses, set --font-body and --font-display both to:
+     ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica,
+     Arial, sans-serif;  */
 }
 
-@font-face {
-      font-family: 'Linux Libertine';
-        src: url('./fonts/LinLibertine_RBI.woff') format('woff');
-        font-style: italic
-/*        font-weight: bold*/
+:root[data-theme="dark"]{
+  /* Dark theme */
+  --bg: #08090b;
+  --panel: rgba(255,255,255,.06);
+  --panel2: rgba(255,255,255,.04);
+  --text: #eef1f8;
+  --muted: rgba(238,241,248,.72);
+  --line: rgba(238,241,248,.14);
+
+  --link: #93a4e6;              /* Amber alternative: #e6ad35 */
+  --link-hover: #b4c0ef;        /* Amber alternative: #f4c45f */
+  --link-text: #0d1020;
+
+  --brand: #8fa0e0;
+  --unm-red: #ee5a72;   /* lifted so it reads on near-black */
+  --ok-green: #56d08a;  /* likewise */
+
+  --logo-filter: brightness(1.32) saturate(.9);
 }
 
-@font-face {
-        font-family: 'Linux Libertine'; /* italic */
-        src: url('./fonts/LinLibertine_RI.woff') format('woff');
-        font-weight: normal;
-        font-style: italic;
+/* --------------------------------------------------------------------------
+   Linux Libertine
+
+   Four text cuts plus the display cut used for headings. Paths are relative to
+   this stylesheet, which lives at the site root, so they resolve the same way
+   from every page.
+   -------------------------------------------------------------------------- */
+
+@font-face{
+  font-family: 'Linux Libertine';
+  src: url('fonts/LinLibertine_R.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
-@font-face {
-        font-family: 'Linux Libertine';
-        src: url('./fonts/LinLibertine_RB.woff') format('woff');
-        font-weight: bold;
-        font-style: normal;
+@font-face{
+  font-family: 'Linux Libertine';
+  src: url('fonts/LinLibertine_RI.woff') format('woff');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
 }
 
-
-
-@font-face {
-        font-family: 'Linux Libertine_aBS';
-        src: url('./fonts/LinLibertine_aBS.woff') format('woff');
-        font-weight: bold;
-        font-style: normal;
-}
-@font-face {
-        font-family: 'Linux Libertine_aS';
-        src: url('./fonts/LinLibertine_aS.woff') format('woff');
-/*        font-weight: bold;*/
-/*        font-style: normal;*/
+@font-face{
+  font-family: 'Linux Libertine';
+  src: url('fonts/LinLibertine_RB.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
 }
 
-p,ul,table,tr,td,h4,h5,h6,footer,.news {
-    font-family: 'Linux Libertine'; /* italic */
-    src: url('./fonts/LinLibertine_R.woff') format('woff');
-	line-height: 1.7;
-/*    font-weight: normal;*/
-/*    font-style: italic;*/
+@font-face{
+  font-family: 'Linux Libertine';
+  src: url('fonts/LinLibertine_RBI.woff') format('woff');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
 }
 
-em {
-    font-family: 'Linux Libertine'; /* italic */
-    src: url('./fonts/LinLibertine_RI.woff') format('woff');
-/*    font-weight: normal;*/
-    font-style: italic;
+/* LinLibertine_aBS — the display cut the old site used for h1/h2/h3. It only
+   ships a bold weight, so it is declared across the whole bold-and-up range to
+   stop the browser synthesising one. */
+@font-face{
+  font-family: 'Linux Libertine Display';
+  src: url('fonts/LinLibertine_aBS.woff') format('woff');
+  font-weight: 600 900;
+  font-style: normal;
+  font-display: swap;
 }
 
-
-
-h1, h2, h3{
-    font-family: 'Linux Libertine_aBS';
-    text-align:center
-}
-h1, h2, h3 {
-	color: rgba(0,0,0,0.54)
+*{
+  box-sizing: border-box;
 }
 
-h3 {
-	color: #5869BB
+html,
+body{
+  margin: 0;
+  padding: 0;
 }
 
-
-
-hr {
-    border: none;         /* Removes the default border */
-    height: 1px;          /* Sets the height (thickness) of the line */
-    background-color: #cccccc;  /* Sets the color to gray */
+html{
+  min-height: 100%;
+  scroll-behavior: smooth;
 }
 
-a:link {
-    color: #5869BB  ;
-    background-color: transparent;
-    text-decoration: none
+body{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  font-family: var(--font-body);
+
+  background: var(--bg);
+
+  color: var(--text);
+  font-size: 17px;
+  line-height: 1.7;
 }
 
+/* Page and section headings take the small-caps display cut, as on the
+   previous site. Small caps want a little tracking to breathe. h3 — card
+   titles, people's names, project names — stays in the text face, bold. */
+h1, h2{
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: .015em;
+}
 
-a:hover {
+h3{
+  font-family: var(--font-body);
+  font-weight: 700;
+}
+
+body > main{
+  width: 100%;
+  flex: 1 0 auto;
+}
+
+a{
+  color: var(--link);
+  text-decoration: none;
+}
+
+a:hover{
   text-decoration: underline;
 }
 
-
-a:visited {
-    color: #5869BB  ;
+/* Trailing mark on an inline link that leaves the site: drawn in the link's
+   own colour with the same round strokes as the icon links, sized to the
+   text so it sits on the line rather than pushing it apart. */
+.ext-icon{
+  width: .78em;
+  height: .78em;
+  margin-left: .18em;
+  vertical-align: -.04em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
-nav a.active img{
-	opacity: .5; /* fully opaque by default */
-	border-bottom: 3px solid transparent; /* Set a transparent border */
-	border-color: #5869BB;
+/* Read by screen readers, invisible on screen. */
+.sr-only{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
 }
 
-.container {
-    width: 700px;
-    margin: 0 auto;  /* Centers the container */
+code{
+  padding: 1px 5px;
+  border-radius: 5px;
+  background: var(--panel);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: .92em;
 }
 
-/* Responsive styles for smaller screens */
-@media (max-width: 700px) {
-    .container {
-        width: 100%;
-    }
+hr{
+  height: 1px;
+  margin: 22px 0;
+  border: 0;
+  background: var(--line);
 }
 
-.body {
-    max-width: 770px;  /* Or any desired maximum width */
-    margin: 0 auto;     /* Top/bottom margin is 0, left/right is auto */
-    padding: 20px;     /* Optional: add some padding */
-	position: relative;
-    display: flex;
+.container{
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 18px;
 }
 
-.inline-home-logo-div {
-    display: inline-block;
-    margin-right: 30px; /* optional spacing between inline divs */
+/* --------------------------------------------------------------------------
+   Header
+   -------------------------------------------------------------------------- */
+
+.header{
+  position: sticky;
+  top: 0;
+  z-index: 20;
+
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+
+  background: color-mix(in srgb, var(--bg) 72%, transparent);
 }
 
-.inline-nav-div {
-    display: inline-block;
-    margin-right: 10px; /* optional spacing between inline divs */
+/* Rules under the header and over the footer run the width of the content
+   column, not the viewport. --rule-w is the content width: the container's
+   max, or the viewport minus its side padding, whichever is narrower. */
+:root{
+  --rule-w: min(calc(var(--max) - 36px), calc(100% - 36px));
 }
 
-.home-logo-container {
-/*    width: 300px;  or whatever width you want */
-/*    height: 200px;  or whatever height you want */
-/*    overflow: hidden;  in case the image is bigger than the container */
-
-	
+.header::after,
+.footer::before{
+  content: "";
+  display: block;
+  width: var(--rule-w);
+  height: 1px;
+  margin: 0 auto;
+  background: var(--line);
 }
 
-.home-logo-container img {
-/*    width: 100%;*/
-/*    height: auto;*/
-/*    transition: opacity 0.1s;  smooth transition */
-/*    opacity: 1;  fully opaque by default */
-	transition: transform 0.3s; /* smooth transition */
-	
+.navbar{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 18px;
 }
 
-.home-logo-container:hover img {
-/*    opacity: .5;  50% transparent on hover */
-	transform: scale(1.01); /* Zoom by scaling the image 1.2 times */
+/* The wordmark is the ONE Lab logo itself, the same file the footer uses. */
+/* The brand links home but stays plain — no glass, no hover state; the
+   "Home" pill in the nav carries the active state. Left-aligned. */
+.brand{
+  grid-area: brand;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  text-align: left;
+  text-decoration: none;
 }
 
-.nav-logo-container {
-/*    width: 300px;  or whatever width you want */
-/*    height: 200px;  or whatever height you want */
-    overflow: hidden; /* in case the image is bigger than the container */
+.brand:hover{
+  text-decoration: none;
 }
 
-.nav-logo-container img {
-/*    width: 100%;*/
-/*    height: auto;*/
-    transition: opacity 0.1s; /* smooth transition */
-    opacity: 1; /* fully opaque by default */
-	
-	display: inline-block;
-    border-bottom: 3px solid transparent; /* Set a transparent border */
-    transition: border-color 0.3s; /* smooth transition */
+/* Hover: the tagline's first line ("Optimization and Estimation Laboratory")
+   takes the theme blue and the second ("University of New Mexico") takes UNM
+   red. The whole <small> goes red, then ::first-line overrides line one — the
+   <br /> in the tagline makes that exactly the lab's name. */
+.brand:hover small{
+  color: var(--unm-red);
 }
 
-.nav-logo-container:hover img {
-    opacity: 0.5; /* 50% transparent on hover */
-	border-color: #5869BB;
+.brand:hover small::first-line{
+  color: var(--link);
 }
 
-.nav-logo-container-svg {
-    /*    width: 300px;  or whatever width you want */
-    /*    height: 200px;  or whatever height you want */
-        overflow: hidden; /* in case the image is bigger than the container */
-    }
-    
-    .nav-logo-container-svg img {
-    /*    width: 100%;*/
-    /*    height: auto;*/
-        transition: opacity 0.1s; /* smooth transition */
-        opacity: 1; /* fully opaque by default */
-        
-        display: inline-block;
-        border-bottom: 3px solid transparent; /* Set a transparent border */
-        transition: border-color 0.3s; /* smooth transition */
-    }
-    
-    .nav-logo-container-svg:hover img {
-        opacity: 0.5; /* 50% transparent on hover */
-        border-color: #5869BB;
-    }
+.brandLogo{
+  display: block;
+  width: 132px;
+  height: auto;
+  filter: var(--logo-filter);
+}
 
-.fa {
-    padding: 10px;
-    font-size: 15px;
-    width: 15px;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 20%;
+.brand small{
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.45;
+}
+
+.nav{
+  grid-area: nav;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 3px;
+}
+
+.nav a{
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 8px 9px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+
+  /* Resting state matches the projects seg-nav: muted rather than full text
+     colour, a size down, and semi-bold so the weight does not jump as much
+     when a pill becomes active. Padding stays tighter here - five items share
+     the bar with the wordmark and the theme toggle. */
+  color: var(--muted);
+  font-size: 15px;
+  font-weight: 620;
+  white-space: nowrap;
+  text-decoration: none;
+
+  transition:
+    background-color 200ms ease,
+    border-color 200ms ease,
+    box-shadow 200ms ease,
+    color 200ms ease;
+}
+
+/* Every pill is as wide as its label would be in bold, always: a hidden bold
+   copy of the label sits beneath the real one at zero height. So making the
+   active pill bold changes nothing — no wrap, and no pills shifting sideways
+   as you move between pages. */
+.nav a::after{
+  content: attr(data-label);
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  font-weight: 700;
+  pointer-events: none;
+}
+
+/* The rim the cards carry, sized for a pill: brightest at the two ends, where
+   the surface curves away fastest. It stays mounted at zero opacity so it
+   fades in with the fill instead of popping on hover. */
+.nav a::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+
+  background: linear-gradient(90deg,
+    rgba(255,255,255,1)   0%,
+    rgba(255,255,255,.58) 11%,
+    rgba(255,255,255,.12) 33%,
+    rgba(255,255,255,.06) 50%,
+    rgba(255,255,255,.12) 67%,
+    rgba(255,255,255,.58) 89%,
+    rgba(255,255,255,1)   100%);
+
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+          mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+
+  opacity: 0;
+  transition: opacity 200ms ease;
+  pointer-events: none;
+}
+
+.nav a:hover::before{ opacity: .7; }
+
+.nav a.active::before,
+.nav a[aria-current="page"]::before{ opacity: 1; }
+
+:root[data-theme="dark"] .nav a::before{
+  background: linear-gradient(90deg,
+    rgba(255,255,255,.82) 0%,
+    rgba(255,255,255,.42) 11%,
+    rgba(255,255,255,.09) 33%,
+    rgba(255,255,255,.04) 50%,
+    rgba(255,255,255,.09) 67%,
+    rgba(255,255,255,.42) 89%,
+    rgba(255,255,255,.82) 100%);
+}
+
+/* ---------------------------------------------------------------------------
+   Liquid glass
+
+   The hover and active pills are a translucent material rather than a flat
+   grey wash: the backdrop is blurred and its colour pushed, a bright specular
+   line sits on the top edge, and a soft shadow lifts the pill off the bar. The
+   tint is the brand blue, not neutral — a grey veil over a warm page reads as
+   dirt. Without backdrop-filter the tinted fill alone still looks deliberate.
+   --------------------------------------------------------------------------- */
+
+.nav a:hover{
+  border-color: color-mix(in srgb, var(--link) 16%, transparent);
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, #fff 62%, transparent),
+      color-mix(in srgb, #fff 24%, transparent)),
+    color-mix(in srgb, var(--link) 3%, transparent);
+  backdrop-filter: blur(10px) saturate(150%);
+  -webkit-backdrop-filter: blur(10px) saturate(150%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.6),
+    inset 5px 0 10px -8px rgba(255,255,255,.95),
+    inset -5px 0 10px -8px rgba(255,255,255,.95),
+    0 1px 4px color-mix(in srgb, var(--link) 10%, transparent);
+  text-decoration: none;
+}
+
+/* Tint kept light, as on the seg-nav: mixed much above this it shows through
+   the white gradient as a muddy lavender instead of reading as clear glass.
+   The colour lives in the border, the rim and the label. */
+.nav a.active,
+.nav a[aria-current="page"]{
+  border-color: color-mix(in srgb, var(--link) 32%, transparent);
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, #fff 82%, transparent),
+      color-mix(in srgb, #fff 40%, transparent)),
+    color-mix(in srgb, var(--link) 5%, transparent);
+  backdrop-filter: blur(16px) saturate(185%);
+  -webkit-backdrop-filter: blur(16px) saturate(185%);
+  color: var(--link);
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.95),
+    inset 0 -1px 2px color-mix(in srgb, var(--link) 6%, transparent),
+    inset 6px 0 11px -8px rgba(255,255,255,1),
+    inset -6px 0 11px -8px rgba(255,255,255,1),
+    0 2px 9px color-mix(in srgb, var(--link) 12%, transparent);
+  border-left-color: color-mix(in srgb, var(--link) 46%, transparent);
+  border-right-color: color-mix(in srgb, var(--link) 46%, transparent);
+}
+
+/* Dark mode inverts the material: the glass is lit from a dim page, so the
+   specular edge is much weaker and the fill leans on the tint. */
+:root[data-theme="dark"] .nav a:hover{
+  border-color: color-mix(in srgb, var(--link) 22%, transparent);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.1), rgba(255,255,255,.03)),
+    color-mix(in srgb, var(--link) 10%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.14),
+    inset 5px 0 10px -8px rgba(255,255,255,.5),
+    inset -5px 0 10px -8px rgba(255,255,255,.5),
+    0 1px 5px rgba(0,0,0,.3);
+}
+
+:root[data-theme="dark"] .nav a.active,
+:root[data-theme="dark"] .nav a[aria-current="page"]{
+  border-color: color-mix(in srgb, var(--link) 34%, transparent);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.15), rgba(255,255,255,.05)),
+    color-mix(in srgb, var(--link) 18%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.24),
+    inset 0 -1px 2px rgba(0,0,0,.25),
+    inset 6px 0 11px -8px rgba(255,255,255,.6),
+    inset -6px 0 11px -8px rgba(255,255,255,.6),
+    0 2px 11px rgba(0,0,0,.38);
+}
+
+.navLabelMobile{
+  display: none;
+}
+
+/* Theme toggle */
+
+.themeBtn{
+  grid-area: theme;
+  align-self: center;
+
+  width: 64px;
+  height: 36px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+
+  background: transparent;
+  color: var(--text);
+
+  cursor: pointer;
+}
+
+/* Glass toggle: the track is a recessed groove (inset shading, tinted rather
+   than grey) and the thumb a raised bead. No overflow clipping, so the bead's
+   drop shadow can actually read as lift. */
+.themeTrack{
+  position: relative;
+  width: 62px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  border: 1px solid color-mix(in srgb, var(--link) 20%, transparent);
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, #fff 32%, transparent),
+      color-mix(in srgb, #fff 6%, transparent)),
+    color-mix(in srgb, var(--link) 9%, transparent);
+  backdrop-filter: blur(12px) saturate(170%);
+  -webkit-backdrop-filter: blur(12px) saturate(170%);
+  box-shadow:
+    inset 0 1px 2px color-mix(in srgb, var(--link) 18%, transparent),
+    inset 0 -1px 0 rgba(255,255,255,.55),
+    inset 6px 0 11px -8px rgba(255,255,255,.9),
+    inset -6px 0 11px -8px rgba(255,255,255,.9);
+  border-left-color: color-mix(in srgb, var(--link) 40%, transparent);
+  border-right-color: color-mix(in srgb, var(--link) 40%, transparent);
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.themeIcon{
+  position: relative;
+  z-index: 2;
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: color 180ms ease, opacity 180ms ease;
+}
+
+.themeIconSun{
+  color: #c08a1d;
+}
+
+.themeIconMoon{
+  color: var(--muted);
+}
+
+.themeThumb{
+  position: absolute;
+  z-index: 1;
+  top: 3px;
+  left: 3px;
+  width: 26px;
+  height: 26px;
+  border: 1px solid rgba(255,255,255,.8);
+  border-radius: 50%;
+  background: linear-gradient(180deg, rgba(255,255,255,.97), rgba(255,255,255,.7));
+  backdrop-filter: blur(6px) saturate(160%);
+  -webkit-backdrop-filter: blur(6px) saturate(160%);
+  box-shadow:
+    inset 0 1px 0 #fff,
+    0 2px 6px color-mix(in srgb, var(--link) 28%, transparent),
+    0 1px 2px rgba(0,0,0,.14);
+  transition:
+    transform 260ms cubic-bezier(.34, 1.56, .5, 1),
+    background 180ms ease,
+    box-shadow 180ms ease;
+}
+
+:root[data-theme="dark"] .themeThumb{
+  transform: translateX(28px);
+}
+
+:root[data-theme="dark"] .themeIconSun{
+  color: var(--muted);
+}
+
+:root[data-theme="dark"] .themeIconMoon{
+  color: #b4c0ef;
+}
+
+.themeBtn:hover .themeTrack{
+  border-color: color-mix(in srgb, var(--link) 34%, transparent);
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, #fff 46%, transparent),
+      color-mix(in srgb, #fff 12%, transparent)),
+    color-mix(in srgb, var(--link) 13%, transparent);
+}
+
+.themeBtn:hover .themeThumb{
+  box-shadow:
+    inset 0 1px 0 #fff,
+    0 3px 9px color-mix(in srgb, var(--link) 34%, transparent),
+    0 1px 2px rgba(0,0,0,.16);
+}
+
+/* Dark mode: the groove darkens and the bead becomes frosted rather than
+   white, so it does not glare against the near-black bar. */
+:root[data-theme="dark"] .themeTrack{
+  border-color: color-mix(in srgb, var(--link) 26%, transparent);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.1), rgba(255,255,255,.02)),
+    color-mix(in srgb, var(--link) 12%, transparent);
+  box-shadow:
+    inset 0 1px 3px rgba(0,0,0,.5),
+    inset 0 -1px 0 rgba(255,255,255,.1),
+    inset 6px 0 11px -8px rgba(255,255,255,.45),
+    inset -6px 0 11px -8px rgba(255,255,255,.45);
+}
+
+:root[data-theme="dark"] .themeBtn:hover .themeTrack{
+  border-color: color-mix(in srgb, var(--link) 40%, transparent);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.15), rgba(255,255,255,.05)),
+    color-mix(in srgb, var(--link) 18%, transparent);
+}
+
+:root[data-theme="dark"] .themeThumb{
+  border-color: rgba(255,255,255,.3);
+  background: linear-gradient(180deg, rgba(255,255,255,.32), rgba(255,255,255,.16));
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.5),
+    0 2px 8px rgba(0,0,0,.55);
+}
+
+:root[data-theme="dark"] .themeBtn:hover .themeThumb{
+  background: linear-gradient(180deg, rgba(255,255,255,.4), rgba(255,255,255,.22));
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.6),
+    0 3px 10px rgba(0,0,0,.6);
+}
+
+.themeBtn:focus-visible{
+  outline: 2px solid var(--link);
+  outline-offset: 3px;
+}
+
+.themeBtn:active{
+  transform: translateY(1px);
+}
+
+/* --------------------------------------------------------------------------
+   Hero
+   -------------------------------------------------------------------------- */
+
+/* Banner across the top of every page, as on the previous site. There are two
+   files — the original on its light ground, and a dark-ground version made
+   from it — and the theme decides which one shows. Both are in the markup so
+   the switch is instant and needs no JavaScript. */
+/* --------------------------------------------------------------------------
+   Banner
+
+   The glass treatment the cards carry, applied to the masthead image. An
+   <img> cannot host it directly: inset shadows and generated content paint
+   under a replaced element's content, so the edge would be buried beneath the
+   photograph. The wrapper supplies both - ::before for the light gathered
+   along the vertical edges, ::after for the 1px specular rim - and each paints
+   over the image.
+   -------------------------------------------------------------------------- */
+
+.banner-wrap{
+  position: relative;
+  margin: 26px 0 0;
+
+  border: 1px solid color-mix(in srgb, var(--link) 18%, transparent);
+  border-left-color: color-mix(in srgb, var(--link) 26%, transparent);
+  border-right-color: color-mix(in srgb, var(--link) 26%, transparent);
+
+  /* Square, unlike the cards: the masthead reads as a pane of glass laid over
+     the page rather than a rounded panel sitting on it. */
+  border-radius: 0;
+  overflow: hidden;
+
+  box-shadow:
+    0 10px 28px color-mix(in srgb, var(--link) 10%, transparent),
+    0 1px 3px color-mix(in srgb, var(--link) 8%, transparent);
+}
+
+.banner{
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 0;
+}
+
+.banner-wrap::before,
+.banner-wrap::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 0;
+  pointer-events: none;
+}
+
+.banner-wrap::before{
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.92),
+    inset 9px 0 16px -12px rgba(255,255,255,.95),
+    inset -9px 0 16px -12px rgba(255,255,255,.95);
+}
+
+.banner-wrap::after{
+  padding: 1px;   /* rim thickness */
+  background: linear-gradient(90deg,
+    rgba(255,255,255,.98) 0%,
+    rgba(255,255,255,.62) 5%,
+    rgba(255,255,255,.14) 24%,
+    rgba(255,255,255,.07) 50%,
+    rgba(255,255,255,.14) 76%,
+    rgba(255,255,255,.62) 95%,
+    rgba(255,255,255,.98) 100%);
+
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+          mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+}
+
+:root[data-theme="dark"] .banner-wrap{
+  border-color: color-mix(in srgb, var(--link) 24%, transparent);
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.45),
+    0 1px 3px rgba(0,0,0,.3);
+}
+
+:root[data-theme="dark"] .banner-wrap::before{
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.14),
+    inset 9px 0 16px -12px rgba(255,255,255,.55),
+    inset -9px 0 16px -12px rgba(255,255,255,.55);
+}
+
+:root[data-theme="dark"] .banner-wrap::after{
+  background: linear-gradient(90deg,
+    rgba(255,255,255,.80) 0%,
+    rgba(255,255,255,.44) 5%,
+    rgba(255,255,255,.10) 24%,
+    rgba(255,255,255,.05) 50%,
+    rgba(255,255,255,.10) 76%,
+    rgba(255,255,255,.44) 95%,
+    rgba(255,255,255,.80) 100%);
+}
+
+.banner--dark{
+  display: none;
+}
+
+:root[data-theme="dark"] .banner--light{
+  display: none;
+}
+
+:root[data-theme="dark"] .banner--dark{
+  display: block;
+}
+
+/* Whatever follows the banner sits a fixed distance below it, rather than
+   using the larger top padding meant for a page that opens on the header. */
+.banner-wrap + .welcome{
+  margin-top: 20px;
+}
+
+.banner-wrap + .hero{
+  padding-top: 26px;
+}
+
+.banner-wrap + .section{
+  padding-top: 26px;
+}
+
+/* Centred greeting above the hero, as on the previous site. */
+.welcome{
+  margin: 30px 0 0;
+  color: var(--text);
+  font-size: 20px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.welcome + .hero{
+  padding-top: 24px;
+}
+
+.hero{
+  padding: 52px 0 22px;
+}
+
+/* The 52px above is the drop from the banner to a page's opening hero. A hero
+   further down, after a section, keeps the section-to-section rhythm instead. */
+.section + .hero{
+  padding-top: 18px;
+}
+
+.hero-grid{
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 18px;
+  align-items: start;
+}
+
+.hero h1{
+  margin: 0 0 10px;
+  font-size: clamp(28px, 4.4vw, 38px);
+  line-height: 1.06;
+  letter-spacing: .2px;
+}
+
+/* A hero further down a page, below the page's own heading, titles itself
+   with an h2 at the section-heading size rather than a second h1. */
+.hero h2{
+  margin: 0 0 10px;
+  font-size: 26px;
+  line-height: 1.15;
+}
+
+.hero p{
+  margin: 0 0 14px;
+  color: var(--muted);
+}
+
+.badges{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Badges are the small, non-interactive pills — the nav's resting-glass
+   weight, since nothing happens on hover. */
+.badge{
+  display: inline-flex;
+  align-items: center;
+
+  padding: 6px 10px;
+  border: 1px solid color-mix(in srgb, var(--link) 16%, transparent);
+  border-radius: 999px;
+
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, #fff 52%, transparent),
+      color-mix(in srgb, #fff 14%, transparent)),
+    color-mix(in srgb, var(--link) 7%, transparent);
+  backdrop-filter: blur(10px) saturate(150%);
+  -webkit-backdrop-filter: blur(10px) saturate(150%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.72),
+    0 1px 4px color-mix(in srgb, var(--link) 10%, transparent);
+  color: var(--muted);
+
+  font-size: 13px;
+}
+
+:root[data-theme="dark"] .badge{
+  border-color: color-mix(in srgb, var(--link) 22%, transparent);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.03)),
+    color-mix(in srgb, var(--link) 10%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.13),
+    0 1px 4px rgba(0,0,0,.3);
+}
+
+/* --------------------------------------------------------------------------
+   Cards, sections, prose
+   -------------------------------------------------------------------------- */
+
+/* Glass panel — the same material as the nav pills, scaled up. A large area
+   wants a gentler tint and a softer, wider shadow than a small pill, or it
+   reads as a heavy slab rather than a sheet of glass. Shared by .card,
+   .prose and .project-card so they stay identical. */
+.card,
+.prose,
+.project-card,
+.person-card,
+.pi-card,
+.news-card,
+.alum-row,
+.pub-item,
+.faq-item,
+.callout{
+  border: 1px solid color-mix(in srgb, var(--link) 18%, transparent);
+  border-radius: var(--r);
+
+  /* On a light page a white specular line has nothing to read against, so the
+     two sides carry a denser outer contour than the top and bottom: the
+     refracted dark edge real glass shows just outside its highlight. Dark mode
+     resets all four sides below, where the rim alone already separates the
+     card from the page. */
+  border-left-color: color-mix(in srgb, var(--link) 26%, transparent);
+  border-right-color: color-mix(in srgb, var(--link) 26%, transparent);
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, #fff 74%, transparent),
+      color-mix(in srgb, #fff 42%, transparent)),
+    color-mix(in srgb, var(--link) 6%, transparent);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.92),
+    inset 0 -1px 0 color-mix(in srgb, var(--link) 8%, transparent),
+    /* Light gathered along the two vertical edges and bleeding inward, the
+       way a thick glass slab lenses whatever sits behind it. */
+    inset 9px 0 16px -12px rgba(255,255,255,.95),
+    inset -9px 0 16px -12px rgba(255,255,255,.95),
+    0 10px 28px color-mix(in srgb, var(--link) 10%, transparent),
+    0 1px 3px color-mix(in srgb, var(--link) 8%, transparent);
+
+  position: relative;
+}
+
+/* --------------------------------------------------------------------------
+   Liquid-glass rim
+
+   Glass throws its brightest specular line where the surface curves away
+   fastest -- the left and right sides -- and that highlight falls off across
+   the flat face. A single top border cannot show this, so the rim is painted
+   as a masked gradient ring: a horizontal gradient clipped to a 1px band
+   around the edge, near-white at both sides and almost clear across the
+   middle. The mask keeps only the band, leaving the card's own backdrop
+   untouched.
+   -------------------------------------------------------------------------- */
+
+.card::after,
+.prose::after,
+.project-card::after,
+.person-card::after,
+.pi-card::after,
+.news-card::after,
+.alum-row::after,
+.pub-item::after,
+.faq-item::after,
+.callout::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: calc(var(--r) - 1px);
+  padding: 1px;   /* rim thickness */
+
+  background: linear-gradient(90deg,
+    rgba(255,255,255,.98) 0%,
+    rgba(255,255,255,.62) 5%,
+    rgba(255,255,255,.14) 24%,
+    rgba(255,255,255,.07) 50%,
+    rgba(255,255,255,.14) 76%,
+    rgba(255,255,255,.62) 95%,
+    rgba(255,255,255,.98) 100%);
+
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+          mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+
+  pointer-events: none;
+}
+
+.card{
+  padding: 16px;
+}
+
+:root[data-theme="dark"] .card,
+:root[data-theme="dark"] .prose,
+:root[data-theme="dark"] .project-card,
+:root[data-theme="dark"] .person-card,
+:root[data-theme="dark"] .pi-card,
+:root[data-theme="dark"] .news-card,
+:root[data-theme="dark"] .alum-row,
+:root[data-theme="dark"] .pub-item,
+:root[data-theme="dark"] .faq-item,
+:root[data-theme="dark"] .callout{
+  border-color: color-mix(in srgb, var(--link) 24%, transparent);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.085), rgba(255,255,255,.03)),
+    color-mix(in srgb, var(--link) 9%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.14),
+    inset 0 -1px 0 rgba(0,0,0,.25),
+    inset 9px 0 16px -12px rgba(255,255,255,.55),
+    inset -9px 0 16px -12px rgba(255,255,255,.55),
+    0 10px 30px rgba(0,0,0,.45),
+    0 1px 3px rgba(0,0,0,.3);
+}
+
+/* On near-black the rim is the only thing separating card from page, so the
+   sides stay bright while the top and bottom drop back further than in light
+   mode -- the same falloff, pushed harder. */
+:root[data-theme="dark"] .card::after,
+:root[data-theme="dark"] .prose::after,
+:root[data-theme="dark"] .project-card::after,
+:root[data-theme="dark"] .person-card::after,
+:root[data-theme="dark"] .pi-card::after,
+:root[data-theme="dark"] .news-card::after,
+:root[data-theme="dark"] .alum-row::after,
+:root[data-theme="dark"] .pub-item::after,
+:root[data-theme="dark"] .faq-item::after,
+:root[data-theme="dark"] .callout::after{
+  background: linear-gradient(90deg,
+    rgba(255,255,255,.80) 0%,
+    rgba(255,255,255,.44) 5%,
+    rgba(255,255,255,.10) 24%,
+    rgba(255,255,255,.05) 50%,
+    rgba(255,255,255,.10) 76%,
+    rgba(255,255,255,.44) 95%,
+    rgba(255,255,255,.80) 100%);
+}
+
+.card h3{
+  margin: 0 0 8px;
+}
+
+/* Card header row: title on the left, action link pushed to the far right.
+   Wraps to two lines on narrow cards rather than squeezing the title. */
+.card-head{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 0 0 8px;
+}
+
+.card-head h3{
+  margin: 0;
+}
+
+.card p{
+  margin: 0 0 6px;
+  color: var(--muted);
+}
+
+.card p strong{
+  color: var(--text);
+}
+
+.section{
+  padding: 18px 0 10px;
+}
+
+/* The last section on a page has nothing below it, so its 10px of padding put
+   the content almost against the footer's divider. Only the final one needs
+   the gap - between siblings the 18px top padding already does the work. The
+   value matches .people-section:last-child so both page types agree. */
+.section:last-child{
+  padding-bottom: 34px;
+}
+
+/* A section heading with an action on its right. The h2 is listed for both
+   positions so it keeps exactly the margins and size it has as a direct child
+   of .section - the label -> heading -> intro rhythm is unchanged by the
+   wrapper. */
+.section > h2,
+.section > .section-head > h2{
+  margin: 0 0 4px;
+  font-size: 26px;
+}
+
+.section-head{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.section-label{
+  margin: 0 0 2px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 750;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+/* "All projects" / "All news" link at the foot of a home-page section. */
+.section-more{
+  margin: 18px 0 0;
+  text-align: right;
+}
+
+.section-intro{
+  margin: 0 0 18px;
+  color: var(--muted);
+  max-width: 68ch;
+}
+
+.prose{
+  min-width: 0;
+  padding: 22px;
+  /* material: see the shared .card, .prose glass rule above */
+}
+
+.prose > :first-child{
+  margin-top: 0;
+}
+
+.prose > :last-child{
+  margin-bottom: 0;
+}
+
+.prose h2{
+  margin: 26px 0 10px;
+  font-size: 23px;
+}
+
+.prose h3{
+  margin: 20px 0 8px;
+  font-size: 18px;
+}
+
+.prose p,
+.prose li{
+  color: var(--muted);
+}
+
+.prose strong{
+  color: var(--text);
+}
+
+.prose img{
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 0 1.4rem;
+  border-radius: 14px;
+}
+
+.prose h2,
+.prose h3,
+.section > h2{
+  scroll-margin-top: 110px;
+}
+
+/* Home-page intro: text beside the director's photo — the old site's
+   78% / 22% table, as a grid. */
+/* The text column is sized so the opening paragraph wraps on four lines in
+   Libertine at 17px (it needs 486-525px). The panel's padding is trimmed a
+   little so that width and a ~160px photo both fit with a gap between. */
+.prose.intro{
+  padding: 20px 16px;
+
+  /* Lifts on hover like the news and project cards. Scoped to .intro: plain
+     .prose is the body copy on the project and news detail pages, where a
+     whole article rising under the cursor would be wrong. */
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    border-color 160ms ease;
+}
+
+.intro{
+  display: grid;
+  grid-template-columns: 496px minmax(0, 1fr);
+  column-gap: 14px;
+  row-gap: 8px;
+  align-items: center;
+}
+
+.intro-text > :first-child{
+  margin-top: 0;
+}
+
+.intro-text > :last-child{
+  margin-bottom: 0;
+}
+
+.intro-sign{
+  margin: 6px 0 0;
+  text-align: right;
+  line-height: 1.5;
+}
+
+.intro-sign strong{
+  color: var(--link);
+}
+
+.intro-pi{
+  justify-self: end;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.intro-pi img{
+  display: block;
+  width: 158px;
+  height: 158px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  object-fit: cover;
+  object-position: center top;
+}
+
+/* Website, LinkedIn and email, centred under the portrait. Three across also
+   keeps the block inside the 160px photo above it. The rest of the director's
+   profiles live on his People card. */
+.intro-links{
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 8px;
+  justify-content: center;
+}
+
+/* --------------------------------------------------------------------------
+   Buttons and pill links
+   -------------------------------------------------------------------------- */
+
+.btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  margin-top: 12px;
+  padding: 9px 16px;
+
+  border: 1px solid color-mix(in srgb, var(--link) 72%, transparent);
+  border-radius: 999px;
+
+  background: var(--link);
+  color: var(--link-text);
+
+  font-size: 15px;
+  font-weight: 650;
+  line-height: 1.2;
+  text-decoration: none;
+
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--link) 22%, transparent);
+
+  transition:
+    transform 150ms ease,
+    background-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.btn:hover{
+  background: var(--link-hover);
+  color: var(--link-text);
+  text-decoration: none;
+  transform: translateY(-1px);
+  box-shadow: 0 9px 24px color-mix(in srgb, var(--link) 30%, transparent);
+}
+
+.btn:active{
+  transform: translateY(0);
+}
+
+.btn span{
+  transition: transform 160ms ease;
+}
+
+.btn:hover span{
+  transform: translateX(3px);
+}
+
+.btn-ghost,
+.ref-link{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 8px 14px;
+  border: 1px solid color-mix(in srgb, var(--link) 45%, var(--line));
+  border-radius: 999px;
+
+  background: color-mix(in srgb, var(--link) 9%, transparent);
+  color: var(--link);
+
+  font-size: 14.5px;
+  font-weight: 650;
+  line-height: 1.2;
+  text-decoration: none;
+
+  transition:
+    transform 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.btn-ghost:hover,
+.ref-link:hover{
+  transform: translateY(-1px);
+  background: color-mix(in srgb, var(--link) 16%, transparent);
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--link) 15%, transparent);
+  text-decoration: none;
+}
+
+/* The ghost button's look at the pill's own size: these sit inline under a
+   news card's body copy, not at the foot of a section, so they keep the
+   smaller metrics they have always had. Listed after the shared rule above -
+   same specificity, so order decides. */
+.ref-link{
+  gap: 5px;
+  padding: 3px 9px;
+  font-size: 13px;
+}
+
+.back-link{
+  margin-top: 26px;
+}
+
+/* At the top of a panel (the research project pages) the link needs no gap
+   above it - the panel's own padding is the space, matching the inset on the
+   left - and a short one below. Flex makes the paragraph exactly as tall as
+   the button, with no extra line height above or below it. */
+.prose > p:first-child:has(> .back-link){
+  display: flex;
+  margin: 0 0 14px;
+}
+
+.prose > p:first-child > .back-link{
+  margin-top: 0;
+}
+
+.back-link span{
+  transition: transform 160ms ease;
+}
+
+.back-link:hover span{
+  transform: translateX(-3px);
+}
+
+/* --------------------------------------------------------------------------
+   Inline pill link
+
+   A link inside a sentence dressed as the nav's active pill: the same light
+   fill, the denser contour at each end and the same specular rim, scaled down
+   to sit on a line of body copy rather than in a bar.
+   -------------------------------------------------------------------------- */
+
+.pill-link{
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  vertical-align: baseline;
+
+  /* Sized in em so it tracks whatever copy it sits in rather than fixing a
+     px size that only suits one paragraph. */
+  padding: 0 8px;
+  font-size: .88em;
+  border: 1px solid color-mix(in srgb, var(--link) 32%, transparent);
+  border-left-color: color-mix(in srgb, var(--link) 46%, transparent);
+  border-right-color: color-mix(in srgb, var(--link) 46%, transparent);
+  border-radius: 999px;
+
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, #fff 82%, transparent),
+      color-mix(in srgb, #fff 40%, transparent)),
+    color-mix(in srgb, var(--link) 5%, transparent);
+  backdrop-filter: blur(14px) saturate(180%);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+
+  color: var(--link);
+  font-weight: 650;
+  text-decoration: none;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.95),
+    inset 6px 0 11px -8px rgba(255,255,255,1),
+    inset -6px 0 11px -8px rgba(255,255,255,1),
+    0 2px 8px color-mix(in srgb, var(--link) 11%, transparent);
+
+  transition:
+    transform 150ms ease,
+    background-color 150ms ease,
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.pill-link::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(90deg,
+    rgba(255,255,255,1)   0%,
+    rgba(255,255,255,.58) 11%,
+    rgba(255,255,255,.12) 33%,
+    rgba(255,255,255,.06) 50%,
+    rgba(255,255,255,.12) 67%,
+    rgba(255,255,255,.58) 89%,
+    rgba(255,255,255,1)   100%);
+
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+          mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+}
+
+.pill-link:hover{
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--link) 46%, transparent);
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, #fff 88%, transparent),
+      color-mix(in srgb, #fff 48%, transparent)),
+    color-mix(in srgb, var(--link) 9%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,1),
+    inset 6px 0 11px -8px rgba(255,255,255,1),
+    inset -6px 0 11px -8px rgba(255,255,255,1),
+    0 3px 11px color-mix(in srgb, var(--link) 16%, transparent);
+  text-decoration: none;
+}
+
+:root[data-theme="dark"] .pill-link{
+  border-color: color-mix(in srgb, var(--link) 34%, transparent);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.15), rgba(255,255,255,.05)),
+    color-mix(in srgb, var(--link) 18%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.24),
+    inset 6px 0 11px -8px rgba(255,255,255,.6),
+    inset -6px 0 11px -8px rgba(255,255,255,.6),
+    0 2px 10px rgba(0,0,0,.36);
+}
+
+:root[data-theme="dark"] .pill-link::before{
+  background: linear-gradient(90deg,
+    rgba(255,255,255,.82) 0%,
+    rgba(255,255,255,.42) 11%,
+    rgba(255,255,255,.09) 33%,
+    rgba(255,255,255,.04) 50%,
+    rgba(255,255,255,.09) 67%,
+    rgba(255,255,255,.42) 89%,
+    rgba(255,255,255,.82) 100%);
+}
+
+/* Inline reference pills — [Slides], [Project page], [SoE News] … */
+
+.ref-links{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+/* Reference pills — [Slides], [Project page], [Early Access]… — use the
+   ghost-button look above verbatim, so the two never drift apart. Only the
+   outward-arrow icon is specific to them. */
+/* The outward arrow comes from the class, not the markup, so every reference
+   pill carries one without the icon being repeated in every page. Masked over
+   currentColor so it takes the pill's colour and its hover change. */
+.ref-link::after{
+  content: "";
+  width: 12px;
+  height: 12px;
+  flex: 0 0 12px;
+
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 4h6v6'/%3E%3Cpath d='M20 4 10 14'/%3E%3Cpath d='M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 4h6v6'/%3E%3Cpath d='M20 4 10 14'/%3E%3Cpath d='M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5'/%3E%3C/svg%3E") center / contain no-repeat;
+
+  opacity: .75;
+  transition: opacity 150ms ease;
+}
+
+.ref-link:hover::after{
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Segmented sub-navigation (Projects tabs)
+   -------------------------------------------------------------------------- */
+
+/* Bare row of pills — no tray behind them. */
+.seg-nav{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 7px;
+  margin: 0 0 22px;
+}
+
+.seg-nav a{
+  position: relative;
+  flex: 0 0 auto;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+
+  color: var(--muted);
+  font-size: 15px;
+  font-weight: 620;
+  text-decoration: none;
+  white-space: nowrap;
+
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease;
+}
+
+/* Same glass material as the primary nav — these are the same idea. */
+.seg-nav a:hover{
+  border-color: color-mix(in srgb, var(--link) 14%, transparent);
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, #fff 42%, transparent),
+      color-mix(in srgb, #fff 12%, transparent)),
+    color-mix(in srgb, var(--link) 6%, transparent);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.55);
+  color: var(--text);
+  text-decoration: none;
+}
+
+/* The blue tint is kept light here. Mixed much above this, it shows through
+   the white gradient as a muddy lavender rather than reading as clear glass;
+   the border and the text carry the colour instead. */
+.seg-nav a[aria-current="page"]{
+  border-color: color-mix(in srgb, var(--link) 32%, transparent);
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, #fff 82%, transparent),
+      color-mix(in srgb, #fff 40%, transparent)),
+    color-mix(in srgb, var(--link) 5%, transparent);
+  backdrop-filter: blur(14px) saturate(180%);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  color: var(--link);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.95),
+    inset 0 -1px 2px color-mix(in srgb, var(--link) 6%, transparent),
+    /* Light gathered along the two ends, where the surface curves away. */
+    inset 6px 0 11px -8px rgba(255,255,255,1),
+    inset -6px 0 11px -8px rgba(255,255,255,1),
+    0 2px 8px color-mix(in srgb, var(--link) 11%, transparent);
+
+  /* The ends carry a denser contour than the top and bottom, so the pill has
+     an edge to read against on a light page. */
+  border-left-color: color-mix(in srgb, var(--link) 46%, transparent);
+  border-right-color: color-mix(in srgb, var(--link) 46%, transparent);
+}
+
+/* The specular rim the cards and the header pills carry: a 1px ring that is
+   near-white at both ends and almost clear across the face. */
+.seg-nav a[aria-current="page"]::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+
+  background: linear-gradient(90deg,
+    rgba(255,255,255,1)   0%,
+    rgba(255,255,255,.58) 11%,
+    rgba(255,255,255,.12) 33%,
+    rgba(255,255,255,.06) 50%,
+    rgba(255,255,255,.12) 67%,
+    rgba(255,255,255,.58) 89%,
+    rgba(255,255,255,1)   100%);
+
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+          mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+
+  pointer-events: none;
+}
+
+:root[data-theme="dark"] .seg-nav a[aria-current="page"]::before{
+  background: linear-gradient(90deg,
+    rgba(255,255,255,.82) 0%,
+    rgba(255,255,255,.42) 11%,
+    rgba(255,255,255,.09) 33%,
+    rgba(255,255,255,.04) 50%,
+    rgba(255,255,255,.09) 67%,
+    rgba(255,255,255,.42) 89%,
+    rgba(255,255,255,.82) 100%);
+}
+
+:root[data-theme="dark"] .seg-nav a:hover{
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.03)),
+    color-mix(in srgb, var(--link) 9%, transparent);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
+}
+
+:root[data-theme="dark"] .seg-nav a[aria-current="page"]{
+  border-color: color-mix(in srgb, var(--link) 34%, transparent);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.15), rgba(255,255,255,.05)),
+    color-mix(in srgb, var(--link) 18%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.24),
+    inset 0 -1px 2px rgba(0,0,0,.25),
+    inset 6px 0 11px -8px rgba(255,255,255,.6),
+    inset -6px 0 11px -8px rgba(255,255,255,.6),
+    0 2px 10px rgba(0,0,0,.36);
+}
+
+/* --------------------------------------------------------------------------
+   Project cards
+   -------------------------------------------------------------------------- */
+
+.project-grid{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin: 0 0 16px;
+}
+
+/* Home page: compact tiles (image + title), three to a row inside the 700px
+   column. 5px gaps leave each tile ~230px, so a 13px title gets ~204px of line
+   before it wraps. The phone rule under "Responsive" drops this to one column. */
+.project-grid--home{
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 5px;
+}
+
+/* --------------------------------------------------------------------------
+   Project rows
+
+   The projects page lays each card out the way the old site did: artwork on
+   the left, title and description on the right, with an arrow at the far edge
+   of the title line. One per row rather than a two-column grid. The card
+   itself keeps the material, top bar and hover it has elsewhere.
+   -------------------------------------------------------------------------- */
+
+.project-grid--list{
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+}
+
+/* The class is doubled so these win over .project-card, which sets
+   display:flex at the same specificity but later in the file. */
+.project-card.project-card--row{
+  display: grid;
+  grid-template-columns: 160px minmax(0, 1fr);
+  column-gap: 22px;
+  align-items: center;
+
+  padding: 18px 22px;
+  text-align: left;
+}
+
+/* The tile version centres the artwork above its title and reserves a fixed
+   height; in a row it simply fills its column. */
+.project-card.project-card--row .project-thumb{
+  max-width: 160px;
+  height: auto;
+  margin: 0;
+  padding: 4px;
+}
+
+
+.project-body{
+  min-width: 0;
+}
+
+/* No top bar on a row: it belongs to the tile, where it caps a column of
+   centred content. Across a wide row it reads as a rule, not an accent. */
+.project-card.project-card--row::before{
+  display: none;
+}
+
+.project-card.project-card--row h3{
+  margin: 0;
+  /* .project-card h3 centres itself, which beats the row's inherited left. */
+  text-align: left;
+  color: var(--link);
+
+  /* The display cut, as the old projects page uses for its project titles:
+     it is the small-caps face, so the heading reads in caps. The global h3
+     rule sets the body face, which is why these looked different. */
+  font-family: var(--font-display);
+  letter-spacing: .015em;
+}
+
+.project-card.project-card--row p{
+  margin: 7px 0 0;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* The tile pins its button to the card's foot with margin-top:auto; in a row
+   the button follows the description directly. */
+.project-card.project-card--row .btn-ghost{
+  margin-top: 12px;
+}
+
+/* Square tiles, as tall as they are wide (~230px). The stack inside must fit:
+   2 x 14px padding + 150px picture + 8px + a two-line title (2 x 21px) + 2px
+   border = 230px. Anything taller stretches the square. */
+.project-grid--home .project-card{
+  aspect-ratio: 1 / 1;
+  padding: 14px 12px;
+}
+
+/* The illustrations have transparent grounds, so here they drop the white
+   plate and sit straight on the card. Dark mode keeps its light plate (the
+   more specific rule under "Artwork treatment"): these drawings need a light
+   ground to stay legible there. */
+.project-grid--home .art-illus{
+  background: none;
+}
+
+/* Bigger pictures than on the Projects page: the square drawings render at
+   136px (150px less the 7px padding) instead of 82px. */
+.project-grid--home .project-thumb{
+  height: 150px;
+  margin: 0 auto 8px;
+}
+
+/* Titles in the small-caps display cut the old site used for project names,
+   so each word opens on a full capital; grey as .section-intro. Centred. */
+.project-grid--home h4{
+  margin: 0;
+  line-height: 1.4;
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: 15px;   /* the most a two-line title allows in the square */
+  font-weight: 700;
+  letter-spacing: .015em;
+  text-align: center;
+}
+
+.project-card{
+  position: relative;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+
+  padding: 22px;
+  /* material: see the shared .card, .prose, .project-card glass rule */
+
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.project-card::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 22px;
+  right: 22px;
+  height: 3px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--link) 48%, transparent);
+}
+
+/* The compact home-page tiles go without the accent bar. */
+.project-grid--home .project-card::before{
+  content: none;
+}
+
+.project-card:hover{
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--link) 30%, transparent);
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, #fff 82%, transparent),
+      color-mix(in srgb, #fff 52%, transparent)),
+    color-mix(in srgb, var(--link) 9%, transparent);
+  box-shadow:
+    inset 0 1px 0 #fff,
+    inset 0 -1px 0 color-mix(in srgb, var(--link) 10%, transparent),
+    0 16px 36px color-mix(in srgb, var(--link) 16%, transparent),
+    0 2px 5px color-mix(in srgb, var(--link) 10%, transparent);
+}
+
+:root[data-theme="dark"] .project-card:hover{
+  border-color: color-mix(in srgb, var(--link) 34%, transparent);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.045)),
+    color-mix(in srgb, var(--link) 13%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.2),
+    inset 0 -1px 0 rgba(0,0,0,.25),
+    0 16px 38px rgba(0,0,0,.55),
+    0 2px 5px rgba(0,0,0,.35);
+}
+
+.project-thumb{
+  display: block;
+  width: 100%;
+  max-width: 172px;
+  height: 96px;
+  margin: 4px auto 14px;   /* centred in the card */
+  padding: 7px;
+  border: 0;
+  border-radius: 11px;
+  object-fit: contain;
+
+  /* Artwork, not content to be pulled out of the page: dragging a project
+     thumbnail produced a ghost image and a drop target. -webkit-user-drag
+     covers Chrome, Edge and Safari; Firefox ignores it, so the markup also
+     carries draggable="false". */
+  -webkit-user-drag: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* The .art-illus plate is a hard-edged rectangle a shade brighter than the
+   card, and it is what you can see around the artwork. On a light page the
+   illustrations carry themselves, so the plate goes. In dark mode it has to
+   stay - four of the six are drawn in near-blacks (#2f2e41, #3f3d56) that
+   vanish against the card - but only its outer band is feathered, by
+   intersecting a horizontal and a vertical fade, so it dissolves into the
+   card on all four sides instead of ending in a line.
+
+   Scoped through .project-card so it outranks .art-illus, which is declared
+   later in this file. The illustration at the head of a project page gets the
+   same treatment, so it has no visible edge there either. */
+.project-card .project-thumb,
+.detail-head img.art-illus{
+  background: transparent;
+}
+
+:root[data-theme="dark"] .project-card .project-thumb,
+:root[data-theme="dark"] .detail-head img.art-illus{
+  background: #eef1f8;
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0, #000 12px, #000 calc(100% - 12px), transparent 100%),
+    linear-gradient(to bottom, transparent 0, #000 12px, #000 calc(100% - 12px), transparent 100%);
+  -webkit-mask-composite: source-in;
+          mask-image:
+    linear-gradient(to right, transparent 0, #000 12px, #000 calc(100% - 12px), transparent 100%),
+    linear-gradient(to bottom, transparent 0, #000 12px, #000 calc(100% - 12px), transparent 100%);
+          mask-composite: intersect;
+}
+
+.project-card h3{
+  margin: 0 0 10px;
+  font-size: 19px;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.project-card h3 a{
+  color: var(--text);
+}
+
+.project-card h3 a:hover{
+  color: var(--link);
+  text-decoration: none;
+}
+
+.project-card p{
+  margin: 0 0 14px;
+  color: var(--muted);
+  font-size: 15.5px;
+}
+
+.project-card .btn-ghost{
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+/* Detail-page hero for a single project or news item */
+
+.detail-head{
+  margin: 0 0 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+}
+
+.detail-eyebrow{
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 750;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.detail-head h1{
+  margin: 0 auto 16px;
+  max-width: 30ch;
+  font-size: clamp(25px, 3vw, 34px);
+  line-height: 1.2;
+}
+
+.detail-head img{
+  display: block;
+  width: auto;
+  max-width: min(100%, 240px);
+  max-height: 150px;
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+.detail-head img.art-photo{
+  max-width: min(100%, 300px);
+  max-height: 220px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+
+/* --------------------------------------------------------------------------
+   Artwork treatment
+
+   Three kinds of image live on this site and each needs different handling
+   in dark mode:
+
+   .art-mark   flat single-colour ONE Lab logos — lifted with a filter so the
+               brand blue stays legible against the near-black background.
+   .art-illus  full-colour illustrations that carry their own white ground —
+               filtering blows out the whites, so they sit on a light plate.
+   .art-photo  photographs — left completely alone.
+   -------------------------------------------------------------------------- */
+
+.art-mark{
+  filter: var(--logo-filter);
+}
+
+.art-illus{
+  background: rgba(255,255,255,.66);
+}
+
+:root[data-theme="dark"] .art-illus{
+  background: #eef1f8;
+}
+
+:root[data-theme="dark"] .detail-head img.art-illus,
+:root[data-theme="dark"] .news-thumb.art-illus{
+  border-radius: 12px;
+}
+
+.detail-head img.art-illus{
+  padding: 10px;
+  border-radius: 12px;
+}
+
+/* --------------------------------------------------------------------------
+   News cards
+   -------------------------------------------------------------------------- */
+
+/* News items are horizontal rows: square picture on the left, text on the
+   right, one item per row. */
+.news-grid{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4px;
+}
+
+.news-card{
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  padding: 12px;
+
+  border-radius: 16px;
+  /* material: see the shared glass rule (.card, .prose, …) */
+
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease;
+}
+
+.news-card:hover{
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--link) 30%, transparent);
+  box-shadow:
+    inset 0 1px 0 #fff,
+    inset 0 -1px 0 color-mix(in srgb, var(--link) 10%, transparent),
+    0 14px 32px color-mix(in srgb, var(--link) 15%, transparent),
+    0 2px 5px color-mix(in srgb, var(--link) 9%, transparent);
+}
+
+:root[data-theme="dark"] .news-card:hover{
+  border-color: color-mix(in srgb, var(--link) 34%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.2),
+    inset 0 -1px 0 rgba(0,0,0,.25),
+    0 14px 34px rgba(0,0,0,.55),
+    0 2px 5px rgba(0,0,0,.35);
+}
+
+/* The picture is not a link - news items have no pages of their own - so
+   it has no hover state. */
+.news-pic{
+  display: block;
+  line-height: 0;
+  border-radius: 12px;
+}
+
+/* News artwork is authored square by convention — the picture stays a true
+   square whatever the row's height, so nothing is cropped away. */
+.news-thumb{
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  object-fit: cover;
+  background: color-mix(in srgb, var(--link) 6%, var(--panel));
+}
+
+/* Logo and diagram thumbnails are artwork, not photography — letterbox them
+   rather than cropping into the middle of the mark. */
+.news-thumb--contain{
+  object-fit: contain;
+  padding: 14px;
+}
+
+.news-body{
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 2px 8px 2px 0;
+}
+
+/* The date is metadata, not an affordance. A tinted pill in link blue is the
+   same shape and colour as .ref-link and .btn-ghost right below it, so it read
+   as something to click. It is now plain muted text, lightly tracked, with no
+   pill and no link colour. The short rule gives it presence at the card's
+   right edge without a border. */
+.news-date{
+  display: inline-flex;
+  align-self: flex-end;   /* date sits at the right edge of the text column */
+  align-items: center;
+  gap: 8px;
+
+  margin-bottom: 10px;
+  color: var(--muted);
+
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: .04em;
+}
+
+.news-date::before{
+  content: "";
+  width: 18px;
+  height: 1px;
+  background: color-mix(in srgb, var(--muted) 50%, transparent);
+}
+
+.news-body p{
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+
+/* --------------------------------------------------------------------------
+   People — speaker-style cards, as on the workshop site's Speakers page.
+
+   One grid per section, no collapsible groups. Each card is a circular
+   portrait, name, department, and a coloured "meta" pill naming the person's
+   category (Director, PhD Student, …) where the workshop site put the talk
+   type (Keynote, Rising Star…). Cards share the site's glass material.
+   -------------------------------------------------------------------------- */
+
+.people-section{
+  margin-top: 18px;
+}
+
+/* Unlike .section, this has no bottom padding, so the last group on the page
+   ran straight into the footer's divider. Only the final one needs the gap -
+   between siblings the 18px top margin already does the work. */
+.people-section:last-child{
+  margin-bottom: 34px;
+}
+
+.people-section h2{
+  margin: 0 0 12px;
+  text-align: left;
+}
+
+.people-grid{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.person-card{
+  display: flex;
+  min-height: 300px;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 16px 12px;
+  border-radius: 16px;
+  /* material: see the shared glass rule (.card, .prose, …) */
+
+  text-align: center;
+
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    border-color 160ms ease;
+}
+
+.person-card:hover,
+.alum-row:hover,
+.prose.intro:hover,
+.pub-item:hover,
+.faq-item:hover{
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--link) 30%, transparent);
+  box-shadow:
+    inset 0 1px 0 #fff,
+    inset 0 -1px 0 color-mix(in srgb, var(--link) 10%, transparent),
+    0 14px 32px color-mix(in srgb, var(--link) 15%, transparent),
+    0 2px 5px color-mix(in srgb, var(--link) 9%, transparent);
+}
+
+:root[data-theme="dark"] .person-card:hover,
+:root[data-theme="dark"] .alum-row:hover,
+:root[data-theme="dark"] .prose.intro:hover,
+:root[data-theme="dark"] .pub-item:hover,
+:root[data-theme="dark"] .faq-item:hover{
+  border-color: color-mix(in srgb, var(--link) 34%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.2),
+    inset 0 -1px 0 rgba(0,0,0,.25),
+    0 14px 34px rgba(0,0,0,.55),
+    0 2px 5px rgba(0,0,0,.35);
+}
+
+.person-avatar{
+  display: block;
+  width: 120px;
+  height: 120px;
+  margin: 8px auto 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  object-fit: cover;
+  object-position: center top;
+  background: var(--panel);
+}
+
+/* Recruiting card: the same shape as a member card with the portrait left
+   vacant, so an empty slot reads as an invitation rather than a gap. */
+.person-avatar.is-empty{
+  background: color-mix(in srgb, var(--link) 7%, var(--panel));
+}
+
+.join-card .person-name{
+  color: var(--muted);
+}
+
+.join-card .person-actions{
+  /* The button carries its own 12px top margin. */
+  padding-top: 2px;
+}
+
+.person-name{
+  margin: 0 0 6px;
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.person-role{
+  margin: 0;
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+/* PI card — the site's original design: a large square portrait beside name,
+   title and email, the bio beneath, and the icon links along the foot. */
+.pi-card{
+  display: flex;
+  flex-direction: column;
+  padding: 18px;
+  border-radius: 18px;
+  /* material: see the shared glass rule (.card, .prose, …) */
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    border-color 160ms ease;
+}
+
+.pi-card:hover{
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--link) 30%, transparent);
+  box-shadow:
+    inset 0 1px 0 #fff,
+    inset 0 -1px 0 color-mix(in srgb, var(--link) 10%, transparent),
+    0 14px 32px color-mix(in srgb, var(--link) 15%, transparent),
+    0 2px 5px color-mix(in srgb, var(--link) 9%, transparent);
+}
+
+:root[data-theme="dark"] .pi-card:hover{
+  border-color: color-mix(in srgb, var(--link) 34%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.2),
+    inset 0 -1px 0 rgba(0,0,0,.25),
+    0 14px 34px rgba(0,0,0,.55),
+    0 2px 5px rgba(0,0,0,.35);
+}
+
+.pi-profile{
+  display: grid;
+  grid-template-columns: 168px minmax(0, 1fr);
+  gap: 22px;
+  align-items: center;
+}
+
+.pi-photo{
+  display: block;
+  width: 168px;
+  height: 168px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  object-fit: cover;
+  object-position: center top;
+  background: var(--panel);
+}
+
+.pi-identity{
+  min-width: 0;
+}
+
+.pi-identity h3{
+  margin: 0 0 5px;
+  color: var(--text);
+  font-size: 22px;
+  line-height: 1.22;
+}
+
+.pi-affiliation{
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.pi-bio{
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* The links sit in the identity column beside the portrait, under the title
+   and department - not at the foot of the card - so they no longer need the
+   margin-top:auto that pushed them to the bottom of the flex column. */
+.pi-actions{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+/* Small lines beneath the role: an honour, research interests, where an alum
+   went next. */
+.person-honor,
+.person-next{
+  margin: 9px 0 0;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+
+.person-honor{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  color: var(--link);
+  font-weight: 700;
+}
+
+/* An award rosette leading the honour, masked over currentColor so it takes
+   the link colour with the text - and follows it when dark mode lifts it. */
+.person-honor::before{
+  content: "";
+  width: 13px;
+  height: 13px;
+  flex: 0 0 13px;
+
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='8.5' r='5.5'/%3E%3Cpath d='M8.6 12.9 7 21l5-2.8L17 21l-1.6-8.1'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='8.5' r='5.5'/%3E%3Cpath d='M8.6 12.9 7 21l5-2.8L17 21l-1.6-8.1'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* --------------------------------------------------------------------------
+   Alumni row
+
+   A full-width alternative to the grid card, for alumni whose story is one
+   line: who they were here, then where they went. The destination is pushed
+   to the far edge so a column of rows reads as from -> to.
+   -------------------------------------------------------------------------- */
+
+/* Stacked rows need air between them; the first sits flush under the heading. */
+.alum-row + .alum-row{
+  margin-top: 10px;
+}
+
+/* Fixed tracks rather than flex, so the five fields line up as columns down
+   the whole list - each row is its own grid, and they only agree because the
+   track sizes are the same.
+
+   Degree and department share one cell, so there are four tracks, not five.
+   Name and arrow are fixed at their measured maximums; the combined cell and
+   the destination share what is left. */
+.alum-row{
+  display: grid;
+  grid-template-columns:
+    100px minmax(0, 1.2fr) minmax(0, 1.15fr);
+  align-items: baseline;
+  gap: 10px;
+  padding: 14px 18px;
+
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    border-color 160ms ease;
+}
+
+/* The whole row sits in grey; the name keeps its weight so the hierarchy
+   survives without a second colour. */
+/* Each field is pinned to its own track. Without this, grid auto-placement
+   walks the children left to right, so a row missing one field (an alum with
+   no arrow, say) shifts every later field into the wrong column. */
+.alum-name{ grid-column: 1; }
+.alum-meta{ grid-column: 2; }
+.alum-next{ grid-column: 3; }
+
+.alum-name{
+  color: var(--muted);
+  font-size: 16px;
+  font-weight: 750;
+}
+
+.alum-meta{
+  color: var(--muted);
+  font-size: 13.5px;
+}
+
+/* Pushes itself and the destination to the right edge of the row. On a narrow
+   screen the row wraps and the arrow simply leads the last line. */
+.alum-next{
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* The arrow leads the destination instead of occupying a column of its own. */
+.alum-next::before{
+  content: "\2192";
+  margin-right: 9px;
+}
+
+/* 700px is where the rest of the site drops to one column, and it is also
+   where the three tracks stop fitting - below it the combined degree/department
+   cell wraps and the row reads worse than a stack. */
+@media (max-width: 700px){
+  .alum-row{
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3px;
   }
-  
-  .fa:hover {
-      opacity: 0.7;
+
+  /* The fields are pinned to tracks 1-3 above. Those pins survive a narrower
+     template and would conjure the columns back as implicit tracks, crushing
+     the name, so every field is put back into the single column. */
+  .alum-row > *{
+    grid-column: 1;
   }
-  
-  
-  .fa-twitter {
-    background: #5869BB;
-    color: white;
+}
+
+/* An alumni line that continues from the role above it gets a downward arrow
+   on its own line, so "B.S. '25" and where they went read as one sequence
+   rather than two separate facts. */
+/* The arrow belongs to the role line above it, so it sits closer than the
+   9px the standalone next-step lines use. */
+.person-next.is-step{
+  margin-top: 2px;
+}
+
+.person-next.is-step::before{
+  content: "\2193";
+  display: block;
+  margin-bottom: 3px;
+  font-size: 15px;
+  line-height: 1;
+  opacity: .7;
+}
+
+/* The research-interest badge, carried over from the Speakers grid on the
+   insect-autonomy site: a pill in link colour with a leading dot, sitting
+   under the department. --badge-accent is a hook for tinting a variant later,
+   the way that page colours keynote and industry talks differently. */
+.person-interest{
+  --badge-accent: var(--link);
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  /* Sinks to the foot of the card: this absorbs the column's free space so the
+     badge sits directly above the icon row, whatever the card above it holds.
+     .person-actions gives up its own auto margin below, or the two would split
+     the space between them and leave a gap in the middle. */
+  margin-top: auto;
+  padding: 5px 11px;
+  border: 1px solid color-mix(in srgb, var(--badge-accent) 42%, var(--line));
+  border-radius: 999px;
+
+  /* Mixed into transparent rather than --panel, so the card's own material
+     shows through instead of a tinted plate sitting on top of it. */
+  background: color-mix(in srgb, var(--badge-accent) 6%, transparent);
+  color: var(--badge-accent);
+
+  /* Small and italic: the longest interests only clear the card's ~197px of
+     inner width at this size, and italic sets the label apart from the
+     upright text above it. */
+  font-size: 13px;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+
+/* A magnifier rather than a dot: the badge marks what the person is looking
+   into. Drawn as a mask over currentColor so it takes --badge-accent with the
+   rest of the badge instead of carrying a hard-coded fill. */
+.person-interest::before{
+  content: "";
+  width: 11px;
+  height: 11px;
+  flex: 0 0 11px;
+
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.6' stroke-linecap='round'%3E%3Ccircle cx='10.5' cy='10.5' r='6.5'/%3E%3Cpath d='M15.4 15.4 21 21'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.6' stroke-linecap='round'%3E%3Ccircle cx='10.5' cy='10.5' r='6.5'/%3E%3Cpath d='M15.4 15.4 21 21'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.person-actions{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 14px;
+}
+
+.person-interest + .person-actions{
+  margin-top: 0;
+  padding-top: 10px;
+}
+
+/* The badge sinks on `margin-top: auto`, which collapses to nothing once a
+   card is full - an honour line or two and it ends up flush against the text
+   above. The gap therefore lives on whatever sits directly before it: a fixed
+   margin that is honoured when the card is tight, and simply eats into the
+   auto space when it is not, so roomier cards look unchanged. */
+.person-role:has(+ .person-interest),
+.person-honor:has(+ .person-interest),
+.person-next:has(+ .person-interest){
+  margin-bottom: 12px;
+}
+
+.social-links{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Round icon buttons, shared by person cards and the footer */
+
+.icon-link{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 33px;
+  height: 33px;
+
+  border: 1px solid color-mix(in srgb, var(--link) 16%, transparent);
+  border-radius: 999px;
+
+  /* Glass bead: resting weight matches the badges, hover steps up to the
+     nav's active weight. */
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, #fff 52%, transparent),
+      color-mix(in srgb, #fff 14%, transparent)),
+    color-mix(in srgb, var(--link) 7%, transparent);
+  backdrop-filter: blur(10px) saturate(150%);
+  -webkit-backdrop-filter: blur(10px) saturate(150%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.72),
+    0 1px 4px color-mix(in srgb, var(--link) 10%, transparent);
+  color: var(--muted);
+
+  transition:
+    color 150ms ease,
+    border-color 150ms ease,
+    background-color 150ms ease,
+    box-shadow 150ms ease,
+    transform 150ms ease;
+}
+
+.icon-link:hover{
+  color: var(--link);
+  border-color: color-mix(in srgb, var(--link) 30%, transparent);
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, #fff 66%, transparent),
+      color-mix(in srgb, #fff 24%, transparent)),
+    color-mix(in srgb, var(--link) 13%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.9),
+    0 3px 9px color-mix(in srgb, var(--link) 20%, transparent);
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+:root[data-theme="dark"] .icon-link{
+  border-color: color-mix(in srgb, var(--link) 22%, transparent);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.03)),
+    color-mix(in srgb, var(--link) 10%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.13),
+    0 1px 4px rgba(0,0,0,.3);
+}
+
+:root[data-theme="dark"] .icon-link:hover{
+  border-color: color-mix(in srgb, var(--link) 34%, transparent);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.15), rgba(255,255,255,.05)),
+    color-mix(in srgb, var(--link) 18%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.24),
+    0 3px 10px rgba(0,0,0,.4);
+}
+
+.icon-link svg{
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.icon-link.is-solid svg{
+  fill: currentColor;
+  stroke: none;
+}
+
+/* --------------------------------------------------------------------------
+   Publications
+   -------------------------------------------------------------------------- */
+
+.pub-list{
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: pub;
+}
+
+/* Material, edge rim and side glow come from the shared glass rule above.
+   The 3px link-coloured left border this used to carry is gone: it sat exactly
+   where the rim puts its brightest highlight, so the two fought each other. */
+.pub-item{
+  padding: 14px 18px;
+  /* material: see the shared glass rule (.card, .prose, …) */
+
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    border-color 160ms ease;
+}
+
+
+
+/* Same size as .pub-authors below it; the weight and the link colour are what
+   separate the title from the rest of the entry, not the scale.
+
+   Scoped through .pub-item so it outranks `.prose p { color: var(--muted) }`.
+   On the publications page the list is not inside .prose, but on the project
+   and news detail pages it is, and a bare .pub-title lost to it there. */
+.pub-item .pub-title{
+  margin: 0 0 5px;
+  color: var(--link);
+  font-size: 14.5px;
+  font-weight: 680;
+  line-height: 1.45;
+}
+
+.pub-authors{
+  margin: 0 0 3px;
+  color: var(--muted);
+  font-size: 14.5px;
+  line-height: 1.45;
+}
+
+.pub-venue{
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  font-style: italic;
+  line-height: 1.45;
+}
+
+.pub-venue b{
+  color: var(--link);
+  font-style: normal;
+  font-weight: 700;
+}
+
+/* --------------------------------------------------------------------------
+   FAQ
+   -------------------------------------------------------------------------- */
+
+.faq-list{
+  display: grid;
+  gap: 10px;
+}
+
+/* Material, edge rim and side glow come from the shared glass rule above,
+   so an FAQ entry reads as the same sheet of glass as a publication entry. */
+/* Anything a fragment link can target needs to clear the sticky header, or
+   the jump tucks it underneath. */
+.faq-item,
+.section > h2[id]{
+  scroll-margin-top: 104px;
+}
+
+.faq-item{
+  /* material: see the shared glass rule (.card, .prose, …) */
+  overflow: hidden;
+
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    border-color 160ms ease;
+}
+
+/* An open entry keeps the glass but takes a firmer contour, the way the
+   active seg-nav tab does, so the expanded answer is easy to find again. */
+.faq-item[open]{
+  border-color: color-mix(in srgb, var(--link) 32%, transparent);
+}
+
+:root[data-theme="dark"] .faq-item[open]{
+  border-color: color-mix(in srgb, var(--link) 40%, transparent);
+}
+
+.faq-item > summary{
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+
+  padding: 14px 17px;
+
+  /* Questions sit in the muted gray and darken on hover. */
+  color: var(--muted);
+  font-size: 16.5px;
+  font-weight: 660;
+  line-height: 1.45;
+
+  cursor: pointer;
+  list-style: none;
+
+  transition: color 150ms ease;
+}
+
+.faq-item > summary::-webkit-details-marker{
+  display: none;
+}
+
+.faq-item > summary:hover{
+  color: var(--text);
+}
+
+.faq-item > summary .chev{
+  width: 15px;
+  height: 15px;
+  margin-top: 4px;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 220ms ease;
+}
+
+.faq-item[open] > summary .chev{
+  transform: rotate(90deg);
+}
+
+.faq-answer{
+  padding: 0 17px 16px 43px;
+  color: var(--muted);
+  font-size: 15.5px;
+  line-height: 1.62;
+}
+
+.faq-answer > :first-child{
+  margin-top: 0;
+}
+
+.faq-answer > :last-child{
+  margin-bottom: 0;
+}
+
+.faq-answer p{
+  margin: 0 0 9px;
+}
+
+.faq-answer dl{
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 5px 14px;
+  margin: 0;
+}
+
+.faq-answer dt{
+  color: var(--link);
+  font-size: 11.5px;
+  font-weight: 750;
+  letter-spacing: .05em;
+  padding-top: 3px;
+  text-transform: uppercase;
+}
+
+.faq-answer dd{
+  margin: 0;
+}
+
+/* Glass like the FAQ entries around it, with a firmer contour so it still
+   stands out as the call to action between them. */
+.callout{
+  margin: 0 0 18px;
+  padding: 16px 18px;
+  /* material: see the shared glass rule (.card, .prose, …) */
+  border-color: color-mix(in srgb, var(--link) 34%, transparent);
+}
+
+:root[data-theme="dark"] .callout{
+  border-color: color-mix(in srgb, var(--link) 42%, transparent);
+}
+
+.callout h3{
+  margin: 0 0 6px;
+  font-size: 16px;
+}
+
+.callout p,
+.callout li{
+  color: var(--muted);
+  font-size: 14.5px;
+}
+
+.callout p{
+  margin: 0 0 8px;
+}
+
+/* A list reads as part of the paragraph run around it: same spacing below
+   as a paragraph, and a hanging indent just deep enough for the bullet. */
+.callout ul,
+.callout ol{
+  margin: 0 0 8px;
+  padding-left: 20px;
+}
+
+.callout li + li{
+  margin-top: 2px;
+}
+
+.callout > :last-child{
+  margin-bottom: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Current openings
+
+   Plain content on the page - no panel, border or shadow - so it lines up with
+   the section headings below it. Only the status pill and its pulsing dot set
+   it apart; the pulse stops under prefers-reduced-motion.
+   -------------------------------------------------------------------------- */
+
+/* The status label: a small pill, the same weight as the badges. */
+.opening .opening-status{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  /* Shrink to its content, at the left edge of the column. */
+  width: fit-content;
+  margin: 0 0 8px;
+  padding: 4px 11px 4px 9px;
+
+  border: 1px solid color-mix(in srgb, var(--link) 28%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, #fff 62%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.95),
+    0 2px 8px color-mix(in srgb, var(--link) 12%, transparent);
+
+  color: var(--link);
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: .08em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.opening-dot{
+  /* One value drives the dot, its halo and the pulse. */
+  --dot: var(--ok-green);
+
+  /* inline-block, not the span's default inline: an inline box ignores width
+     and height, so without this the dot collapses to nothing anywhere except
+     inside the summary, whose flex layout happens to blockify its children. */
+  display: inline-block;
+  /* vertical-align centres it on the text's midline; the nudge corrects the
+     ~2px the glyph metrics leave it sitting low. Both are ignored on a flex
+     item, so the summary below is unaffected by them. */
+  vertical-align: middle;
+  margin-right: 8px;
+
+  position: relative;
+  top: -2px;
+  width: 8px;
+  height: 8px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--dot);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--dot) 22%, transparent);
+}
+
+/* In the summary the dot is a flex item on a row aligned to flex-start, so it
+   would ride at the top of the line like a superscript. Half the leading puts
+   it back on the text's midline, and unlike align-self:center it stays on the
+   first line if the question ever wraps. */
+.faq-item > summary .opening-dot{
+  /* The summary supplies its own 11px flex gap and does its own alignment. */
+  margin-right: 0;
+  top: 0;
+
+  align-self: flex-start;
+  margin-top: calc((1.45em - 8px) / 2);
+}
+
+.opening-dot::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--dot);
+  animation: opening-pulse 2.2s ease-out infinite;
+}
+
+@keyframes opening-pulse{
+  from{
+    opacity: .55;
+    transform: scale(1);
   }
-  
-  
-  .fa-linkedin {
-    background: #5869BB;
-    color: white;
+
+  to{
+    opacity: 0;
+    transform: scale(2.8);
   }
-  
-  .fa-youtube {
-    background: #5869BB;
-    color: white;
+}
+
+/* One line per open role, with a plain bullet. Text is set like an FAQ
+   answer (.faq-answer), grey included; the lines stay tight so the roles read
+   as one short block under the status pill. */
+.opening ul{
+  display: grid;
+  gap: 1px;
+  margin: 0;
+  padding-left: 20px;
+  list-style: disc;
+}
+
+.opening li{
+  color: var(--muted);
+  font-size: 15.5px;
+  line-height: 1.45;
+}
+
+/* .btn already spaces its children with gap. */
+.btn .ext-icon{
+  margin-left: 0;
+}
+
+:root[data-theme="dark"] .opening .opening-status{
+  border-color: color-mix(in srgb, var(--link) 36%, transparent);
+  background: rgba(255,255,255,.07);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.16),
+    0 2px 8px rgba(0,0,0,.3);
+}
+
+/* --------------------------------------------------------------------------
+   Gallery + lightbox
+   -------------------------------------------------------------------------- */
+
+.gallery-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+  gap: 12px;
+}
+
+.gallery-grid img{
+  display: block;
+  width: 100%;
+  height: 168px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  object-fit: cover;
+  cursor: zoom-in;
+
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+
+.gallery-grid img:hover{
+  transform: scale(1.02);
+  border-color: color-mix(in srgb, var(--link) 40%, var(--line));
+  box-shadow: 0 12px 28px rgba(0,0,0,.18);
+}
+
+.lightbox{
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+  background: rgba(6,8,14,.86);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  cursor: zoom-out;
+}
+
+.lightbox[data-open="true"]{
+  display: flex;
+}
+
+.lightbox img{
+  max-width: min(100%, 1100px);
+  max-height: 88vh;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.55);
+}
+
+.lightbox-close{
+  position: absolute;
+  top: 18px;
+  right: 18px;
+
+  width: 40px;
+  height: 40px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(255,255,255,.28);
+  border-radius: 999px;
+  background: rgba(255,255,255,.1);
+  color: #fff;
+
+  font-size: 20px;
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.lightbox-close:hover{
+  background: rgba(255,255,255,.2);
+}
+
+/* --------------------------------------------------------------------------
+   Tables
+   -------------------------------------------------------------------------- */
+
+table{
+  width: 100%;
+  max-width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--panel2);
+}
+
+th,
+td{
+  padding: 10px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+th{
+  background: var(--panel);
+  color: var(--muted);
+  font-weight: 650;
+}
+
+tr:last-child td{
+  border-bottom: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+
+.footer{
+  margin-top: auto;
+  padding: 0 0 30px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.footer::before{
+  margin-bottom: 24px;   /* the top padding the border used to sit above */
+}
+
+.footer-inner{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.footer-logo img{
+  display: block;
+  width: 108px;
+  height: auto;
+  filter: var(--logo-filter);
+}
+
+.footer-meta{
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+
+.footer-social{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* --------------------------------------------------------------------------
+   Motion + focus
+   -------------------------------------------------------------------------- */
+
+a:focus-visible,
+summary:focus-visible,
+.icon-link:focus-visible,
+.gallery-grid img:focus-visible{
+  outline: 2px solid var(--link);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.prose > h1,
+.prose > h2,
+.prose > h3,
+.prose > p,
+.prose > ul,
+.prose > hr{
+  animation: fade-up 420ms ease both;
+}
+
+@keyframes fade-up{
+  from{
+    opacity: 0;
+    transform: translateY(8px);
   }
-  
-  .fa-link {
-    background: #5869BB;
-    color: white;
+
+  to{
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{
+    scroll-behavior: auto;
   }
 
-footer {
-    background-color: #ffffff;
-    /* padding: 30px 0; */
-    text-align: left;
+  *,
+  *::before,
+  *::after{
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+
+  .card:hover,
+  .news-card:hover,
+  .person-card:hover,
+  .alum-row:hover,
+  .prose.intro:hover,
+  .project-card:hover,
+  .pub-item:hover,
+  .faq-item:hover,
+  .gallery-grid img:hover,
+  .btn:hover,
+  .btn-ghost:hover,
+  .ref-link:hover,
+  .pill-link:hover{
+    transform: none;
+  }
 }
 
-.footer-container {
-    max-width: 700px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 700px){
+  .hero-grid{
+    grid-template-columns: 1fr;
+  }
 }
 
-.footer-logo img {
-    width: 100px;
+@media (max-width: 700px){
+  .project-grid{
+    grid-template-columns: 1fr;
+  }
+
+  /* One tile across a phone is far too wide to be square. */
+  .project-grid--home .project-card{
+    aspect-ratio: auto;
+  }
+
+  .people-grid{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+
 }
 
-.footer-social {
-    flex: 1;
-    text-align: right;
-}
+/* --------------------------------------------------------------------------
+   Narrow header
 
-.footer-social .fa {
-    margin: 0 5px;
-    font-size: 20px;
-    color: #5869BB;
-}
+   Below ~740px the brand, five pills and the toggle no longer fit on one line
+   (they need about 717px). Rather than moving the nav somewhere else — a fixed
+   bottom bar reads as "the nav vanished" in a squeezed desktop window — the
+   header simply becomes two rows: brand and toggle, then the pills centred
+   beneath. The nav stays in the header at every width.
+   -------------------------------------------------------------------------- */
 
-.footer-social .fa:hover {
-    color: #000;
-}
-
-.news-container {
-    width: 700px;
-    margin: 0 auto; 
+@media (max-width: 740px){
+  .navbar{
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Adjust the number of columns here */
-    gap: 10px;
-    padding: 20px;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "brand theme"
+      "nav   nav";
+    gap: 10px 16px;
+    padding: 13px 18px 11px;
+  }
+
+  .brand{
+    grid-area: brand;
+    min-width: 0;
+  }
+
+  .themeBtn{
+    grid-area: theme;
+    align-self: center;
+  }
+
+  .nav{
+    grid-area: nav;
+    justify-content: center;
+    gap: 4px;
+  }
 }
 
-.news {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
+@media (max-width: 700px){
+  .header{
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: var(--bg);
+  }
 
-.news img {
-    width: 96%;
-    padding: 5px;
-    /* height: 210px; */
-}
+  .brandLogo{
+    width: 118px;
+  }
 
-.news-content {
+  .brand small{
+    font-size: 11.5px;
+    line-height: 1.4;
+  }
+
+  .nav a{
+    padding: 6px 9px;
+    font-size: 14px;
+  }
+
+  /* Short labels ("Pubs") so five pills clear a phone-width row. */
+  .navLabelDesktop{
+    display: none;
+  }
+
+  .navLabelMobile{
+    display: inline;
+  }
+
+  .nav a::after{
+    content: attr(data-short);
+  }
+
+  .hero{
+    padding-top: 36px;
+  }
+
+  .welcome{
+    margin-top: 22px;
+    font-size: 18px;
+  }
+
+  .welcome + .hero{
+    padding-top: 20px;
+  }
+
+  .hero-grid > div:first-child{
+    text-align: center;
+  }
+
+  .intro{
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .prose.intro{
+    padding: 18px;
+  }
+
+  .intro-pi{
+    justify-self: center;
+  }
+
+  .intro-sign{
+    text-align: center;
+  }
+
+  .badges{
+    justify-content: center;
+  }
+
+  .news-card{
+    grid-template-columns: 110px minmax(0, 1fr);
+    gap: 14px;
+    align-items: start;
+  }
+
+  .news-thumb--contain{
     padding: 10px;
-}
+  }
+
+  .prose{
+    padding: 18px;
+  }
+
+  .seg-nav a{
+    font-size: 13px;
+  }
 
 
-.alumni-section {
-    margin: 20px 0;
-    padding: 0;
-    border-radius: 5px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease-in-out;
-    overflow: hidden;
-}
-
-/* Collapsible header styling */
-.collapsible {
-    cursor: pointer;
-    padding: 15px 20px;
-    font-size: 18px;
-    border: none;
-    background-color: #ffffff;
-    width: 100%;
-    text-align: left;
-    outline: none;
-    margin: 0;
-    box-shadow: none;
-    position: relative;
-}
-
-.collapsible_professor {
-    cursor: pointer;
-    padding: 15px 20px;
-    font-size: 18px;
-    border: none;
-    background-color: #ffffff;
-    width: 100%;
-    text-align: left;
-    outline: none;
-    margin: 0;
-    box-shadow: none;
-    position: relative;
-}
-
-.collapsible .arrow {
-    position: absolute;
-    right: 80px; 
-    top: 40%;
-    transform: translateY(0%); 
-    transform-origin: center; 
-    font-size: 18px;
-    color: #5869bb;
-    transition: transform 0.3s ease; 
-}
-
-.collapsible_professor .arrow {
-    position: absolute;
-    right: 80px; 
-    top: 40%;
-    transform: translateY(0%); 
-    transform-origin: center; 
-    font-size: 18px;
-    color: #5869bb;
-    transition: transform 0.3s ease; 
-}
-
-/* When the section is expanded, rotate the arrow */
-.collapsible.active .arrow {
-    transform: rotate(90deg) translateY(0%);
-}
-
-.collapsible_professor.active .arrow {
-    transform: rotate(90deg) translateY(0%);
-}
 
 
-/* Collapsible content hidden initially */
-.content {
-    padding: 15px 20px;
-    display: none;
-    background-color: #ffffff;
-    width: 100%;
-    margin: 0;
-}
+  .faq-answer{
+    padding-left: 17px;
+  }
 
-/* Expanded state: Apply shadow around the entire alumni section (header + content) */
-.collapsible.active + .content,
-.alumni-section .collapsible.active {
-    display: block;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); 
-    border-radius: 5px;
-}
-.collapsible_professor.active + .content,
-.alumni-section .collapsible_professor.active {
-    display: block;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); 
-    border-radius: 5px;
-}
-
-/* Adjust the icon and text alignment */
-.collapsible i.fa-users {
-    color: #5869bb; 
-    margin-right: 10px; 
-    font-size: 20px; 
-    vertical-align: middle; 
-}
-.collapsible_professor i.fa-users {
-    color: #5869bb; 
-    margin-right: 10px; 
-    font-size: 20px; 
-    vertical-align: middle; 
-}
-
-/* Additional styles for the table inside the content */
-.styled-table {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-}
-
-.styled-table td {
-    vertical-align: top;
-    padding: 10px 0;
-}
-
-
-/* ######################################################################### */
-/* Undergrad section */
-.undergrad-section {
-    margin: 20px 0;
-    padding: 0;
-    border-radius: 5px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease-in-out;
-    overflow: hidden;
-}
-
-
-/* Student row: Using flexbox to align the image and details */
-.student-row {
-    display: flex;
-    align-items: flex-start;
-/*     margin-bottom: 15px; /* Space between rows */ */
-/*     padding: 10px 0; */
-    box-sizing: border-box;
-    width: 90%;
-    height: 140px;
-    border-bottom: none; /* Remove this to prevent it from hitting the image */
-}
-
-.row-divider {
-    border-bottom: 1px solid #e0e0e0; /* Grey line */
-    width: 94%; /* Full width */
-    margin-bottom: 15px; /* Space between rows */
-}
-
-.pi-row {
-    display: flex;
-    align-items: flex-start;
-/*     margin-bottom: 15px; /* Space between rows */ */
-/*     padding: 10px 0; */
-    box-sizing: border-box;
-    width: 90%;
-    height: 200px;
-    border-bottom: none; /* Remove this to prevent it from hitting the image */
-}
-
-/* Image size is fixed to maintain alignment */
-.pi-row img {
-    width: 200px;
-    height: 187.5px;
-    border-radius: 5px;
-    margin-bottom: 0; /* Adds space between the image and the grey line */
-}
-
-/* pi details next to the picture */
-.pi-details {
-    margin-left: 20px; 
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; 
-    height: 160px; 
-    width: calc(100% - 160px); 
-    box-sizing: border-box; 
-}
-
-.pi-details p {
-    margin: 0; 
-    padding: 0; 
-    line-height: 1.5; 
-}
-
-.pi-details .social-links {
-    display: flex;
-    align-items: center;
-    margin-top: 0;10px; 
-    margin-right: 0;10px;
-}
-
-.pi-details .social-links a {
-    margin-right: 10px;
-}
-
-.pi-details a.fa {
-    padding: 5px;
-    font-size: 18px;
+  .footer-inner{
+    justify-content: center;
     text-align: center;
-    border-radius: 50%; 
-    color: #5869bb; 
+  }
 }
 
-.pi-details a.fa:hover {
-    opacity: 0.8;
-}
+@media (max-width: 520px){
 
-.pi-row:last-child {
-    border-bottom: none;
-}
-/* Image size is fixed to maintain alignment */
-.student-row img {
-    width: 120px;
-    height: 120px;
-    border-radius: 5px;
-    margin-bottom: 0; /* Adds space between the image and the grey line */
-}
 
-/* Student details next to the picture */
-.student-details {
-    margin-left: 20px; 
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; 
-    height: 160px; 
-    width: calc(100% - 160px); 
-    box-sizing: border-box; 
-}
+  .people-grid{
+    grid-template-columns: 1fr;
+  }
 
-.student-details p {
-    margin: 0; 
-    padding: 0; 
-    line-height: 1.5; 
-}
+  .person-card{
+    min-height: 0;
+  }
 
-.student-details .social-links {
-    display: flex;
-    align-items: center;
-    margin-top: 0;10px; 
-    margin-right: 0;10px;
-}
-
-.student-details .social-links a {
-    margin-right: 10px;
-}
-
-.student-details a.fa {
-    padding: 5px;
-    font-size: 18px;
+  .pi-profile{
+    grid-template-columns: 1fr;
+    justify-items: center;
     text-align: center;
-    border-radius: 50%; 
-    color: #5869bb; 
-}
+  }
 
-.student-details a.fa:hover {
-    opacity: 0.8;
-}
+  .pi-actions{
+    justify-content: center;
+  }
 
-.student-row:last-child {
-    border-bottom: none;
-}
+  .gallery-grid{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 
-/* Collapsible */
-.undergrad-section .collapsible {
-    cursor: pointer;
-    padding: 15px 20px;
-    font-size: 18px;
-    border: none;
-    background-color: #ffffff;
-    width: 100%;
-    text-align: left;
-    outline: none;
-    margin: 0;
-    position: relative;
-}
-
-/* Arrow icon */
-.undergrad-section .arrow {
-    position: absolute;
-    right: 80px;
-    top: 30%;
-    transform: translateY(0%);
-    font-size: 18px;
-    color: #5869bb;
-    transition: transform 0.3s ease;
-}
-
-.undergrad-section .collapsible.active .arrow {
-    transform: rotate(90deg) translateY(0%);
-}
-
-/* Hidden content initially */
-.undergrad-section .content {
-    padding: 15px 20px;
-    display: none;
-    background-color: #ffffff;
-    width: 100%;
-    margin: 0;
-}
-
-/* Show content when active */
-.undergrad-section .collapsible.active + .content,
-.undergrad-section .collapsible.active {
-    display: block;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-}
-
-
-.student-details a {
-    background-color: #f0f1fa;
-    padding: 2px 5px;
-    border-radius: 3px; 
-    text-decoration: none; 
-    color: #000; 
-}
-
-.student-details a:hover {
-    background-color: #f5f6fa;
-}
-
-.student-details .social-links a {
-    background-color: transparent;
-}
-
-.student-details p.interests {
-    background-color: #f0f1fa;
-    padding: 2px 5px;
-    border-radius: 3px;
-    display: inline; 
-}
-
-/* Reset any previous box shadows */
-.collapsible, .content {
-    box-shadow: none !important;
-}
-
-/* Ensure no shadow on the header alone */
-.collapsible.active {
-    box-shadow: none !important;
-}
-
-/* Apply a single shadow that covers both the header and the content when expanded */
-.collapsible.active + .content,
-.collapsible.active {
-    display: block;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2) !important; /* One shadow for the entire block */
-    border-radius: 5px;
-    overflow: hidden;
-}
-
-/* For the professor section (similar logic to collapsible sections) */
-.collapsible_professor.active + .content,
-.collapsible_professor.active {
-    display: block;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2) !important; /* One shadow for professor header and content */
-    border-radius: 5px;
-    overflow: hidden;
+  .gallery-grid img{
+    height: 132px;
+  }
 }
